@@ -12,7 +12,7 @@ List<Widget> actionWidget =[
           color:secondaryColor,
         ),
         SizedBox(
-          width: 10.w,
+          width: 5.w,
         ),
         Text(
           'Nur-Sultan',
@@ -48,7 +48,7 @@ List<Widget> actionWidget =[
     ),
   ),
   Padding(
-    padding: EdgeInsets.all(14.h),
+    padding: EdgeInsets.symmetric(horizontal: 14.h,vertical: 16.h),
     child: Container(
       width: 70.w,
       alignment: Alignment.center,
