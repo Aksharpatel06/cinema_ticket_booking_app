@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
           MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashPage(),
+        home: const SplashPage(),
+        theme: ThemeData(fontFamily: 'PT Root UI'),
       ),
     );
   }
