@@ -1,3 +1,4 @@
+import 'package:cinema_booking_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,9 +10,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1a2232),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xff1d273a),
+        backgroundColor: appBarColor,
         elevation: 1,
         toolbarHeight: 75,
         leadingWidth: 60,
@@ -33,7 +34,7 @@ class HomePage extends StatelessWidget {
                 Text(
                   'Now in cinemas',
                   style: TextStyle(
-                    color: Colors.white,
+                    color:primaryColor,
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w700,
                   ),
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                 Icon(
                   Icons.search_rounded,
                   size: 28.h,
-                  color: Color(0xff637394),
+                  color: secondaryColor,
                 ),
               ],
             )

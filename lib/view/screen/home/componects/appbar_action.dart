@@ -1,3 +1,4 @@
+import 'package:cinema_booking_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,17 +7,17 @@ List<Widget> actionWidget =[
     padding: EdgeInsets.all(14.h),
     child: Row(
       children: [
-        const Icon(
+         const Icon(
           Icons.location_on,
-          color: Color(0xff637394),
+          color:secondaryColor,
         ),
         SizedBox(
-          width: 5.w,
+          width: 10.w,
         ),
         Text(
           'Nur-Sultan',
           style: TextStyle(
-            color: Colors.white,
+            color: primaryColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
           ),
@@ -30,15 +31,15 @@ List<Widget> actionWidget =[
       children: [
         const Icon(
           Icons.language,
-          color: Color(0xff637394),
+          color: secondaryColor,
         ),
         SizedBox(
-          width: 5.w,
+          width: 10.w,
         ),
         Text(
           'Eng',
           style: TextStyle(
-            color: Colors.white,
+            color: primaryColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
           ),
@@ -71,7 +72,7 @@ List<Widget> actionWidget =[
       child: Text(
         'Log in',
         style: TextStyle(
-          color: Colors.white,
+          color: primaryColor,
           fontSize: 14.sp,
           fontWeight: FontWeight.w700,
         ),
