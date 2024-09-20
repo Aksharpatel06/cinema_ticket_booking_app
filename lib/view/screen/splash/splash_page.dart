@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cinema_booking_app/view/screen/home/home_page.dart';
+import 'package:cinema_booking_app/view/screen/home/widget/home_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatelessWidget {
