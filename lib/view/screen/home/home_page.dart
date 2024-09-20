@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    buildContext = context;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget {
             'asset/splash/splash_img.png',
           ),
         ),
-        actions: actionWidget,
+        actions: actionWidget(context),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.h),
