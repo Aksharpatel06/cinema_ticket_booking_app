@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationServices {
-  static AuthenticationServices authenticationServices =
-      AuthenticationServices._();
+  static AuthenticationServices authenticationServices = AuthenticationServices._();
 
   AuthenticationServices._();
 
-  String _verificationId = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void verifyPhoneNumber(String phoneNumber) async {
+
+  Future<String?> verifyPhoneNumber(String phoneNumber) async {
+    String? verification;
+
     await _auth.verifyPhoneNumber(
       phoneNumber: "+91 $phoneNumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
@@ -17,21 +18,24 @@ class AuthenticationServices {
       },
       verificationFailed: (FirebaseAuthException e) {
         // Handle error
+        throw e; // Throw the error to handle it in the BLoC
       },
       codeSent: (String verificationId, int? resendToken) {
-        _verificationId = verificationId;
+        verification = verificationId; // Store verificationId
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        _verificationId = verificationId;
+        verification = verificationId; // Handle timeout by storing the verificationId
       },
     );
+
+    return verification;
   }
 
-  void verifyOtpToState(String otp,String verificationId) async {
+  Future<void> verifyOtpToState(String otp,String verificationId) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: _verificationId,
+      verificationId: verificationId, // Use stored verificationId
       smsCode: otp,
     );
-    await _auth.signInWithCredential(credential);
+    await _auth.signInWithCredential(credential); // Sign in user
   }
 }

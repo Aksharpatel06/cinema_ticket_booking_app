@@ -16,10 +16,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> sendOtpEvent(SendOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      AuthenticationServices.authenticationServices
-          .verifyPhoneNumber(event.phoneNumber);
-      emit(AuthVerifiedState());
+      String? id = await AuthenticationServices.authenticationServices
+          .verifyPhoneNumber(
+          event.phoneNumber);
+      emit(AuthCodeSentState(id!)); // Emit verificationId after it's sent
     } catch (e) {
       emit(AuthErrorState(e.toString()));
     }
@@ -29,9 +29,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       VerifyOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      AuthenticationServices.authenticationServices.verifyOtpToState(event.otp, event.verificationId);
-      emit(AuthCodeSentState(event.verificationId));
+      await AuthenticationServices.authenticationServices
+          .verifyOtpToState(event.otp, event.verificationId);
+      emit(AuthVerifiedState()); // Emit verified state when OTP is verified
     } catch (e) {
       emit(AuthErrorState(e.toString()));
     }
