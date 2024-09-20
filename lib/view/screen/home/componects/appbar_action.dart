@@ -60,7 +60,7 @@ List<Widget> actionWidget(BuildContext context) => [
                       topRight: Radius.circular(24.r))),
               builder: (context) {
                 return Container(
-                  height: 230.h,
+                  height: 235.h,
                   width: double.infinity,
                   color: backgroundColor,
                   child: Padding(
@@ -87,7 +87,7 @@ List<Widget> actionWidget(BuildContext context) => [
                           ),
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 15.h,
                         ),
                         TextField(
                           keyboardType: TextInputType.phone,
