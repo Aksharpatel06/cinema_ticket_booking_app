@@ -82,7 +82,7 @@ List<Widget> actionWidget(BuildContext context) => [
                           'Access to purchased tickets',
                           style: TextStyle(
                             color: secondaryColor,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

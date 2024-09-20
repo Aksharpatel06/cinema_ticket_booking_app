@@ -11,15 +11,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width =MediaQuery.sizeOf(context).width;
+    final heigth = MediaQuery.sizeOf(context).height;
     return ScreenUtilInit(
       designSize: Size(
-          MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height),
+          width, heigth),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const SplashPage(),
-        theme: ThemeData(fontFamily: 'PT Root UI'),
+        theme: ThemeData(fontFamily: 'Nunito'),
       ),
     );
   }

@@ -88,6 +88,14 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: asset/fonts/Nunito-VariableFont_wght.ttf
+        - asset: asset/fonts/Nunito-Bold.ttf
+          weight: 700
+        - asset: asset/fonts/Nunito-Regular.ttf
+          weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
