@@ -1,4 +1,5 @@
 import 'package:cinema_booking_app/utils/color.dart';
+import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthBloc authBloc = AuthBloc();
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
             'asset/splash/splash_img.png',
           ),
         ),
-        actions: actionWidget(context),
+        actions: actionWidget(context,authBloc),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.h),

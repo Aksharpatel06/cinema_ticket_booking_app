@@ -1,6 +1,8 @@
+import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'firebase_options.dart';
@@ -21,14 +23,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final heigth = MediaQuery.sizeOf(context).height;
-    return ScreenUtilInit(
-      designSize: Size(width, heigth),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'Nunito'),
-        home: const SplashPage(),
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: ScreenUtilInit(
+        designSize: Size(width, heigth),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(fontFamily: 'Nunito'),
+          home: const SplashPage(),
+        ),
       ),
     );
   }

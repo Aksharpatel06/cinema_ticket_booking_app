@@ -3,19 +3,21 @@ part of 'auth_bloc.dart';
 @immutable
 sealed class AuthState {}
 
+sealed class AuthActionState extends AuthState{}
 
-final class AuthInitialSate extends AuthState {}
+
+final class AuthInitialState extends AuthState {}
 
 class AuthLoadingState extends AuthState {}
 
 
-class AuthCodeSentState extends AuthState {
+class AuthCodeSentState extends AuthActionState {
   final String verificationId;
 
   AuthCodeSentState(this.verificationId);
 }
 
-class AuthVerifiedState extends AuthState {}
+class AuthOtpVerifiedActionState extends AuthActionState {}
 
 class AuthErrorState extends AuthState {
   final String error;
