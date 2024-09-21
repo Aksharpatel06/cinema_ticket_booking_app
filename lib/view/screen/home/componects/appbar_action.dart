@@ -53,9 +53,13 @@ List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
       BlocConsumer<AuthBloc, AuthState>(
         listenWhen: (previous, current) => current is AuthActionState,
         buildWhen: (previous, current) => current is! AuthActionState,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is AuthOtpVerifiedActionState)
+            {
+              Navigator.pop(context);
+            }
+        },
         bloc: bloc,
-        // Specify the bloc parameter here
         builder: (context, state) {
           if (state is AuthLoadingState) {
             return const Center(child: CircularProgressIndicator());
@@ -68,6 +72,7 @@ List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
                   loginToMobile(context, state, bloc);
                 }
                 if (state is AuthCodeSentState) {
+                  Navigator.pop(context);
                   loginOtpToMobile(context, state, bloc);
                 }
               },
@@ -128,7 +133,6 @@ void loginToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                 SizedBox(
                   height: 5.h,
                 ),
-                if (state is AuthInitialState || state is AuthErrorState)
                   Column(
                     children: [
                       Text(
@@ -211,11 +215,6 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
       ),
     ),
     builder: (context) {
-      if (state is AuthLoadingState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
       return Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),

@@ -20,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await AuthenticationServices.authenticationServices
           .verifyPhoneNumber(event.phoneNumber, emit);
       log('OTP sent to ${event.phoneNumber}');
+      emit(AuthMobileVerifiedActionState());
     } catch (e) {
       emit(AuthErrorState(e.toString()));  // Emit error state in case of failure
       log('Error sending OTP: $e');
@@ -32,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await AuthenticationServices.authenticationServices
           .verifyOtpToState(event.otp, event.verificationId);
-      emit(AuthOtpVerifiedActionState());  // Emit success state after OTP verification
+      emit(AuthOtpVerifiedActionState());
       log('OTP verified successfully');
     } catch (e) {
       emit(AuthErrorState(e.toString()));  // Emit error state in case of failure

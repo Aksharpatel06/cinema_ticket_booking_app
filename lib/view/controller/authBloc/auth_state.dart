@@ -10,8 +10,9 @@ final class AuthInitialState extends AuthState {}
 
 class AuthLoadingState extends AuthState {}
 
+class AuthMobileVerifiedActionState extends AuthActionState {}
 
-class AuthCodeSentState extends AuthActionState {
+class AuthCodeSentState extends AuthState {
   final String verificationId;
 
   AuthCodeSentState(this.verificationId);
