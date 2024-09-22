@@ -25,3 +25,6 @@ class AuthErrorState extends AuthState {
 
   AuthErrorState(this.error);
 }
+
+
+class AuthOtpVerifiedState extends AuthActionState {}

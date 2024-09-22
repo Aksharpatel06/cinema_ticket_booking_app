@@ -13,31 +13,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<VerifyOtpEvent>(verifyOtpEvent);
   }
 
-  // Event to handle OTP sending
   Future<void> sendOtpEvent(SendOtpEvent event, Emitter<AuthState> emit) async {
-    emit(AuthLoadingState());  // Emit loading state before sending OTP
+    emit(AuthLoadingState());
     try {
-      await AuthenticationServices.authenticationServices
-          .verifyPhoneNumber(event.phoneNumber, emit);
-      log('OTP sent to ${event.phoneNumber}');
-      emit(AuthMobileVerifiedActionState());
+      String? id = await AuthenticationServices.authenticationServices
+          .verifyToPhoneNumber(event.phoneNumber);
+
+      if (id != null) {
+        log('OTP sent to ${event.phoneNumber} with id: $id');
+        emit(AuthCodeSentState(id));
+      } else {
+        emit(AuthErrorState('Failed to send OTP'));
+      }
     } catch (e) {
-      emit(AuthErrorState(e.toString()));  // Emit error state in case of failure
+      emit(AuthErrorState(e.toString()));
       log('Error sending OTP: $e');
     }
   }
 
-  // Event to handle OTP verification
   Future<void> verifyOtpEvent(VerifyOtpEvent event, Emitter<AuthState> emit) async {
-    emit(AuthLoadingState());  // Emit loading state before verifying OTP
+    emit(AuthLoadingState());
     try {
       await AuthenticationServices.authenticationServices
           .verifyOtpToState(event.otp, event.verificationId);
       emit(AuthOtpVerifiedActionState());
       log('OTP verified successfully');
     } catch (e) {
-      emit(AuthErrorState(e.toString()));  // Emit error state in case of failure
+      emit(AuthErrorState(e.toString()));
       log('Error verifying OTP: $e');
     }
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
+import 'package:cinema_booking_app/view/helper/authentication_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,54 +51,54 @@ List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
           ],
         ),
       ),
-      BlocConsumer<AuthBloc, AuthState>(
-        listenWhen: (previous, current) => current is AuthActionState,
-        buildWhen: (previous, current) => current is! AuthActionState,
-        listener: (context, state) {
-          if(state is AuthOtpVerifiedActionState)
-            {
-              Navigator.pop(context);
+  BlocConsumer<AuthBloc, AuthState>(
+    listener: (context, state) {
+      if (state is AuthOtpVerifiedActionState) {
+        Navigator.pop(context);
+      }
+      if (state is AuthCodeSentState) {
+        Navigator.pop(context);
+        loginOtpToMobile(context, state, bloc);
+      }
+      if (state is AuthErrorState) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.error),
+        ));
+      }
+    },
+    bloc: bloc,
+    builder: (context, state) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 16.h),
+        child: GestureDetector(
+          onTap: () {
+            if (state is AuthInitialState || AuthenticationServices.authenticationServices.currentUser()==null) {
+              loginToMobile(context, state, bloc); // Trigger OTP input
             }
-        },
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is AuthLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 16.h),
-            child: GestureDetector(
-              onTap: () {
-                if (state is AuthInitialState) {
-                  loginToMobile(context, state, bloc);
-                }
-                if (state is AuthCodeSentState) {
-                  Navigator.pop(context);
-                  loginOtpToMobile(context, state, bloc);
-                }
-              },
-              child: Container(
-                width: 70.w,
-                alignment: Alignment.center,
-                decoration: ShapeDecoration(
-                  gradient: buttonColor,
-                  shape: buttonRadius,
-                  shadows: buttonShadow,
-                ),
-                child: Text(
-                  'Log in',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+          },
+          child: Container(
+            width: 70.w,
+            alignment: Alignment.center,
+            decoration: ShapeDecoration(
+              gradient: buttonColor,
+              shape: buttonRadius,
+              shadows: buttonShadow,
+            ),
+            child: Text(
+              AuthenticationServices.authenticationServices.currentUser()==null?'Log in':'Profile',
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
-          );
-        },
-      )
-    ];
+          ),
+        ),
+      );
+    },
+  )
+
+];
 
 void loginToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
   TextEditingController txtPhoneNumber = TextEditingController();
@@ -216,10 +217,11 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
     ),
     builder: (context) {
       return Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: SizedBox(
-          height: 235.h,
+          height: 270.h,
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -233,9 +235,7 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                SizedBox(height: 5.h),
                 Column(
                   children: [
                     Text(
@@ -246,17 +246,13 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
+                    SizedBox(height: 15.h),
                     Pinput(
                       length: 6,
                       controller: txtOtpNumber,
                       showCursor: true,
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    SizedBox(height: 10.h),
                     GestureDetector(
                       onTap: () {
                         if (state is AuthCodeSentState) {
@@ -283,6 +279,7 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                         ),
                       ),
                     ),
+                    SizedBox(height: 15.h),
                     Text(
                       'Change number',
                       style: TextStyle(
@@ -301,3 +298,4 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
     },
   );
 }
+
