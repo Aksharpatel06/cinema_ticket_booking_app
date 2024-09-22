@@ -18,7 +18,7 @@ class AuthenticationServices {
         verificationCompleted: (PhoneAuthCredential credential) async {
           try {
             log('success');
-            // await _auth.signInWithCredential(credential);
+            await _auth.signInWithCredential(credential);
           } catch (e) {
             log(e.toString());
           }
