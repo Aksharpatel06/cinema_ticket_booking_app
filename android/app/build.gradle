@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.cinema_booking_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -43,9 +43,12 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation platform('com.google.firebase:firebase-bom:33.3.0')
+
+    implementation("com.google.firebase:firebase-auth")
+    implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'androidx.browser:browser:1.8.0'
+    implementation 'com.google.android.play:integrity:1.4.0'
 }
 
 

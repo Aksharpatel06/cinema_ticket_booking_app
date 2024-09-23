@@ -17,18 +17,36 @@ class AuthenticationServices {
         phoneNumber: "+91 $phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
           try {
-            log('success');
+            log('Verification completed. Signing in...');
             await _auth.signInWithCredential(credential);
+            log('Sign-in success!');
           } catch (e) {
-            log(e.toString());
+            log('Error during sign-in: ${e.toString()}');
           }
         },
+
+        // Handles the case where phone verification fails
         verificationFailed: (FirebaseAuthException e) {
+          log('Verification failed: ${e.code} - ${e.message}');
+          log('Verification failed: $phoneNumber - ${e.message}');
+          if (e.code == 'invalid-phone-number') {
+            log('The provided phone number is invalid.');
+          } else if (e.code == 'quota-exceeded') {
+            log('SMS quota exceeded. Try again later.');
+          } else if (e.code == 'billing-not-enabled') {
+            log('Billing is not enabled in your Firebase project.');
+          } else {
+            log('Unknown error: ${e.code}');
+          }
         },
+
+        // Called when the verification code is successfully sent
         codeSent: (String verificationId, int? resendToken) {
           verifyId = verificationId;
           log("Code sent. Verification ID: $verificationId");
         },
+
+        // Called when the auto-retrieval has timed out
         codeAutoRetrievalTimeout: (String verificationId) {
           verifyId = verificationId;
           log("Auto-retrieval timeout. Verification ID: $verificationId");
@@ -36,7 +54,7 @@ class AuthenticationServices {
       );
       return verifyId;
     } catch (e) {
-      log(e.toString());
+      log('Error occurred: ${e.toString()}');
       rethrow;
     }
   }
