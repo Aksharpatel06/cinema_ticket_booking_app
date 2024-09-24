@@ -13,48 +13,46 @@ class AuthenticationServices {
 
   Future<String?> verifyToPhoneNumber(String phoneNumber) async {
     try {
+      log('Starting phone number verification for +91 $phoneNumber');
+
       await _auth.verifyPhoneNumber(
         phoneNumber: "+91 $phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
           try {
-            log('Verification completed. Signing in...');
+            log('Verification completed for +91 $phoneNumber. Signing in...');
             await _auth.signInWithCredential(credential);
-            log('Sign-in success!');
+            log('Sign-in successful for +91 $phoneNumber');
           } catch (e) {
-            log('Error during sign-in: ${e.toString()}');
+            log('Error during sign-in for +91 $phoneNumber: ${e.toString()}');
           }
         },
-
-        // Handles the case where phone verification fails
         verificationFailed: (FirebaseAuthException e) {
-          log('Verification failed: ${e.code} - ${e.message}');
-          log('Verification failed: $phoneNumber - ${e.message}');
+          log('Verification failed for +91 $phoneNumber: ${e.code} - ${e.message}');
+
+          // Handle specific error cases
           if (e.code == 'invalid-phone-number') {
-            log('The provided phone number is invalid.');
+            log('Invalid phone number: +91 $phoneNumber');
           } else if (e.code == 'quota-exceeded') {
-            log('SMS quota exceeded. Try again later.');
+            log('SMS quota exceeded for +91 $phoneNumber.');
           } else if (e.code == 'billing-not-enabled') {
-            log('Billing is not enabled in your Firebase project.');
+            log('Billing is not enabled in the Firebase project.');
           } else {
-            log('Unknown error: ${e.code}');
+            log('Unknown error during verification: ${e.code}');
           }
         },
-
-        // Called when the verification code is successfully sent
         codeSent: (String verificationId, int? resendToken) {
           verifyId = verificationId;
-          log("Code sent. Verification ID: $verificationId");
+          log('Code sent to +91 $phoneNumber. Verification ID: $verificationId');
         },
-
-        // Called when the auto-retrieval has timed out
         codeAutoRetrievalTimeout: (String verificationId) {
           verifyId = verificationId;
-          log("Auto-retrieval timeout. Verification ID: $verificationId");
+          log('Auto-retrieval timed out for +91 $phoneNumber. Verification ID: $verificationId');
         },
       );
+
       return verifyId;
     } catch (e) {
-      log('Error occurred: ${e.toString()}');
+      log('Error occurred during phone verification: ${e.toString()}');
       rethrow;
     }
   }
