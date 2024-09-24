@@ -6,4 +6,3 @@ sealed class HomeEvent {}
 class HomeInitialFetchEvent extends HomeEvent{}
 
 
-class HomeAddEvent extends HomeEvent{}

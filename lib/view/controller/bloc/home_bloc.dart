@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:cinema_booking_app/view/helper/api_services.dart';
@@ -12,7 +13,6 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialFetchEvent>(homeInitialFetchEvent);
-    // on<HomeAddEvent>(homeAddEvent);
   }
 
   Future<void> homeInitialFetchEvent(
@@ -21,7 +21,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeFetchingLoadingState());
       List<MovieModal> jsonList = await ApiServices.apiServices.getApiData();
       emit(HomeFetchingSuccessfulState(movies: jsonList));
+      log(jsonList[0].type);
     } catch (e) {
+      log(e.toString());
       emit(HomeFetchingErrorState(error: e.toString()));
     }
   }
