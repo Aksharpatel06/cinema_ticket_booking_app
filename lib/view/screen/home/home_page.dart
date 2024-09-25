@@ -75,8 +75,9 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
                     if (state is HomeFetchingLoadingState) {
                       return GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Container(
@@ -96,11 +97,12 @@ class _HomePageState extends State<HomePage> {
                     }
                     if (state is HomeFetchingSuccessfulState) {
                       return GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisExtent: 290,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 20),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisExtent: 290,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 20),
                         shrinkWrap: true,
                         itemCount: state.movies.length,
                         itemBuilder: (context, index) {
@@ -144,8 +146,9 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 4.h,),
-
+                              SizedBox(
+                                height: 4.h,
+                              ),
                               Text(
                                 state.movies[index].movieName,
                                 overflow: TextOverflow.ellipsis,
