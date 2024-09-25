@@ -5,7 +5,7 @@ sealed class HomeState {}
 
 abstract class HomeActionState extends HomeState {}
 
-class HomeInitial extends HomeState {}
+class HomeInitialState extends HomeState {}
 
 class HomeFetchingLoadingState extends HomeState {}
 
