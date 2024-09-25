@@ -37,13 +37,13 @@ class _HomePageState extends State<HomePage> {
         leading: Padding(
           padding: EdgeInsets.only(left: 12.h, top: 8.h, bottom: 8.h),
           child: Image.asset(
-            'asset/splash/splash_img.png',
+            'asset/img/splash/splash_img.png',
           ),
         ),
         actions: actionWidget(context, authBloc),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.h),
+        padding: EdgeInsets.only(top:16.h,left: 16.h,right: 16.h),
         child: Column(
           children: [
             Row(
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 16.h),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
                 child: BlocConsumer<HomeBloc, HomeState>(
                   bloc: homeBloc,
                   listenWhen: (previous, current) => current is HomeActionState,
@@ -115,7 +115,10 @@ class _HomePageState extends State<HomePage> {
                                 padding: EdgeInsets.all(8.h),
                                 alignment: Alignment.topRight,
                                 decoration: ShapeDecoration(
-                                  color: Colors.white,
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage(state.movies[index].image),
+                                      fit: BoxFit.cover),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.r)),
                                   shadows: const [

@@ -10,7 +10,9 @@
     "release": 2023,
     "Genre": "Action, Drama",
     "Director": "Koratala Siva",
-    "Cast": "N.T. Rama Rao Jr., Janhvi Kapoor"
+    "Cast": "N.T. Rama Rao Jr., Janhvi Kapoor",
+    "img": "asset/img/movie/devara.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-Devara%20Part%20-1%20Trailer%20(Hindi)%20_%20NTR%20_%20Saif%20Ali%20Khan%20_%20Janhvi%20_%20Koratala%20Siva%20_%20Anirudh%20_%20Sep%2027.mp4?alt=media&token=24c6c077-cfde-40b8-9e6c-dbf70118a932"
   },
   {
     "movie_name": "Hit The 3 Case",
@@ -23,7 +25,9 @@
     "release": 2023,
     "Genre": "Crime, Thriller",
     "Director": "Anshai Lal",
-    "Cast": "Rajkumar Rao, Shruti Haasan"
+    "Cast": "Rajkumar Rao, Shruti Haasan",
+    "img": "asset/img/movie/hit_the_3_case.jpeg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-HIT_%20The%203rd%20Case%20_%20HUNTER'S%20COMMAND%20_%20Nani%20_%20Sailesh%20Kolanu%20_%20Mickey%20J%20Meyer%20_%2001%20-%20May%20-%202025.mp4?alt=media&token=5034f951-65df-4727-aebe-b74f2d29bfc7"
   },
   {
     "movie_name": "Shang-Chi",
@@ -36,7 +40,9 @@
     "release": 2021,
     "Genre": "Action, Fantasy",
     "Director": "Destin Daniel Cretton",
-    "Cast": "Simu Liu, Awkwafina"
+    "Cast": "Simu Liu, Awkwafina",
+    "img": "asset/img/movie/shang_chi.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-Marvel%20Studios'%20Shang-Chi%20and%20the%20Legend%20of%20the%20Ten%20Rings%20_%20Hindi%20Official%20Trailer.mp4?alt=media&token=053a44b8-38f9-4043-9f42-9ef2893063da"
   },
   {
     "movie_name": "Spider Man - No Way Home",
@@ -49,7 +55,9 @@
     "release": 2021,
     "Genre": "Action, Adventure",
     "Director": "Jon Watts",
-    "Cast": "Tom Holland, Zendaya"
+    "Cast": "Tom Holland, Zendaya",
+    "img": "asset/img/movie/spiderman_no_way_home.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-SPIDER-MAN_%20NO%20WAY%20HOME%20-%20Official%20Hindi%20Teaser%20Trailer%20(HD)%20_%20In%20Cinemas%20December%2017.mp4?alt=media&token=eb7318c6-2eb9-42ed-81e2-08622ae82ea3"
   },
   {
     "movie_name": "Stree 2",
@@ -62,10 +70,12 @@
     "release": 2023,
     "Genre": "Horror, Comedy",
     "Director": "Amar Kaushik",
-    "Cast": "Rajkummar Rao, Shraddha Kapoor"
+    "Cast": "Rajkummar Rao, Shraddha Kapoor",
+    "img": "asset/img/movie/stree_2.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-Stree%202%20_%20Official%20Trailer%20_%20Shraddha%20K%20_%20Rajkummar%20R%20_%20Pankaj%20T%20_%20Dinesh%20V%20_%20Amar%20K%20_%2015th%20Aug%202024.mp4?alt=media&token=9955857b-ac81-4f33-8005-90a21add9a38"
   },
   {
-    "movie_name": "Thalapathy",
+    "movie_name": "Beast",
     "type": "Action",
     "Imdb": 8.4,
     "Kino": 8.2,
@@ -74,8 +84,10 @@
     "runtime": "02:50",
     "release": 2023,
     "Genre": "Action, Drama",
-    "Director": "Vamshi Paidipally",
-    "Cast": "Vijay, Rashmika Mandanna"
+    "Director": "Vamcmdshi Paidipally",
+    "Cast": "Vijay, Rashmika Mandanna",
+    "img": "asset/img/movie/beast.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-Raw%20(Beast)%20-%20Official%20Hindi%20Trailer%20_%20Thalapathy%20Vijay%20_%20Sun%20Pictures%20_%20Nelson%20_%20Anirudh.mp4?alt=media&token=8ff2fc3a-743a-40d7-9c8e-0700216aea33"
   },
   {
     "movie_name": "The Grey Man",
@@ -88,7 +100,9 @@
     "release": 2022,
     "Genre": "Action, Thriller",
     "Director": "Anthony Russo, Joe Russo",
-    "Cast": "Ryan Gosling, Chris Evans"
+    "Cast": "Ryan Gosling, Chris Evans",
+    "img": "asset/img/movie/The_Gray_Man_poster.png",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-THE%20GRAY%20MAN%20_%20Official%20Hindi%20Trailer%20_%20Netflix%20India.mp4?alt=media&token=87edeef1-33a7-480a-8eef-7e7e7a39539c"
   },
   {
     "movie_name": "Venom: The Last Dance",
@@ -101,7 +115,9 @@
     "release": 2022,
     "Genre": "Action, Sci-Fi",
     "Director": "Andy Serkis",
-    "Cast": "Tom Hardy, Michelle Williams"
+    "Cast": "Tom Hardy, Michelle Williams",
+    "img": "asset/img/movie/venom.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-VENOM_%20THE%20LAST%20DANCE%20-%20New%20Hindi%20Trailer%20_%20In%20Cinemas%20October%2025.mp4?alt=media&token=9f3b7388-55d0-44f4-90ba-b7abfa5e1d01"
   },
   {
     "movie_name": "The Fall Guy",
@@ -114,6 +130,8 @@
     "release": 2023,
     "Genre": "Action, Comedy",
     "Director": "David Leitch",
-    "Cast": "Ryan Gosling, Emily Blunt"
+    "Cast": "Ryan Gosling, Emily Blunt",
+    "img": "asset/img/movie/the_fall_guy.jpg",
+    "video": "https://firebasestorage.googleapis.com/v0/b/cinema-ticket-booking-d8f2e.appspot.com/o/SnapSave.io-%E0%A4%A6%20%E0%A4%AB%E0%A5%89%E0%A4%B2%20%E0%A4%97%E0%A4%BE%E0%A4%AF%20(THE%20FALL%20GUY)%20_%20Official%20Hindi%20Trailer%202%20(Universal%20Studios)%20-%20HD.mp4?alt=media&token=d3ccfc68-fcb5-4938-8830-c3b2ca53e096"
   }
 ]

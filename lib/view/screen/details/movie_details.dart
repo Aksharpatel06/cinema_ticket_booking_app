@@ -8,21 +8,21 @@ class MovieDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      animationDuration: Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 700),
       initialIndex: 0,
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: appBarColor,
-          leading: BackButton(
+          leading: const BackButton(
             color: secondaryColor,
           ),
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Name',
             style: TextStyle(color: primaryColor),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Color(0xFFFC6C19),
             labelColor: Color(0xFFFC6C19),
             labelStyle: TextStyle(
@@ -31,7 +31,7 @@ class MovieDetails extends StatelessWidget {
             indicatorWeight: 3,
             unselectedLabelColor: secondaryColor,
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: const [
+            tabs: [
               Tab(
                 text: 'About',
               ),
@@ -41,7 +41,7 @@ class MovieDetails extends StatelessWidget {
             ],
           ),
         ),
-        body: SafeArea(
+        body: const SafeArea(
           child: TabBarView(
             children: [
               SizedBox(),

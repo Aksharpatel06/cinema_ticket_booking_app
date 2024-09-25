@@ -22,13 +22,13 @@ class SplashPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('asset/splash/Background.png'),
+            image: AssetImage('asset/img/splash/Background.png'),
             fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: Image.asset(
-            'asset/splash/splash_img.png',
+            'asset/img/splash/splash_img.png',
           ),
         ),
       ),

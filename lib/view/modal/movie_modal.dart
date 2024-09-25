@@ -10,6 +10,8 @@ class MovieModal {
   final String genre;
   final String director;
   final String cast;
+  final String image;
+  final String video;
 
   MovieModal._({
     required this.movieName,
@@ -23,6 +25,8 @@ class MovieModal {
     required this.genre,
     required this.director,
     required this.cast,
+    required this.image,
+    required this.video,
   });
 
   factory MovieModal(Map json) {
@@ -38,6 +42,8 @@ class MovieModal {
       genre: json["Genre"],
       director: json["Director"],
       cast: json["Cast"],
+      image: json['img'],
+      video: json['video']
     );
   }
 }
