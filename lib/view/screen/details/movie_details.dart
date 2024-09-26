@@ -25,6 +25,13 @@ class _MovieDetailsState extends State<MovieDetails> {
     futureFiles = StorageServices.storageServices.listAll('movie/');
   }
 
+  void toggle()
+  {
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -67,6 +74,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             children: [
               AboutPage(
                 futureFiles: futureFiles,
+                toggle: toggle,
               ),
               const SizedBox(),
             ],
@@ -77,19 +85,16 @@ class _MovieDetailsState extends State<MovieDetails> {
   }
 }
 
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({
     super.key,
     required this.futureFiles,
+    required this.toggle,
   });
 
   final Future<List<FirebaseFile>> futureFiles;
+  final VoidCallback toggle;
 
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -98,7 +103,7 @@ class _AboutPageState extends State<AboutPage> {
           child: Column(
             children: [
               FutureBuilder<List<FirebaseFile>>(
-                future: widget.futureFiles,
+                future: futureFiles,
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -115,7 +120,7 @@ class _AboutPageState extends State<AboutPage> {
                         controller = VideoPlayerController.networkUrl(
                             Uri.parse(files[0].url))
                           ..initialize().then((_) {
-                            setState(() {});
+                            toggle();
                           });
 
                         chewieController = ChewieController(
