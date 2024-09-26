@@ -123,183 +123,290 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        chewieController.videoPlayerController.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
-                child: Chewie(
-                  controller: chewieController,
-                ),
-              )
-            : Container(
-                height: 250,
-                color: Colors.black,
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-        Container(
-          width: double.infinity,
-          height: 70.h,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(0.00, -1.00),
-              end: Alignment(0, 1),
-              colors: [Color(0x001E283D), Color(0xFF1E283D)],
-            ),
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: MediaQuery.sizeOf(context).width / 2 - 8,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      '8.3',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'IMDB',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        height: 0.09,
-                      ),
-                    ),
-                    SizedBox(height: 5.h),
-                  ],
-                ),
-              ),
-              const VerticalDivider(
-                color: Color(0x196D9DFF),
-              ),
-              SizedBox(
-                width: MediaQuery.sizeOf(context).width / 2 - 8,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      '7.9',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'Kinopoisk',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        height: 0.09,
-                      ),
-                    ),
-                    SizedBox(height: 5.h),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Column(
-          children: [
-            Text(
-              'When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption and question his family\'s involvement.',
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Row(
-              children: [
-                Text(
-                  'Certificate',
-                  style: TextStyle(
-                    color: secondaryColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Container(
-                  padding:
-                       EdgeInsets.symmetric(horizontal: 8.h, vertical: 4.h),
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: Color(0x196D9DFF)),
-                      borderRadius: BorderRadius.circular(4.r),
-                    ),
-                  ),
-                  child: Text(
-                    '16+',
-                    style: TextStyle(
-                      color: primaryColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          chewieController.videoPlayerController.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: controller.value.aspectRatio,
+                  child: Chewie(
+                    controller: chewieController,
                   ),
                 )
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  'Runtime',
-                  style: TextStyle(
-                    color: secondaryColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
+              : Container(
+                  height: 250,
+                  color: Colors.black,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
+          Container(
+            width: double.infinity,
+            height: 70.h,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(0.00, -1.00),
+                end: Alignment(0, 1),
+                colors: [Color(0x001E283D), Color(0xFF1E283D)],
+              ),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width / 2 - 8,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '8.3',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Text(
+                        'IMDB',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          height: 0.09,
+                        ),
+                      ),
+                      SizedBox(height: 5.h),
+                    ],
+                  ),
+                ),
+                const VerticalDivider(
+                  color: Color(0x196D9DFF),
+                ),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width / 2 - 8,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '7.9',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Text(
+                        'Kinopoisk',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          height: 0.09,
+                        ),
+                      ),
+                      SizedBox(height: 5.h),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
                 Text(
-                  '02:56',
+                  'When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption and question his family\'s involvement.',
                   style: TextStyle(
                     color: primaryColor,
                     fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  'Genre',
-                  style: TextStyle(
-                    color: secondaryColor,
-                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text(
-                  '02:56',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Certificate',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.h,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.h, vertical: 4.h),
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            side:
+                                BorderSide(width: 1, color: Color(0x196D9DFF)),
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                        ),
+                        child: Text(
+                          '16+',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Runtime',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 35.h,
+                      ),
+                      Text(
+                        '02:56',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Release',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 38.h,
+                      ),
+                      Text(
+                        '2020',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Genre',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 52.h,
+                      ),
+                      Text(
+                        'Action, Crime, Drama',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Director',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 37.h,
+                      ),
+                      Text(
+                        'Matt Reeves',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Cast',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 62.h,
+                      ),
+                      SizedBox(
+                        width: 240.h,
+                        child: Text(
+                          'Robert Pattinson, Zoë Kravitz, Jeffrey Wright, Colin Farrell, Paul Dano, John Turturro, Andy Serkis, Peter Sarsgaard',
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
