@@ -25,11 +25,8 @@ class _MovieDetailsState extends State<MovieDetails> {
     futureFiles = StorageServices.storageServices.listAll('movie/');
   }
 
-  void toggle()
-  {
-    setState(() {
-
-    });
+  void toggle() {
+    setState(() {});
   }
 
   @override
@@ -102,51 +99,7 @@ class AboutPage extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-              FutureBuilder<List<FirebaseFile>>(
-                future: futureFiles,
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return const Center(child: CircularProgressIndicator());
-                    default:
-                      if (snapshot.hasError) {
-                        return const Center(
-                            child: Text('Some error occurred!'));
-                      } else {
-                        late VideoPlayerController controller;
-                        late ChewieController chewieController;
-                        final files = snapshot.data!;
-                        log(files.length.toString());
-                        controller = VideoPlayerController.networkUrl(
-                            Uri.parse(files[0].url))
-                          ..initialize().then((_) {
-                            toggle();
-                          });
-
-                        chewieController = ChewieController(
-                          videoPlayerController: controller,
-                          autoPlay: true,
-                          looping: true,
-                        );
-                        return chewieController
-                                .videoPlayerController.value.isInitialized
-                            ? AspectRatio(
-                                aspectRatio: controller.value.aspectRatio,
-                                child: Chewie(
-                                  controller: chewieController,
-                                ),
-                              )
-                            : Container(
-                                height: 250,
-                                color: Colors.black,
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                      }
-                  }
-                },
-              ),
+              MovieTrailer(futureFiles: futureFiles),
               Container(
                 width: double.infinity,
                 height: 70.h,
@@ -421,10 +374,11 @@ class AboutPage extends StatelessWidget {
             width: double.infinity,
             height: 88.h,
             padding: EdgeInsets.all(16.h),
-            decoration: const BoxDecoration(color: Color(0xB21E283D)),
+            color: const Color(0xB21E283D),
             child: Container(
               width: 343.h,
               height: 56.h,
+              alignment: Alignment.center,
               decoration: ShapeDecoration(
                   gradient: buttonColor,
                   shape: RoundedRectangleBorder(
@@ -443,6 +397,73 @@ class AboutPage extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class MovieTrailer extends StatefulWidget {
+  const MovieTrailer({
+    super.key,
+    required this.futureFiles,
+  });
+
+  final Future<List<FirebaseFile>> futureFiles;
+
+  @override
+  State<MovieTrailer> createState() => _MovieTrailerState();
+}
+
+class _MovieTrailerState extends State<MovieTrailer> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<FirebaseFile>>(
+      future: widget.futureFiles,
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Container(
+              height: 250,
+              color: Colors.black,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          default:
+            if (snapshot.hasError) {
+              return const Center(child: Text('Some error occurred!'));
+            } else {
+              late VideoPlayerController controller;
+              late ChewieController chewieController;
+              final files = snapshot.data!;
+              log(files.length.toString());
+              controller =
+                  VideoPlayerController.networkUrl(Uri.parse(files[0].url))
+                    ..initialize().then((_) {
+                      setState(() {});
+                    });
+
+              chewieController = ChewieController(
+                videoPlayerController: controller,
+                autoPlay: true,
+                looping: true,
+              );
+              return chewieController.videoPlayerController.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: controller.value.aspectRatio,
+                      child: Chewie(
+                        controller: chewieController,
+                      ),
+                    )
+                  : Container(
+                      height: 250,
+                      color: Colors.black,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+            }
+        }
+      },
     );
   }
 }
