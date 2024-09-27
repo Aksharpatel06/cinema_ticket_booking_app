@@ -1,6 +1,7 @@
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
+import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         actions: actionWidget(context, authBloc),
       ),
       body: Padding(
-        padding: EdgeInsets.only(top:16.h,left: 16.h,right: 16.h),
+        padding: EdgeInsets.only(top: 16.h, left: 16.h, right: 16.h),
         child: Column(
           children: [
             Row(
@@ -71,7 +72,15 @@ class _HomePageState extends State<HomePage> {
                   bloc: homeBloc,
                   listenWhen: (previous, current) => current is HomeActionState,
                   buildWhen: (previous, current) => current is! HomeActionState,
-                  listener: (context, state) {},
+                  listener: (context, state) {
+                    if (state is HomeAdditionSuccessState) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetails(),
+                          ));
+                    }
+                  },
                   builder: (context, state) {
                     if (state is HomeFetchingLoadingState) {
                       return GridView.builder(

@@ -13,7 +13,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitialState()) {
     on<HomeInitialFetchEvent>(homeInitialFetchEvent);
-    // on<HomeAddEvent>(homeAddEvent);
+    on<HomeToMovieDetailsEvent>(homeToMovieDetailsEvent);
   }
 
   Future<void> homeInitialFetchEvent(
@@ -27,5 +27,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       log(e.toString());
       emit(HomeFetchingErrorState(error: e.toString()));
     }
+  }
+
+  FutureOr<void> homeToMovieDetailsEvent(
+      HomeToMovieDetailsEvent event, Emitter<HomeState> emit) {
+    emit(HomeAdditionSuccessState());
+    emit(HomeDetailsPageState(movieModal: event.movieModal));
   }
 }

@@ -24,10 +24,8 @@ class HomeFetchingSuccessfulState extends HomeState {
     required this.movies,
   });
 }
-
 class HomeAdditionSuccessState extends HomeActionState {}
 
-class HomeAdditionErrorState extends HomeActionState {}
 
 class HomeDetailsPageState extends HomeState {
   final MovieModal movieModal;
