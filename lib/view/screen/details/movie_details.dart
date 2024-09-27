@@ -1,14 +1,10 @@
-import 'dart:developer';
 
-import 'package:chewie/chewie.dart';
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
 
-import '../../helper/storage_services.dart';
+
 import 'about/about_page.dart';
 
 class MovieDetails extends StatefulWidget {
