@@ -9,7 +9,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(
-      const Duration(seconds: 5),
+      const Duration(seconds: 2),
       () {
         Navigator.pushReplacement(
             context,
@@ -27,8 +27,11 @@ class SplashPage extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Image.asset(
-            'asset/img/splash/splash_img.png',
+          child: Hero(
+            tag: 'splash',
+            child: Image.asset(
+              'asset/img/splash/splash_img.png',
+            ),
           ),
         ),
       ),

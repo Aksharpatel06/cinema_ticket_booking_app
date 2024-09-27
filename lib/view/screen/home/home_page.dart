@@ -2,11 +2,11 @@ import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
+import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../helper/storage_services.dart';
 import 'componects/appbar_action.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,10 +39,18 @@ class _HomePageState extends State<HomePage> {
         elevation: 1,
         toolbarHeight: 75,
         leadingWidth: 60,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 12.h, top: 8.h, bottom: 8.h),
-          child: Image.asset(
-            'asset/img/splash/splash_img.png',
+        leading: Hero(
+          tag: 'splash',
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SplashPage(),));
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 12.h, top: 8.h, bottom: 8.h),
+              child: Image.asset(
+                'asset/img/splash/splash_img.png',
+              ),
+            ),
           ),
         ),
         actions: actionWidget(context, authBloc),
