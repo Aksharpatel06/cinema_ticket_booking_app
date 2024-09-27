@@ -15,12 +15,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeInitialFetchEvent>(homeInitialFetchEvent);
     on<HomeToMovieDetailsEvent>(homeToMovieDetailsEvent);
   }
-
+  List<MovieModal> jsonList=[];
   Future<void> homeInitialFetchEvent(
       HomeInitialFetchEvent event, Emitter<HomeState> emit) async {
     try {
       emit(HomeFetchingLoadingState());
-      List<MovieModal> jsonList = await ApiServices.apiServices.getApiData();
+      jsonList = await ApiServices.apiServices.getApiData();
       emit(HomeFetchingSuccessfulState(movies: jsonList));
       log(jsonList[0].type);
     } catch (e) {
@@ -31,7 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> homeToMovieDetailsEvent(
       HomeToMovieDetailsEvent event, Emitter<HomeState> emit) {
-    emit(HomeAdditionSuccessState());
-    emit(HomeDetailsPageState(movieModal: event.movieModal));
+    emit(HomeAdditionSuccessState(movieModal: event.movieModal));
+
   }
 }

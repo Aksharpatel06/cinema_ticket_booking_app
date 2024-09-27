@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 20),
                         shrinkWrap: true,
-                        itemCount: state.movies.length,
+                        itemCount:homeBloc.jsonList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                   decoration: ShapeDecoration(
                                     image: DecorationImage(
                                         image:
-                                            AssetImage(state.movies[index].image),
+                                            AssetImage(homeBloc.jsonList[index].image),
                                         fit: BoxFit.cover),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.r)),
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                                       shadows: buttonShadow,
                                     ),
                                     child: Text(
-                                      state.movies[index].imdb.toString(),
+                                      homeBloc.jsonList[index].imdb.toString(),
                                       style: TextStyle(
                                         color: primaryColor,
                                         fontSize: 12.sp,
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 4.h,
                                 ),
                                 Text(
-                                  state.movies[index].movieName,
+                                  homeBloc.jsonList[index].movieName,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: primaryColor,
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Text(
-                                  state.movies[index].type,
+                                  homeBloc.jsonList[index].type,
                                   style: TextStyle(
                                     color: secondaryColor,
                                     fontSize: 14.sp,

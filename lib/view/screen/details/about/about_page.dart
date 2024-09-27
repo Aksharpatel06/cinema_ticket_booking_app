@@ -8,13 +8,9 @@ import 'componects/movie_trailer.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({
     super.key,
-    // required this.futureFiles,
-    required this.toggle,
     required this.modal,
   });
 
-  // final Future<List<FirebaseFile>> futureFiles;
-  final VoidCallback toggle;
   final MovieModal modal;
 
   @override

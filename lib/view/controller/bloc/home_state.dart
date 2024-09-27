@@ -24,13 +24,15 @@ class HomeFetchingSuccessfulState extends HomeState {
     required this.movies,
   });
 }
-class HomeAdditionSuccessState extends HomeActionState {}
-
-
-class HomeDetailsPageState extends HomeState {
+class HomeAdditionSuccessState extends HomeActionState {
   final MovieModal movieModal;
 
-  HomeDetailsPageState({
+  HomeAdditionSuccessState({
     required this.movieModal,
   });
 }
+
+
+// class HomeDetailsPageState extends HomeState {
+//
+// }
