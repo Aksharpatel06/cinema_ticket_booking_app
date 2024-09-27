@@ -4,12 +4,14 @@ import 'package:cinema_booking_app/view/helper/authentication_services.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitialState()) {
     on<SendOtpEvent>(sendOtpEvent);
     on<VerifyOtpEvent>(verifyOtpEvent);
+    on<MobileNumberChangeEvent>(mobileNumberChangeEvent);
   }
 
   Future<void> sendOtpEvent(SendOtpEvent event, Emitter<AuthState> emit) async {
@@ -28,7 +30,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> verifyOtpEvent(VerifyOtpEvent event, Emitter<AuthState> emit) async {
+  Future<void> verifyOtpEvent(
+      VerifyOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     try {
       await AuthenticationServices.authenticationServices
@@ -38,5 +41,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthErrorState(e.toString()));
     }
   }
-}
 
+  FutureOr<void> mobileNumberChangeEvent(
+      MobileNumberChangeEvent event, Emitter<AuthState> emit) {
+    emit(AuthMobileNumberChangeActionState());
+  }
+}

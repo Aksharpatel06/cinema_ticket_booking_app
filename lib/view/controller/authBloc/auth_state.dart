@@ -20,6 +20,8 @@ class AuthCodeSentState extends AuthState {
 
 class AuthOtpVerifiedActionState extends AuthActionState {}
 
+class AuthMobileNumberChangeActionState extends AuthActionState {}
+
 class AuthErrorState extends AuthState {
   final String error;
 

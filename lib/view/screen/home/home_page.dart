@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../helper/storage_services.dart';
 import 'componects/appbar_action.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,11 +18,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
+  // late Future<List<FirebaseFile>> futureFiles;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // futureFiles = StorageServices.storageServices.listAll('movie/');
     homeBloc.add(HomeInitialFetchEvent());
   }
 
@@ -77,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MovieDetails(),
+                            builder: (context) =>  MovieDetails(homeBloc: homeBloc,),
                           ));
                     }
                   },
@@ -115,70 +119,75 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         itemCount: state.movies.length,
                         itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 163.w,
-                                height: 230.h,
-                                padding: EdgeInsets.all(8.h),
-                                alignment: Alignment.topRight,
-                                decoration: ShapeDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage(state.movies[index].image),
-                                      fit: BoxFit.cover),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.r)),
-                                  shadows: const [
-                                    BoxShadow(
-                                      color: Color(0x3F06080C),
-                                      blurRadius: 40,
-                                      offset: Offset(0, 16),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Container(
-                                  width: 45.w,
-                                  height: 30.h,
-                                  alignment: Alignment.center,
+                          return GestureDetector(
+                            onTap: () {
+                              homeBloc.add(HomeToMovieDetailsEvent(movieModal: state.movies[index]));
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 163.w,
+                                  height: 230.h,
+                                  padding: EdgeInsets.all(8.h),
+                                  alignment: Alignment.topRight,
                                   decoration: ShapeDecoration(
-                                    gradient: buttonColor,
-                                    shape: buttonRadius,
-                                    shadows: buttonShadow,
+                                    image: DecorationImage(
+                                        image:
+                                            AssetImage(state.movies[index].image),
+                                        fit: BoxFit.cover),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.r)),
+                                    shadows: const [
+                                      BoxShadow(
+                                        color: Color(0x3F06080C),
+                                        blurRadius: 40,
+                                        offset: Offset(0, 16),
+                                        spreadRadius: 0,
+                                      )
+                                    ],
                                   ),
-                                  child: Text(
-                                    state.movies[index].imdb.toString(),
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w700,
+                                  child: Container(
+                                    width: 45.w,
+                                    height: 30.h,
+                                    alignment: Alignment.center,
+                                    decoration: ShapeDecoration(
+                                      gradient: buttonColor,
+                                      shape: buttonRadius,
+                                      shadows: buttonShadow,
+                                    ),
+                                    child: Text(
+                                      state.movies[index].imdb.toString(),
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-                              Text(
-                                state.movies[index].movieName,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
+                                SizedBox(
+                                  height: 4.h,
                                 ),
-                              ),
-                              Text(
-                                state.movies[index].type,
-                                style: TextStyle(
-                                  color: secondaryColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
+                                Text(
+                                  state.movies[index].movieName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              )
-                            ],
+                                Text(
+                                  state.movies[index].type,
+                                  style: TextStyle(
+                                    color: secondaryColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )
+                              ],
+                            ),
                           );
                         },
                       );

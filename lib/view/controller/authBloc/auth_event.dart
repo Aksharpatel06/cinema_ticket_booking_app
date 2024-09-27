@@ -15,3 +15,7 @@ class VerifyOtpEvent extends AuthEvent {
   final String otp;
   VerifyOtpEvent(this.verificationId, this.otp);
 }
+
+class MobileNumberChangeEvent extends AuthEvent{
+
+}

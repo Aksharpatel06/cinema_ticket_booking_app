@@ -65,6 +65,11 @@ List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
           content: Text(state.error),
         ));
       }
+      if(state is AuthMobileNumberChangeActionState)
+        {
+          Navigator.pop(context);
+          loginToMobile(context, state, bloc);
+        }
     },
     bloc: bloc,
     builder: (context, state) {
@@ -221,7 +226,7 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: SizedBox(
-          height: 270.h,
+          height: 300.h,
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -280,12 +285,17 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                       ),
                     ),
                     SizedBox(height: 15.h),
-                    Text(
-                      'Change number',
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
+                    TextButton(
+                      onPressed: () {
+                        bloc.add(MobileNumberChangeEvent());
+                      },
+                      child: Text(
+                        'Change number',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ],
