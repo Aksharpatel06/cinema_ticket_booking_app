@@ -18,14 +18,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
-  // late Future<List<FirebaseFile>> futureFiles;
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // futureFiles = StorageServices.storageServices.listAll('movie/');
     homeBloc.add(HomeInitialFetchEvent());
   }
 
@@ -43,7 +41,7 @@ class _HomePageState extends State<HomePage> {
           tag: 'splash',
           child: GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SplashPage(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashPage(),));
             },
             child: Padding(
               padding: EdgeInsets.only(left: 12.h, top: 8.h, bottom: 8.h),
@@ -106,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                               height: 230,
                               decoration: const BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [Colors.blue, Colors.purple],
+                                  colors: [Colors.black, Colors.black12],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   transform: GradientRotation(
@@ -127,74 +125,80 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         itemCount:homeBloc.jsonList.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              homeBloc.add(HomeToMovieDetailsEvent(movieModal: state.movies[index]));
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 163.w,
-                                  height: 230.h,
-                                  padding: EdgeInsets.all(8.h),
-                                  alignment: Alignment.topRight,
-                                  decoration: ShapeDecoration(
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(homeBloc.jsonList[index].image),
-                                        fit: BoxFit.cover),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.r)),
-                                    shadows: const [
-                                      BoxShadow(
-                                        color: Color(0x3F06080C),
-                                        blurRadius: 40,
-                                        offset: Offset(0, 16),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                  child: Container(
-                                    width: 45.w,
-                                    height: 30.h,
-                                    alignment: Alignment.center,
-                                    decoration: ShapeDecoration(
-                                      gradient: buttonColor,
-                                      shape: buttonRadius,
-                                      shadows: buttonShadow,
+                          return Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 163.w,
+                              child: GestureDetector(
+                                onTap: () {
+                                  homeBloc.add(HomeToMovieDetailsEvent(movieModal: state.movies[index]));
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 163.w,
+                                      height: 230.h,
+                                      padding: EdgeInsets.all(8.h),
+                                      alignment: Alignment.topRight,
+                                      decoration: ShapeDecoration(
+                                        image: DecorationImage(
+                                            image:
+                                                AssetImage(homeBloc.jsonList[index].image),
+                                            fit: BoxFit.cover),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8.r)),
+                                        shadows: const [
+                                          BoxShadow(
+                                            color: Color(0x3F06080C),
+                                            blurRadius: 40,
+                                            offset: Offset(0, 16),
+                                            spreadRadius: 0,
+                                          )
+                                        ],
+                                      ),
+                                      child: Container(
+                                        width: 45.w,
+                                        height: 30.h,
+                                        alignment: Alignment.center,
+                                        decoration: ShapeDecoration(
+                                          gradient: buttonColor,
+                                          shape: buttonRadius,
+                                          shadows: buttonShadow,
+                                        ),
+                                        child: Text(
+                                          homeBloc.jsonList[index].imdb.toString(),
+                                          style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    child: Text(
-                                      homeBloc.jsonList[index].imdb.toString(),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      homeBloc.jsonList[index].movieName,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: primaryColor,
-                                        fontSize: 12.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                  ),
+                                    Text(
+                                      homeBloc.jsonList[index].type,
+                                      style: TextStyle(
+                                        color: secondaryColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  homeBloc.jsonList[index].movieName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  homeBloc.jsonList[index].type,
-                                  style: TextStyle(
-                                    color: secondaryColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
                           );
                         },

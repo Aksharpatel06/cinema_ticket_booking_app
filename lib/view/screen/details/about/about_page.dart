@@ -20,7 +20,7 @@ class AboutPage extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-              MovieTrailer(),
+              MovieTrailer(videoUrl: Uri.parse(modal.video),),
               Container(
                 width: double.infinity,
                 height: 70.h,
