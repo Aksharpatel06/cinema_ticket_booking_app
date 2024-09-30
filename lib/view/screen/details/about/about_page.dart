@@ -269,7 +269,7 @@ class AboutPage extends StatelessWidget {
                             width: 62.h,
                           ),
                           SizedBox(
-                            width: 240.h,
+                            width: 235.h,
                             child: Text(
                               modal.cast,
                               overflow: TextOverflow.clip,

@@ -15,6 +15,8 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {},
       bloc: homeBloc,

@@ -1,6 +1,5 @@
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
-import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +26,7 @@ class MyApp extends StatelessWidget {
     final heigth = MediaQuery.sizeOf(context).height;
     return MultiBlocProvider(
       providers: [
+        // BlocProvider(create: (context) => TabCubit(),),
         BlocProvider(
           create: (context) => AuthBloc(),
         ),
