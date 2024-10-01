@@ -4,9 +4,14 @@ import 'package:cinema_booking_app/view/helper/authentication_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:location/location.dart';
 import 'package:pinput/pinput.dart';
 
-List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
+import '../../../controller/cubit/location_cubit.dart';
+
+List<Widget> actionWidget(
+    {required BuildContext context,required AuthBloc bloc, LocationData? data}) => [
       Padding(
         padding: EdgeInsets.all(14.h),
         child: Row(
@@ -18,14 +23,36 @@ List<Widget> actionWidget(BuildContext context, AuthBloc bloc) => [
             SizedBox(
               width: 5.w,
             ),
-            Text(
-              'Nur-Sultan',
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
-              ),
+            BlocBuilder<LocationCubit, LocationState>(
+              builder: (context, state) {
+                if (state is LocationInitial) {
+                  return const Center(child: Text('Initializing...'));
+                } else if (state is LocationLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is LocationLoaded) {
+
+                  return Center(
+                    child:Text(
+                      state.locationName,
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  );
+                } else if (state is LocationError) {
+                  return Center(
+                    child: Text(
+                      'Error: ${state.errorMessage}',
+                      style: const TextStyle(fontSize: 18, color: Colors.red),
+                    ),
+                  );
+                }
+                return Container();
+              },
             ),
+
           ],
         ),
       ),
@@ -309,3 +336,10 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
   );
 }
 
+Future<String> convertToName(double latitude,double longitude)
+async {
+  List<Placemark> placeMarks = await placemarkFromCoordinates(latitude, longitude);
+  Placemark place = placeMarks[0];
+  String placeName = "${place.locality}";
+  return placeName;
+}

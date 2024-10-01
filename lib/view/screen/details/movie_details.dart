@@ -83,13 +83,13 @@ class MovieDetails extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Spacer(),
+                                    const Spacer(),
                                     Icon(
                                       Icons.calendar_month,
                                       color: secondaryColor,
                                       size: 25.h,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       'Oct, ${DateTime.now().day}',
                                       textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class MovieDetails extends StatelessWidget {
                                         height: 0.09,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                   ],
                                 ),
                               ),
@@ -111,13 +111,13 @@ class MovieDetails extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Spacer(),
+                                    const Spacer(),
                                     Icon(
                                       Icons.add,
                                       color: secondaryColor,
                                       size: 25.h,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       'Time ↑',
                                       textAlign: TextAlign.center,
@@ -128,7 +128,7 @@ class MovieDetails extends StatelessWidget {
                                         height: 0.09,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                   ],
                                 ),
                               ),

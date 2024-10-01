@@ -1,5 +1,4 @@
 
-
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
@@ -7,7 +6,7 @@ import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 import '../../controller/movie_bloc/home_bloc.dart';
 import 'componects/appbar_action.dart';
@@ -21,45 +20,48 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
-
+  LocationData? locationData;
 
   @override
-  void initState()  {
+  void initState() {
     // TODO: implement initState
     super.initState();
-
+    getCurrentLocation();
     homeBloc.add(HomeInitialFetchEvent());
   }
 
-  Future<Position> getCurrentLocation()
-  async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if(!serviceEnabled)
-      {
-         Future.error('Location services are disabled.');
+  Future<void> getCurrentLocation() async {
+    Location location = Location();
+    bool serviceEnabled = false;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
       }
+    }
 
-    LocationPermission permission = await Geolocator.checkPermission();
-    if(permission==LocationPermission.denied)
-      {
-        permission = await Geolocator.requestPermission();
-        if(permission==LocationPermission.denied)
-          {
-             Future.error('Location permissions are denied.');
-          }
+    // Request location permissions.
+    PermissionStatus permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return Future.error('Location permissions are denied');
       }
+    }
 
-    if(permission == LocationPermission.deniedForever)
-      {
-         Future.error('Location permissions are permanently');
-      }
+    // Fetch the current location.
+    LocationData locationData = await location.getLocation();
 
-    return await Geolocator.getCurrentPosition();
+    setState(() {
+      locationData = locationData;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = AuthBloc();
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -71,7 +73,11 @@ class _HomePageState extends State<HomePage> {
           tag: 'splash',
           child: GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashPage(),));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SplashPage(),
+                  ));
             },
             child: Padding(
               padding: EdgeInsets.only(left: 12.h, top: 8.h, bottom: 8.h),
@@ -81,7 +87,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        actions: actionWidget(context, authBloc),
+        actions: locationData != null
+            ? actionWidget(
+                context: context, bloc: authBloc, data: locationData!)
+            : actionWidget(context: context, bloc: authBloc),
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 16.h, left: 16.h, right: 16.h),
@@ -117,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  MovieDetails(homeBloc: homeBloc,),
+                            builder: (context) => MovieDetails(
+                              homeBloc: homeBloc,
+                            ),
                           ));
                     }
                   },
@@ -153,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 20),
                         shrinkWrap: true,
-                        itemCount:homeBloc.jsonList.length,
+                        itemCount: homeBloc.jsonList.length,
                         itemBuilder: (context, index) {
                           return Align(
                             alignment: Alignment.center,
@@ -161,7 +172,8 @@ class _HomePageState extends State<HomePage> {
                               width: 163.w,
                               child: GestureDetector(
                                 onTap: () {
-                                  homeBloc.add(HomeToMovieDetailsEvent(movieModal: state.movies[index]));
+                                  homeBloc.add(HomeToMovieDetailsEvent(
+                                      movieModal: state.movies[index]));
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,11 +185,12 @@ class _HomePageState extends State<HomePage> {
                                       alignment: Alignment.topRight,
                                       decoration: ShapeDecoration(
                                         image: DecorationImage(
-                                            image:
-                                                AssetImage(homeBloc.jsonList[index].image),
+                                            image: AssetImage(
+                                                homeBloc.jsonList[index].image),
                                             fit: BoxFit.cover),
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8.r)),
+                                            borderRadius:
+                                                BorderRadius.circular(8.r)),
                                         shadows: const [
                                           BoxShadow(
                                             color: Color(0x3F06080C),
@@ -197,7 +210,8 @@ class _HomePageState extends State<HomePage> {
                                           shadows: buttonShadow,
                                         ),
                                         child: Text(
-                                          homeBloc.jsonList[index].imdb.toString(),
+                                          homeBloc.jsonList[index].imdb
+                                              .toString(),
                                           style: TextStyle(
                                             color: primaryColor,
                                             fontSize: 12.sp,

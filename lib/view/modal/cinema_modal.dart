@@ -1,3 +1,5 @@
+
+
 class Cinema {
   String cinema;
   String area;
@@ -18,7 +20,6 @@ class Cinema {
   factory Cinema.fromJson(Map json) {
     var list = json['data'] as List;
     List<ShowTime> showTimeList = list.map((i) => ShowTime.fromJson(i)).toList();
-
     return Cinema(
       cinema: json['cinema'],
       area: json['area'],
