@@ -1,5 +1,5 @@
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
-import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
+import 'package:cinema_booking_app/view/controller/movie_bloc/home_bloc.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

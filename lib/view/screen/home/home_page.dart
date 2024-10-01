@@ -1,12 +1,12 @@
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
-import 'package:cinema_booking_app/view/controller/bloc/home_bloc.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../controller/movie_bloc/home_bloc.dart';
 import 'componects/appbar_action.dart';
 
 class HomePage extends StatefulWidget {
