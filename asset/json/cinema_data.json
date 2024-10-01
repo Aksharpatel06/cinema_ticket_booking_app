@@ -1,305 +1,212 @@
-{
-  "city": "Surat",
-  "cinemas": [
-    {
-      "cinema": "Cinepolis",
-      "area": "VR Mall",
-      "data": [
-        {
-          "time": "2:00 PM",
-          "Adult": 250,
-          "child": 150,
-          "student": 200,
-          "vip": 500
-        },
-        {
-          "time": "5:00 PM",
-          "Adult": 300,
-          "child": 180,
-          "student": 220,
-          "vip": 550
-        }
-      ]
-    },
-    {
-      "cinema": "INOX",
-      "area": "Rahul Raj Mall",
-      "data": [
-        {
-          "time": "3:00 PM",
-          "Adult": 220,
-          "child": 140,
-          "student": 190,
-          "vip": 450
-        },
-        {
-          "time": "6:00 PM",
-          "Adult": 280,
-          "child": 160,
-          "student": 210,
-          "vip": 500
-        }
-      ]
-    },
-    {
-      "cinema": "PVR Cinemas",
-      "area": "Magdalla Plaza",
-      "data": [
-        {
-          "time": "4:00 PM",
-          "Adult": 260,
-          "child": 160,
-          "student": 210,
-          "vip": 520
-        },
-        {
-          "time": "7:00 PM",
-          "Adult": 310,
-          "child": 190,
-          "student": 230,
-          "vip": 580
-        }
-      ]
-    },
-    {
-      "cinema": "Valentine Multiplex",
-      "area": "Dumas Road",
-      "data": [
-        {
-          "time": "12:00 PM",
-          "Adult": 200,
-          "child": 120,
-          "student": 180,
-          "vip": 400
-        },
-        {
-          "time": "6:00 PM",
-          "Adult": 280,
-          "child": 160,
-          "student": 210,
-          "vip": 480
-        }
-      ]
-    },
-    {
-      "cinema": "Rajhans Cinemas",
-      "area": "Piplod",
-      "data": [
-        {
-          "time": "1:00 PM",
-          "Adult": 220,
-          "child": 130,
-          "student": 190,
-          "vip": 450
-        },
-        {
-          "time": "7:00 PM",
-          "Adult": 300,
-          "child": 170,
-          "student": 220,
-          "vip": 500
-        }
-      ]
-    },
-    {
-      "cinema": "CineMAX",
-      "area": "Adajan",
-      "data": [
-        {
-          "time": "2:30 PM",
-          "Adult": 240,
-          "child": 140,
-          "student": 200,
-          "vip": 470
-        },
-        {
-          "time": "5:30 PM",
-          "Adult": 280,
-          "child": 160,
-          "student": 220,
-          "vip": 520
-        }
-      ]
-    },
-    {
-      "cinema": "Time Cinema",
-      "area": "City Light",
-      "data": [
-        {
-          "time": "3:00 PM",
-          "Adult": 230,
-          "child": 140,
-          "student": 200,
-          "vip": 460
-        },
-        {
-          "time": "6:30 PM",
-          "Adult": 270,
-          "child": 150,
-          "student": 210,
-          "vip": 510
-        }
-      ]
-    },
-    {
-      "cinema": "Galaxy Cinema",
-      "area": "Anand Mahal Road",
-      "data": [
-        {
-          "time": "4:00 PM",
-          "Adult": 250,
-          "child": 150,
-          "student": 200,
-          "vip": 500
-        },
-        {
-          "time": "8:00 PM",
-          "Adult": 300,
-          "child": 170,
-          "student": 230,
-          "vip": 550
-        }
-      ]
-    },
-    {
-      "cinema": "Cinemark",
-      "area": "Udhana",
-      "data": [
-        {
-          "time": "5:00 PM",
-          "Adult": 240,
-          "child": 140,
-          "student": 200,
-          "vip": 470
-        },
-        {
-          "time": "9:00 PM",
-          "Adult": 290,
-          "child": 160,
-          "student": 220,
-          "vip": 520
-        }
-      ]
-    },
-    {
-      "cinema": "Carnival Cinemas",
-      "area": "Pal",
-      "data": [
-        {
-          "time": "11:00 AM",
-          "Adult": 200,
-          "child": 120,
-          "student": 180,
-          "vip": 400
-        },
-        {
-          "time": "7:00 PM",
-          "Adult": 280,
-          "child": 160,
-          "student": 210,
-          "vip": 480
-        }
-      ]
-    },
-    {
-      "cinema": "Vishal Cinema",
-      "area": "Athwa",
-      "data": [
-        {
-          "time": "1:00 PM",
-          "Adult": 230,
-          "child": 130,
-          "student": 190,
-          "vip": 450
-        },
-        {
-          "time": "5:00 PM",
-          "Adult": 300,
-          "child": 180,
-          "student": 220,
-          "vip": 500
-        }
-      ]
-    },
-    {
-      "cinema": "Empire Cinema",
-      "area": "Mota Varachha",
-      "data": [
-        {
-          "time": "4:30 PM",
-          "Adult": 250,
-          "child": 150,
-          "student": 200,
-          "vip": 500
-        },
-        {
-          "time": "8:30 PM",
-          "Adult": 320,
-          "child": 180,
-          "student": 230,
-          "vip": 550
-        }
-      ]
-    },
-    {
-      "cinema": "Shree Ram Cinema",
-      "area": "Katargam",
-      "data": [
-        {
-          "time": "2:00 PM",
-          "Adult": 240,
-          "child": 140,
-          "student": 200,
-          "vip": 470
-        },
-        {
-          "time": "6:00 PM",
-          "Adult": 290,
-          "child": 160,
-          "student": 220,
-          "vip": 520
-        }
-      ]
-    },
-    {
-      "cinema": "City Gold",
-      "area": "Nanpura",
-      "data": [
-        {
-          "time": "12:00 PM",
-          "Adult": 200,
-          "child": 120,
-          "student": 180,
-          "vip": 400
-        },
-        {
-          "time": "8:00 PM",
-          "Adult": 280,
-          "child": 160,
-          "student": 210,
-          "vip": 480
-        }
-      ]
-    },
-    {
-      "cinema": "Rupam Cinema",
-      "area": "Ring Road",
-      "data": [
-        {
-          "time": "3:30 PM",
-          "Adult": 240,
-          "child": 140,
-          "student": 200,
-          "vip": 470
-        },
-        {
-          "time": "7:30 PM",
-          "Adult": 300,
-          "child": 170,
-          "student": 230,
-          "vip": 530
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "cinema": "INOX VR Surat",
+    "area": "Dumas Road",
+    "km": "5",
+    "longitude": 72.7865,
+    "latitude": 21.1618,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Cinepolis Rajhans",
+    "area": "Piplod",
+    "km": "6",
+    "longitude": 72.7984,
+    "latitude": 21.1691,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "PVR Rahul Raj Mall",
+    "area": "Gaurav Path",
+    "km": "7",
+    "longitude": 72.8161,
+    "latitude": 21.1786,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Rajhans Multiplex",
+    "area": "Adajan",
+    "km": "8",
+    "longitude": 72.7854,
+    "latitude": 21.1963,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Valentine Multiplex",
+    "area": "Dumas Road",
+    "km": "4",
+    "longitude": 72.8056,
+    "latitude": 21.1625,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Broadway Multiplex",
+    "area": "Pal",
+    "km": "9",
+    "longitude": 72.7935,
+    "latitude": 21.2075,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Raj Empire Cinema",
+    "area": "Ring Road",
+    "km": "10",
+    "longitude": 72.8389,
+    "latitude": 21.1928,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Time Cinema",
+    "area": "Varachha Road",
+    "km": "12",
+    "longitude": 72.8772,
+    "latitude": 21.2332,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "Cinepolis Amore",
+    "area": "Vesu",
+    "km": "8",
+    "longitude": 72.8145,
+    "latitude": 21.1309,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  },
+  {
+    "cinema": "SRS Cinema",
+    "area": "City Light",
+    "km": "7",
+    "longitude": 72.7998,
+    "latitude": 21.1515,
+    "data": [
+      {
+        "time": "2:00",
+        "prize": 500
+      },
+      {
+        "time": "3:00",
+        "prize": 500
+      },
+      {
+        "time": "4:00",
+        "prize": 500
+      }
+    ]
+  }
+]

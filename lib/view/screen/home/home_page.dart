@@ -1,3 +1,5 @@
+
+
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
@@ -5,6 +7,7 @@ import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../controller/movie_bloc/home_bloc.dart';
 import 'componects/appbar_action.dart';
@@ -21,10 +24,37 @@ class _HomePageState extends State<HomePage> {
 
 
   @override
-  void initState() {
+  void initState()  {
     // TODO: implement initState
     super.initState();
+
     homeBloc.add(HomeInitialFetchEvent());
+  }
+
+  Future<Position> getCurrentLocation()
+  async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if(!serviceEnabled)
+      {
+         Future.error('Location services are disabled.');
+      }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if(permission==LocationPermission.denied)
+      {
+        permission = await Geolocator.requestPermission();
+        if(permission==LocationPermission.denied)
+          {
+             Future.error('Location permissions are denied.');
+          }
+      }
+
+    if(permission == LocationPermission.deniedForever)
+      {
+         Future.error('Location permissions are permanently');
+      }
+
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
