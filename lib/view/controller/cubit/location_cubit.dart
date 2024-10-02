@@ -9,7 +9,8 @@ import 'package:meta/meta.dart';
 part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
-  final Location _location=Location();
+  final Location location = Location();
+
   LocationCubit() : super(LocationInitial());
 
   Future<void> initializeLocation() async {
@@ -17,9 +18,9 @@ class LocationCubit extends Cubit<LocationState> {
     log('message');
 
     // Check if location services are enabled
-    serviceEnabled = await _location.serviceEnabled();
+    serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await _location.requestService();
+      serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
         emit(LocationError("Location services are disabled."));
         return;
@@ -27,9 +28,9 @@ class LocationCubit extends Cubit<LocationState> {
     }
 
     // Check if the app has location permission
-    PermissionStatus permissionGranted = await _location.hasPermission();
+    PermissionStatus permissionGranted = await location.hasPermission();
     if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await _location.requestPermission();
+      permissionGranted = await location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
         emit(LocationError("Location permission denied."));
         return;
@@ -37,19 +38,16 @@ class LocationCubit extends Cubit<LocationState> {
     }
     log('true');
 
-
-    try{
-      // Start streaming the location
-      _location.onLocationChanged.listen((locationData) async {
+    try {
+      location.onLocationChanged.listen((locationData) async {
         double latitude = locationData.latitude!;
         double longitude = locationData.longitude!;
         String placeName = await convertToName(latitude, longitude);
         log('message');
 
-        emit(LocationLoaded(locationData,placeName));
+        emit(LocationLoaded(locationData, placeName));
       });
-    }catch(e)
-    {
+    } catch (e) {
       log(e.toString());
     }
   }

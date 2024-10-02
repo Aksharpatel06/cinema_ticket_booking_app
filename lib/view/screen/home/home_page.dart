@@ -1,4 +1,3 @@
-
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';

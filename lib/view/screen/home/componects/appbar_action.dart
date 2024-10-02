@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/helper/authentication_services.dart';
@@ -11,7 +13,10 @@ import 'package:pinput/pinput.dart';
 import '../../../controller/cubit/location_cubit.dart';
 
 List<Widget> actionWidget(
-    {required BuildContext context,required AuthBloc bloc, LocationData? data}) => [
+        {required BuildContext context,
+        required AuthBloc bloc,
+        LocationData? data}) =>
+    [
       Padding(
         padding: EdgeInsets.all(14.h),
         child: Row(
@@ -26,13 +31,12 @@ List<Widget> actionWidget(
             BlocBuilder<LocationCubit, LocationState>(
               builder: (context, state) {
                 if (state is LocationInitial) {
-                  return const Center(child: Text('Initializing...'));
+                  return const Center(child: Text('Surat'));
                 } else if (state is LocationLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is LocationLoaded) {
-
                   return Center(
-                    child:Text(
+                    child: Text(
                       state.locationName,
                       style: TextStyle(
                         color: primaryColor,
@@ -52,7 +56,6 @@ List<Widget> actionWidget(
                 return Container();
               },
             ),
-
           ],
         ),
       ),
@@ -78,59 +81,63 @@ List<Widget> actionWidget(
           ],
         ),
       ),
-  BlocConsumer<AuthBloc, AuthState>(
-    listener: (context, state) {
-      if (state is AuthOtpVerifiedActionState) {
-        Navigator.pop(context);
-      }
-      if (state is AuthCodeSentState) {
-        Navigator.pop(context);
-        loginOtpToMobile(context, state, bloc);
-      }
-      if (state is AuthErrorState) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
-      }
-      if(state is AuthMobileNumberChangeActionState)
-        {
-          Navigator.pop(context);
-          loginToMobile(context, state, bloc);
-        }
-    },
-    bloc: bloc,
-    builder: (context, state) {
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 16.h),
-        child: GestureDetector(
-          onTap: () {
-            if (state is AuthInitialState && AuthenticationServices.authenticationServices.currentUser()==null) {
-              loginToMobile(context, state, bloc); // Trigger OTP input
-            }
-          },
-          child: Container(
-            width: 70.w,
-            alignment: Alignment.center,
-            decoration: ShapeDecoration(
-              gradient: buttonColor,
-              shape: buttonRadius,
-              shadows: buttonShadow,
-            ),
-            child: Text(
-              AuthenticationServices.authenticationServices.currentUser()==null?'Log in':'Profile',
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
+      BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthOtpVerifiedActionState) {
+            Navigator.pop(context);
+          }
+          if (state is AuthCodeSentState) {
+            Navigator.pop(context);
+            loginOtpToMobile(context, state, bloc);
+          }
+          if (state is AuthErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.error),
+            ));
+          }
+          if (state is AuthMobileNumberChangeActionState) {
+            Navigator.pop(context);
+            loginToMobile(context, state, bloc);
+          }
+        },
+        bloc: bloc,
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 16.h),
+            child: GestureDetector(
+              onTap: () {
+                if (state is AuthInitialState &&
+                    AuthenticationServices.authenticationServices
+                            .currentUser() ==
+                        null) {
+                  loginToMobile(context, state, bloc); // Trigger OTP input
+                }
+              },
+              child: Container(
+                width: 70.w,
+                alignment: Alignment.center,
+                decoration: ShapeDecoration(
+                  gradient: buttonColor,
+                  shape: buttonRadius,
+                  shadows: buttonShadow,
+                ),
+                child: Text(
+                  AuthenticationServices.authenticationServices.currentUser() ==
+                          null
+                      ? 'Log in'
+                      : 'Profile',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      );
-    },
-  )
-
-];
+          );
+        },
+      )
+    ];
 
 void loginToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
   TextEditingController txtPhoneNumber = TextEditingController();
@@ -166,66 +173,66 @@ void loginToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
                 SizedBox(
                   height: 5.h,
                 ),
-                  Column(
-                    children: [
-                      Text(
-                        'Access to purchased tickets',
-                        style: TextStyle(
+                Column(
+                  children: [
+                    Text(
+                      'Access to purchased tickets',
+                      style: TextStyle(
+                        color: secondaryColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    TextField(
+                      controller: txtPhoneNumber,
+                      style: const TextStyle(
+                        color: primaryColor,
+                      ),
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: secondaryColor, width: 0.8),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        hintText: 'Phone Number',
+                        hintStyle: const TextStyle(
                           color: secondaryColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      TextField(
-                        controller: txtPhoneNumber,
-                        style: const TextStyle(
-                          color: primaryColor,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        bloc.add(SendOtpEvent(txtPhoneNumber.text));
+                      },
+                      child: Container(
+                        height: 56.h,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        decoration: ShapeDecoration(
+                          gradient: buttonColor,
+                          shape: buttonRadius,
+                          shadows: buttonShadow,
                         ),
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: secondaryColor, width: 0.8),
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          hintText: 'Phone Number',
-                          hintStyle: const TextStyle(
-                            color: secondaryColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          bloc.add(SendOtpEvent(txtPhoneNumber.text));
-                        },
-                        child: Container(
-                          height: 56.h,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          decoration: ShapeDecoration(
-                            gradient: buttonColor,
-                            shape: buttonRadius,
-                            shadows: buttonShadow,
-                          ),
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -336,10 +343,13 @@ void loginOtpToMobile(BuildContext context, AuthState state, AuthBloc bloc) {
   );
 }
 
-Future<String> convertToName(double latitude,double longitude)
-async {
-  List<Placemark> placeMarks = await placemarkFromCoordinates(latitude, longitude);
+Future<String> convertToName(double latitude, double longitude) async {
+  List<Placemark> placeMarks =
+      await placemarkFromCoordinates(latitude, longitude);
   Placemark place = placeMarks[0];
   String placeName = "${place.locality}";
+  log(place.locality!);
+  log(latitude.toString());
+  log(longitude.toString());
   return placeName;
 }

@@ -1,4 +1,4 @@
-
+import 'dart:math';
 
 class Cinema {
   String cinema;
@@ -19,7 +19,8 @@ class Cinema {
 
   factory Cinema.fromJson(Map json) {
     var list = json['data'] as List;
-    List<ShowTime> showTimeList = list.map((i) => ShowTime.fromJson(i)).toList();
+    List<ShowTime> showTimeList = list.map((i) => ShowTime.fromJson(i))
+        .toList();
     return Cinema(
       cinema: json['cinema'],
       area: json['area'],
@@ -61,4 +62,17 @@ class ShowTime {
       'prize': prize,
     };
   }
+}
+double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+  const R = 6371; // Radius of the Earth in km
+  double latDistance = (lat2 - lat1) * pi / 180;
+  double lonDistance = (lon2 - lon1) * pi / 180;
+
+  double a = sin(latDistance / 2) * sin(latDistance / 2) +
+      cos(lat1 * pi / 180) * cos(lat2 * pi / 180) *
+          sin(lonDistance / 2) * sin(lonDistance / 2);
+
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+  return R * c;
 }
