@@ -5,8 +5,6 @@ sealed class LocationState {}
 
 final class LocationInitial extends LocationState {}
 
-class LocationLoading extends LocationState {}
-
 class LocationLoaded extends LocationState {
   final LocationData locationData;
   final String locationName;
