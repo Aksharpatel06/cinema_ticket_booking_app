@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cinema_booking_app/view/screen/home/componects/appbar_action.dart';
 import 'package:location/location.dart';
-// import 'package:geocoding/geocoding.dart';
+
 import 'package:meta/meta.dart';
 
 part 'location_state.dart';
