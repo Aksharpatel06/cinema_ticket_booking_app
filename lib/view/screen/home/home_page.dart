@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     homeBloc.add(HomeInitialFetchEvent());
-    context.read<LocationCubit>().loadCinemaApi();
   }
 
 

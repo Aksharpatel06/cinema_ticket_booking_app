@@ -160,7 +160,6 @@ class SessionsPage extends StatelessWidget {
           ),
         ),
         BlocConsumer<LocationCubit, LocationState>(
-          buildWhen: (previous, current) => current is! LocationLoaded,
           listener: (context, state) {},
           builder: (context, state) {
             log(state.toString());
