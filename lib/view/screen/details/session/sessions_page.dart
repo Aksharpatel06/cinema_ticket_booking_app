@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,16 +96,13 @@ class SessionsPage extends StatelessWidget {
                         child: Switch(
                           value: false,
                           materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
+                              MaterialTapTargetSize.shrinkWrap,
                           onChanged: (value) {},
                           inactiveThumbColor: secondaryColor,
                           activeColor: primaryColor,
-                          activeTrackColor:
-                          const Color(0xffFC6D19),
-                          inactiveTrackColor:
-                          const Color(0xff253554),
-                          trackOutlineWidth:
-                          const WidgetStatePropertyAll(0),
+                          activeTrackColor: const Color(0xffFC6D19),
+                          inactiveTrackColor: const Color(0xff253554),
+                          trackOutlineWidth: const WidgetStatePropertyAll(0),
                         ),
                       ),
                     ),
@@ -160,121 +159,124 @@ class SessionsPage extends StatelessWidget {
             ],
           ),
         ),
-        BlocBuilder<LocationCubit, LocationState>(
+        BlocConsumer<LocationCubit, LocationState>(
+          buildWhen: (previous, current) => current is! LocationLoaded,
+          listener: (context, state) {},
           builder: (context, state) {
+            log(state.toString());
             if (state is CinemaLoadedSuccess) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20.h, vertical: 12.h),
-                    child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Cinema',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.location_pin,
-                                  color: secondaryColor,
-                                ),
-                                Text(
-                                  '3 Km',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: secondaryColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Text(
-                          'Area',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: secondaryColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    color: secondaryColor,
-                    thickness: 0.5,
-                  ),
-                  SizedBox(
-                    height: 60,
-                    child: Padding(
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.cinemaList.length,
+                itemBuilder: (context, index) => Column(
+                  children: [
+                    Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 20.h, vertical: 10.h),
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
+                          horizontal: 20.h, vertical: 12.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '14:00',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                state.cinemaList[index].cinema,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_pin,
+                                    color: secondaryColor,
+                                  ),
+                                  Text(
+                                    '${state.cinemaList[index].km} Km',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                          Spacer(),
-                          VerticalDivider(
-                            color: secondaryColor,
-                            thickness: 0.5,
-                          ),
-                          Spacer(),
                           Text(
-                            '\$ 500',
+                            state.cinemaList[index].area,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: secondaryColor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
-                          Spacer(),
-                          Spacer(),
-                          Spacer(),
-                          Spacer(),
                         ],
                       ),
                     ),
-                  ),
-                  Divider(
-                    color: secondaryColor,
-                    thickness: 0.5,
-                  ),
-                ],
+                    Divider(
+                      color: secondaryColor,
+                      thickness: 0.5,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.h, vertical: 10.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              state.cinemaList[index].data[0].time,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Spacer(),
+                            VerticalDivider(
+                              color: secondaryColor,
+                              thickness: 0.5,
+                            ),
+                            Spacer(),
+                            Text(
+                              '\$ ${state.cinemaList[index].data[0].prize}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: secondaryColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Spacer(),
+                            Spacer(),
+                            Spacer(),
+                            Spacer(),
+                            Spacer(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: secondaryColor,
+                      thickness: 0.5,
+                    ),
+                  ],
+                ),
               );
             }
             if (state is LocationError) {
               return Center(
                 child: Text(
                   'Error: ${state.errorMessage}',
-                  style: const TextStyle(
-                      fontSize: 18, color: Colors.red),
+                  style: const TextStyle(fontSize: 18, color: Colors.red),
                 ),
               );
             }

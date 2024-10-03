@@ -1,7 +1,6 @@
 
 import 'dart:math';
 
-import 'package:cinema_booking_app/view/controller/cubit/location_cubit.dart';
 
 class Cinema {
   String cinema;
@@ -9,7 +8,7 @@ class Cinema {
   double km;
   double longitude;
   double latitude;
-  List<ShowTime> data;
+  List<ShowTime> data=[];
 
 
   Cinema({
@@ -22,9 +21,7 @@ class Cinema {
   });
 
   factory Cinema.fromJson(Map json,double latitude,double longitude) {
-    var list = json['data'] as List;
-    List<ShowTime> showTimeList =
-        list.map((i) => ShowTime.fromJson(i)).toList();
+    List<ShowTime> showTimeDetails = (json['TimeAndPrize'] as List).map((e) => ShowTime.fromJson(e),).toList();
     double km = calculateDistance(
       latitude,
       longitude,
@@ -37,7 +34,7 @@ class Cinema {
       km: km??json['km'],
       longitude: json['longitude'],
       latitude: json['latitude'],
-      data: showTimeList,
+      data: showTimeDetails,
     );
   }
 }
@@ -48,7 +45,7 @@ class ShowTime {
 
   ShowTime({required this.time, required this.prize});
 
-  factory ShowTime.fromJson(Map<String, dynamic> json) {
+  factory ShowTime.fromJson(Map json) {
     return ShowTime(
       time: json['time'],
       prize: json['prize'],

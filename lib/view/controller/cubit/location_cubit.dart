@@ -20,7 +20,6 @@ class LocationCubit extends Cubit<LocationState> {
 
   Future<void> initializeLocation() async {
     bool serviceEnabled;
-    log('message');
 
     try {
       serviceEnabled = await location.serviceEnabled();
@@ -45,12 +44,12 @@ class LocationCubit extends Cubit<LocationState> {
         latitude = locationData.latitude!;
         longitude = locationData.longitude!;
         String placeName = await convertToName(latitude, longitude);
-        log('message');
 
         emit(LocationLoaded(
           locationName: placeName,
         ));
       });
+
     } catch (e) {
       log(e.toString());
     }
@@ -58,17 +57,20 @@ class LocationCubit extends Cubit<LocationState> {
 
   Future<void> loadCinemaApi() async {
     try {
+
       String api = await rootBundle.loadString('asset/json/cinema_data.json');
-      final List data = jsonDecode(api);
+      List data = jsonDecode(api);
       List<Cinema> cinemaList = data
           .map(
             (e) => Cinema.fromJson(e, latitude, longitude),
           )
           .toList();
       cinemaList.sort((a, b) => a.km.compareTo(b.km));
+      log(cinemaList.length.toString());
 
       emit(CinemaLoadedSuccess(cinemaList: cinemaList));
     } catch (e) {
+      log(e.toString());
       emit(LocationError('Failed to load movies: $e'));
     }
   }

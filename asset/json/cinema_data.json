@@ -5,7 +5,7 @@
     "km": 5.0,
     "longitude": 72.7865,
     "latitude": 21.1618,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "2:00",
         "prize": 450
@@ -26,7 +26,7 @@
     "km": 6.0,
     "longitude": 72.7984,
     "latitude": 21.1691,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "2:15",
         "prize": 400
@@ -47,7 +47,7 @@
     "km": 7.0,
     "longitude": 72.8161,
     "latitude": 21.1786,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "1:45",
         "prize": 475
@@ -68,7 +68,7 @@
     "km": 8.0,
     "longitude": 72.7854,
     "latitude": 21.1963,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "2:00",
         "prize": 430
@@ -89,7 +89,7 @@
     "km": 4.0,
     "longitude": 72.8056,
     "latitude": 21.1625,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "1:30",
         "prize": 440
@@ -110,7 +110,7 @@
     "km":9.0,
     "longitude": 72.7935,
     "latitude": 21.2075,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "2:10",
         "prize": 425
@@ -131,7 +131,7 @@
     "km": 10.0,
     "longitude": 72.8389,
     "latitude": 21.1928,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "12:45",
         "prize": 460
@@ -152,7 +152,7 @@
     "km": 12.0,
     "longitude": 72.8772,
     "latitude": 21.2332,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "1:15",
         "prize": 420
@@ -173,7 +173,7 @@
     "km": 8.0,
     "longitude": 72.8145,
     "latitude": 21.1309,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "1:00",
         "prize": 410
@@ -194,7 +194,7 @@
     "km": 7.0,
     "longitude": 72.7998,
     "latitude": 21.1515,
-    "data": [
+    "TimeAndPrize": [
       {
         "time": "12:30",
         "prize": 430

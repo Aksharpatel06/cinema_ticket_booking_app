@@ -6,7 +6,6 @@ import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:location/location.dart';
 
 import '../../controller/movie_bloc/home_bloc.dart';
 import 'componects/appbar_action.dart';
@@ -26,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     homeBloc.add(HomeInitialFetchEvent());
-
+    context.read<LocationCubit>().loadCinemaApi();
   }
 
 
