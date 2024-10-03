@@ -68,6 +68,7 @@ class MovieDetails extends StatelessWidget {
                           width: double.infinity,
                           height: 70.h,
                           decoration: const BoxDecoration(
+                            color: appBarColor,
                             gradient: LinearGradient(
                               begin: Alignment(0.00, -1.00),
                               end: Alignment(0, 1),
@@ -113,7 +114,7 @@ class MovieDetails extends StatelessWidget {
                                   children: [
                                     const Spacer(),
                                     Icon(
-                                      Icons.add,
+                                      Icons.access_time_outlined,
                                       color: secondaryColor,
                                       size: 25.h,
                                     ),
@@ -174,6 +175,119 @@ class MovieDetails extends StatelessWidget {
                             ],
                           ),
                         ),
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          color: Color(0xff253554),
+                          child: Row(
+                            children: [
+                              Spacer(flex: 1,),
+                              Text(
+                                'Time',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: secondaryColor,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Spacer(flex: 2,),
+                              Text(
+                                'Prize',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: secondaryColor,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Spacer(flex: 5,),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 20.h,vertical: 10.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Cinema',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.location_pin,color: secondaryColor,),
+                                          Text(
+                                            '3 Km',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: secondaryColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Text(
+                                    'Area',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: secondaryColor,
+                              thickness: 0.5,
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 20.h,vertical: 10.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    '14:00',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  VerticalDivider(
+                                    color: secondaryColor,
+                                    thickness: 0.5,
+                                  ),
+                                  Text(
+                                    '\$ 500',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     )
                   ],

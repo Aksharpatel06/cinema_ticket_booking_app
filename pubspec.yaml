@@ -47,6 +47,7 @@ dependencies:
   path_provider: ^2.1.4
   location: ^6.0.2
   geocoding: ^3.0.0
+  equatable: ^2.0.5
 
 
 dev_dependencies:
@@ -78,7 +79,7 @@ flutter:
   assets:
     - asset/img/movie/
     - asset/img/splash/
-    - asset/json/movie_data.json
+    - asset/json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

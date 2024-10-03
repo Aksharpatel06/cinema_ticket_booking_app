@@ -13,4 +13,7 @@ class ApiServices{
     final List data = jsonDecode(api);
     return data.map((e) => MovieModal(e),).toList();
   }
+
+
+
 }

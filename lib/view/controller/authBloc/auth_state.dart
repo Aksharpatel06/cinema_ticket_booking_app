@@ -1,21 +1,33 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthState {}
+sealed class AuthState extends Equatable {}
 
-sealed class AuthActionState extends AuthState{}
+sealed class AuthActionState extends AuthState{
+  @override
+  List<Object> get props => [];
+}
 
 
-final class AuthInitialState extends AuthState {}
+final class AuthInitialState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
 
-class AuthLoadingState extends AuthState {}
+class AuthLoadingState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
 
-class AuthMobileVerifiedActionState extends AuthActionState {}
+class AuthMobileVerifiedActionState extends AuthActionState {
+}
 
 class AuthCodeSentState extends AuthState {
   final String verificationId;
 
   AuthCodeSentState(this.verificationId);
+  @override
+  List<Object> get props => [verificationId];
 }
 
 class AuthOtpVerifiedActionState extends AuthActionState {}
@@ -26,6 +38,8 @@ class AuthErrorState extends AuthState {
   final String error;
 
   AuthErrorState(this.error);
+  @override
+  List<Object> get props => [error];
 }
 
 

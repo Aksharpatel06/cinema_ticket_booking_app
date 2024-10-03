@@ -1,13 +1,22 @@
 part of 'home_bloc.dart';
 
 @immutable
-sealed class HomeState {}
+sealed class HomeState extends Equatable{}
 
-abstract class HomeActionState extends HomeState {}
+abstract class HomeActionState extends HomeState {
+  @override
+  List<Object> get props => [];
+}
 
-class HomeInitialState extends HomeState {}
+class HomeInitialState extends HomeState {
+  @override
+  List<Object> get props => [];
+}
 
-class HomeFetchingLoadingState extends HomeState {}
+class HomeFetchingLoadingState extends HomeState {
+  @override
+  List<Object> get props => [];
+}
 
 class HomeFetchingErrorState extends HomeState {
   final String error;
@@ -15,6 +24,8 @@ class HomeFetchingErrorState extends HomeState {
   HomeFetchingErrorState({
     required this.error,
   });
+  @override
+  List<Object> get props => [error];
 }
 
 class HomeFetchingSuccessfulState extends HomeState {
@@ -23,6 +34,8 @@ class HomeFetchingSuccessfulState extends HomeState {
   HomeFetchingSuccessfulState({
     required this.movies,
   });
+  @override
+  List<Object> get props => [movies];
 }
 class HomeAdditionSuccessState extends HomeActionState {
   final MovieModal movieModal;
@@ -30,9 +43,6 @@ class HomeAdditionSuccessState extends HomeActionState {
   HomeAdditionSuccessState({
     required this.movieModal,
   });
+  @override
+  List<Object> get props => [movieModal];
 }
-
-
-// class HomeDetailsPageState extends HomeState {
-//
-// }

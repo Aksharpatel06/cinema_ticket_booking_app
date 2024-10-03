@@ -31,9 +31,15 @@ List<Widget> actionWidget(
             BlocBuilder<LocationCubit, LocationState>(
               builder: (context, state) {
                 if (state is LocationInitial) {
-                  return const Center(child: Text('Surat'));
-                } else if (state is LocationLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: Text(
+                    'Surat',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ));
                 } else if (state is LocationLoaded) {
                   return Center(
                     child: Text(
