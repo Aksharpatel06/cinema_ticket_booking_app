@@ -22,49 +22,54 @@ class LocationCubit extends Cubit<LocationState> {
     bool serviceEnabled;
     log('message');
 
-    // Check if location services are enabled
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        emit(LocationError("Location services are disabled."));
-        return;
-      }
-    }
-
-    // Check if the app has location permission
-    PermissionStatus permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        emit(LocationError("Location permission denied."));
-        return;
-      }
-    }
-    log('true');
-
     try {
+      serviceEnabled = await location.serviceEnabled();
+      if (!serviceEnabled) {
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          emit(LocationError("Location services are disabled."));
+          return;
+        }
+      }
+
+      PermissionStatus permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          emit(LocationError("Location permission denied."));
+          return;
+        }
+      }
+
       location.onLocationChanged.listen((locationData) async {
         latitude = locationData.latitude!;
         longitude = locationData.longitude!;
         String placeName = await convertToName(latitude, longitude);
         log('message');
-        String api = await rootBundle.loadString('asset/json/cinema_data.json');
-        final List data = jsonDecode(api);
-        List<Cinema> cinemaList = data
-            .map(
-              (e) => Cinema.fromJson(e, latitude, longitude),
-            )
-            .toList();
 
         emit(LocationLoaded(
-          locationData: locationData,
           locationName: placeName,
-          cinemaList: cinemaList,
         ));
       });
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<void> loadCinemaApi() async {
+    try {
+      String api = await rootBundle.loadString('asset/json/cinema_data.json');
+      final List data = jsonDecode(api);
+      List<Cinema> cinemaList = data
+          .map(
+            (e) => Cinema.fromJson(e, latitude, longitude),
+          )
+          .toList();
+      cinemaList.sort((a, b) => a.km.compareTo(b.km));
+
+      emit(CinemaLoadedSuccess(cinemaList: cinemaList));
+    } catch (e) {
+      emit(LocationError('Failed to load movies: $e'));
     }
   }
 }

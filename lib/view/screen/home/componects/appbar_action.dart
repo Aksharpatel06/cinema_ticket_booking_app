@@ -14,8 +14,7 @@ import '../../../controller/cubit/location_cubit.dart';
 
 List<Widget> actionWidget(
         {required BuildContext context,
-        required AuthBloc bloc,
-        LocationData? data}) =>
+        required AuthBloc bloc}) =>
     [
       Padding(
         padding: EdgeInsets.all(14.h),
@@ -28,12 +27,16 @@ List<Widget> actionWidget(
             SizedBox(
               width: 5.w,
             ),
-            BlocBuilder<LocationCubit, LocationState>(
+            BlocConsumer<LocationCubit, LocationState>(
+              buildWhen: (previous, current) => current is! CinemaLoadedSuccess,
+              listener: (context, state) {
+
+              },
               builder: (context, state) {
                 if (state is LocationInitial) {
                   return Center(
                       child: Text(
-                    'Surat',
+                    'Vadodara',
                     style: TextStyle(
                       color: primaryColor,
                       fontSize: 14.sp,

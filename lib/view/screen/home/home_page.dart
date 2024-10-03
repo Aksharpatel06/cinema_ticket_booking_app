@@ -1,5 +1,6 @@
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
+import 'package:cinema_booking_app/view/controller/cubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -19,43 +20,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
-  LocationData? locationData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentLocation();
     homeBloc.add(HomeInitialFetchEvent());
+
   }
 
-  Future<void> getCurrentLocation() async {
-    Location location = Location();
-    bool serviceEnabled = false;
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return Future.error('Location services are disabled.');
-      }
-    }
-
-    // Request location permissions.
-    PermissionStatus permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    // Fetch the current location.
-    LocationData locationData = await location.getLocation();
-
-    setState(() {
-      locationData = locationData;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +59,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        actions: locationData != null
-            ? actionWidget(
-                context: context, bloc: authBloc, data: locationData!)
-            : actionWidget(context: context, bloc: authBloc),
+        actions: actionWidget(context: context, bloc: authBloc),
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 16.h, left: 16.h, right: 16.h),

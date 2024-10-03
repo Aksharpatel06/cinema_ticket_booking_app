@@ -2,7 +2,7 @@
   {
     "cinema": "INOX VR Surat",
     "area": "Dumas Road",
-    "km": "5",
+    "km": 5.0,
     "longitude": 72.7865,
     "latitude": 21.1618,
     "data": [
@@ -23,7 +23,7 @@
   {
     "cinema": "Cinepolis Rajhans",
     "area": "Piplod",
-    "km": "6",
+    "km": 6.0,
     "longitude": 72.7984,
     "latitude": 21.1691,
     "data": [
@@ -44,7 +44,7 @@
   {
     "cinema": "PVR Rahul Raj Mall",
     "area": "Gaurav Path",
-    "km": "7",
+    "km": 7.0,
     "longitude": 72.8161,
     "latitude": 21.1786,
     "data": [
@@ -65,7 +65,7 @@
   {
     "cinema": "Rajhans Multiplex",
     "area": "Adajan",
-    "km": "8",
+    "km": 8.0,
     "longitude": 72.7854,
     "latitude": 21.1963,
     "data": [
@@ -86,7 +86,7 @@
   {
     "cinema": "Valentine Multiplex",
     "area": "Dumas Road",
-    "km": "4",
+    "km": 4.0,
     "longitude": 72.8056,
     "latitude": 21.1625,
     "data": [
@@ -107,7 +107,7 @@
   {
     "cinema": "Broadway Multiplex",
     "area": "Pal",
-    "km": "9",
+    "km":9.0,
     "longitude": 72.7935,
     "latitude": 21.2075,
     "data": [
@@ -128,7 +128,7 @@
   {
     "cinema": "Raj Empire Cinema",
     "area": "Ring Road",
-    "km": "10",
+    "km": 10.0,
     "longitude": 72.8389,
     "latitude": 21.1928,
     "data": [
@@ -149,7 +149,7 @@
   {
     "cinema": "Time Cinema",
     "area": "Varachha Road",
-    "km": "12",
+    "km": 12.0,
     "longitude": 72.8772,
     "latitude": 21.2332,
     "data": [
@@ -170,7 +170,7 @@
   {
     "cinema": "Cinepolis Amore",
     "area": "Vesu",
-    "km": "8",
+    "km": 8.0,
     "longitude": 72.8145,
     "latitude": 21.1309,
     "data": [
@@ -191,7 +191,7 @@
   {
     "cinema": "SRS Cinema",
     "area": "City Light",
-    "km": "7",
+    "km": 7.0,
     "longitude": 72.7998,
     "latitude": 21.1515,
     "data": [

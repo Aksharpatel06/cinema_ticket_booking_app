@@ -6,7 +6,7 @@ import 'package:cinema_booking_app/view/controller/cubit/location_cubit.dart';
 class Cinema {
   String cinema;
   String area;
-  String km;
+  double km;
   double longitude;
   double latitude;
   List<ShowTime> data;

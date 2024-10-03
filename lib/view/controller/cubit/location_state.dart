@@ -9,17 +9,22 @@ final class LocationInitial extends LocationState {
 }
 
 class LocationLoaded extends LocationState {
-  final LocationData locationData;
   final String locationName;
   final List<Cinema>? cinemaList;
 
-  LocationLoaded(
-      {required this.locationData,
-      required this.locationName,
-      this.cinemaList});
+  LocationLoaded({required this.locationName, this.cinemaList});
 
   @override
-  List<Object?> get props => [locationData,locationName,cinemaList];
+  List<Object?> get props => [locationName, cinemaList];
+}
+
+class CinemaLoadedSuccess extends LocationState {
+  final List<Cinema> cinemaList;
+
+  CinemaLoadedSuccess({required this.cinemaList});
+
+  @override
+  List<Object?> get props => [cinemaList];
 }
 
 class LocationError extends LocationState {
