@@ -1,9 +1,7 @@
 import 'package:cinema_booking_app/utils/color.dart';
-import 'package:cinema_booking_app/view/controller/cubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/screen/details/session/sessions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../controller/movie_bloc/home_bloc.dart';
 import 'about/about_page.dart';
