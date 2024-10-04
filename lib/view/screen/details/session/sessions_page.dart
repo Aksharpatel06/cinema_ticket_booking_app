@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +12,7 @@ class SessionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LocationCubit locationCubit = context.read<LocationCubit>();
     return Column(
       children: [
         Container(
@@ -125,13 +124,11 @@ class SessionsPage extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(2),
-          color: Color(0xff253554),
+          padding: const EdgeInsets.all(2),
+          color: const Color(0xff253554),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Spacer(
-                flex: 1,
-              ),
               Text(
                 'Time',
                 textAlign: TextAlign.center,
@@ -141,11 +138,9 @@ class SessionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Spacer(
-                flex: 2,
-              ),
+              SizedBox(width: 20.h,),
               Text(
-                'Prize',
+                'Gold',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: secondaryColor,
@@ -153,25 +148,38 @@ class SessionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Spacer(
-                flex: 5,
+              Text(
+                'Platinum',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: secondaryColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                'Silver',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: secondaryColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),
         ),
-        BlocConsumer<LocationCubit, LocationState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            log(state.toString());
-            if (state is CinemaLoadedSuccess) {
+        Expanded(
+          child: BlocBuilder<LocationCubit, LocationState>(
+            builder: (context, state) {
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: state.cinemaList.length,
+                itemCount: locationCubit.cinemaList.length,
                 itemBuilder: (context, index) => Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.h, vertical: 12.h),
+                      padding: EdgeInsets.only(
+                          left: 20.h, right: 20.h, top: 12.h, bottom: 7.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -179,7 +187,7 @@ class SessionsPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                state.cinemaList[index].cinema,
+                                locationCubit.cinemaList[index].cinema,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: primaryColor,
@@ -189,12 +197,12 @@ class SessionsPage extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.location_pin,
                                     color: secondaryColor,
                                   ),
                                   Text(
-                                    '${state.cinemaList[index].km} Km',
+                                    '${locationCubit.cinemaList[index].km.toInt()} Km',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: secondaryColor,
@@ -207,7 +215,7 @@ class SessionsPage extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            state.cinemaList[index].area,
+                            locationCubit.cinemaList[index].area,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: secondaryColor,
@@ -218,69 +226,92 @@ class SessionsPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: secondaryColor,
                       thickness: 0.5,
                     ),
-                    SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.h, vertical: 10.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              state.cinemaList[index].data[0].time,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w500,
+                    Column(
+                        children: List.generate(
+                      locationCubit.cinemaList[index].data.length,
+                      (index2) => Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.h, vertical: 10.h),
+                              child: Row(
+
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 70.w,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      locationCubit
+                                          .cinemaList[index].data[index2].time,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  const VerticalDivider(
+                                    color: secondaryColor,
+                                    thickness: 0.5,
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    '\$ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 30.h),
+                                    child: Text(
+                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: secondaryColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Spacer(),
-                            VerticalDivider(
-                              color: secondaryColor,
-                              thickness: 0.5,
-                            ),
-                            Spacer(),
-                            Text(
-                              '\$ ${state.cinemaList[index].data[0].prize}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: secondaryColor,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Spacer(),
-                            Spacer(),
-                            Spacer(),
-                            Spacer(),
-                            Spacer(),
-                          ],
-                        ),
+                          ),
+                          const Divider(
+                            color: secondaryColor,
+                            thickness: 0.5,
+                          ),
+                        ],
                       ),
-                    ),
-                    Divider(
-                      color: secondaryColor,
-                      thickness: 0.5,
-                    ),
+                    ))
                   ],
                 ),
               );
-            }
-            if (state is LocationError) {
-              return Center(
-                child: Text(
-                  'Error: ${state.errorMessage}',
-                  style: const TextStyle(fontSize: 18, color: Colors.red),
-                ),
-              );
-            }
-            return Container();
-          },
+            },
+          ),
         )
       ],
     );

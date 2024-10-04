@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../controller/movie_bloc/home_bloc.dart';
 import 'about/about_page.dart';
 
-class MovieDetails extends StatelessWidget {
+class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
     required this.homeBloc,
@@ -15,10 +15,22 @@ class MovieDetails extends StatelessWidget {
   final HomeBloc homeBloc;
 
   @override
+  State<MovieDetails> createState() => _MovieDetailsState();
+}
+
+class _MovieDetailsState extends State<MovieDetails> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {},
-      bloc: homeBloc,
+      bloc: widget.homeBloc,
       builder: (context, state) {
         if (state is HomeAdditionSuccessState) {
           return DefaultTabController(

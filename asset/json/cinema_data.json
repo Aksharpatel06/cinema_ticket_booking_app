@@ -7,16 +7,28 @@
     "latitude": 21.1618,
     "TimeAndPrize": [
       {
-        "time": "2:00",
-        "prize": 450
+        "time": "14:00",
+        "prize": {
+          "silver": 400,
+          "platinum": 450,
+          "gold": 500
+        }
       },
       {
-        "time": "3:30",
-        "prize": 500
+        "time": "15:30",
+        "prize": {
+          "silver": 400,
+          "platinum": 450,
+          "gold": 500
+        }
       },
       {
-        "time": "5:00",
-        "prize": 550
+        "time": "17:00",
+        "prize": {
+          "silver": 450,
+          "platinum": 500,
+          "gold": 550
+        }
       }
     ]
   },
@@ -28,16 +40,28 @@
     "latitude": 21.1691,
     "TimeAndPrize": [
       {
-        "time": "2:15",
-        "prize": 400
+        "time": "14:15",
+        "prize": {
+          "silver": 350,
+          "platinum": 380,
+          "gold": 400
+        }
       },
       {
-        "time": "4:00",
-        "prize": 480
+        "time": "16:00",
+        "prize": {
+          "silver": 400,
+          "platinum": 430,
+          "gold": 480
+        }
       },
       {
-        "time": "6:30",
-        "prize": 520
+        "time": "18:30",
+        "prize": {
+          "silver": 450,
+          "platinum": 470,
+          "gold": 520
+        }
       }
     ]
   },
@@ -49,16 +73,28 @@
     "latitude": 21.1786,
     "TimeAndPrize": [
       {
-        "time": "1:45",
-        "prize": 475
+        "time": "13:45",
+        "prize": {
+          "silver": 375,
+          "platinum": 425,
+          "gold": 475
+        }
       },
       {
-        "time": "3:30",
-        "prize": 525
+        "time": "15:30",
+        "prize": {
+          "silver": 425,
+          "platinum": 475,
+          "gold": 525
+        }
       },
       {
-        "time": "6:00",
-        "prize": 575
+        "time": "18:00",
+        "prize": {
+          "silver": 475,
+          "platinum": 525,
+          "gold": 575
+        }
       }
     ]
   },
@@ -70,16 +106,28 @@
     "latitude": 21.1963,
     "TimeAndPrize": [
       {
-        "time": "2:00",
-        "prize": 430
+        "time": "14:00",
+        "prize": {
+          "silver": 330,
+          "platinum": 380,
+          "gold": 430
+        }
       },
       {
-        "time": "4:15",
-        "prize": 500
+        "time": "16:15",
+        "prize": {
+          "silver": 400,
+          "platinum": 450,
+          "gold": 500
+        }
       },
       {
-        "time": "7:00",
-        "prize": 550
+        "time": "19:00",
+        "prize": {
+          "silver": 450,
+          "platinum": 500,
+          "gold": 550
+        }
       }
     ]
   },
@@ -91,37 +139,61 @@
     "latitude": 21.1625,
     "TimeAndPrize": [
       {
-        "time": "1:30",
-        "prize": 440
+        "time": "13:30",
+        "prize": {
+          "silver": 340,
+          "platinum": 390,
+          "gold": 440
+        }
       },
       {
-        "time": "3:45",
-        "prize": 490
+        "time": "15:45",
+        "prize": {
+          "silver": 390,
+          "platinum": 440,
+          "gold": 490
+        }
       },
       {
-        "time": "6:15",
-        "prize": 540
+        "time": "18:15",
+        "prize": {
+          "silver": 440,
+          "platinum": 490,
+          "gold": 540
+        }
       }
     ]
   },
   {
     "cinema": "Broadway Multiplex",
     "area": "Pal",
-    "km":9.0,
+    "km": 9.0,
     "longitude": 72.7935,
     "latitude": 21.2075,
     "TimeAndPrize": [
       {
-        "time": "2:10",
-        "prize": 425
+        "time": "14:10",
+        "prize": {
+          "silver": 325,
+          "platinum": 375,
+          "gold": 425
+        }
       },
       {
-        "time": "4:30",
-        "prize": 480
+        "time": "16:30",
+        "prize": {
+          "silver": 380,
+          "platinum": 430,
+          "gold": 480
+        }
       },
       {
-        "time": "6:50",
-        "prize": 530
+        "time": "18:50",
+        "prize": {
+          "silver": 430,
+          "platinum": 480,
+          "gold": 530
+        }
       }
     ]
   },
@@ -134,15 +206,27 @@
     "TimeAndPrize": [
       {
         "time": "12:45",
-        "prize": 460
+        "prize": {
+          "silver": 360,
+          "platinum": 410,
+          "gold": 460
+        }
       },
       {
-        "time": "3:00",
-        "prize": 510
+        "time": "15:00",
+        "prize": {
+          "silver": 410,
+          "platinum": 460,
+          "gold": 510
+        }
       },
       {
-        "time": "5:30",
-        "prize": 570
+        "time": "17:30",
+        "prize": {
+          "silver": 470,
+          "platinum": 520,
+          "gold": 570
+        }
       }
     ]
   },
@@ -154,16 +238,28 @@
     "latitude": 21.2332,
     "TimeAndPrize": [
       {
-        "time": "1:15",
-        "prize": 420
+        "time": "13:15",
+        "prize": {
+          "silver": 320,
+          "platinum": 370,
+          "gold": 420
+        }
       },
       {
-        "time": "3:45",
-        "prize": 500
+        "time": "15:45",
+        "prize": {
+          "silver": 400,
+          "platinum": 450,
+          "gold": 500
+        }
       },
       {
-        "time": "6:15",
-        "prize": 550
+        "time": "18:15",
+        "prize": {
+          "silver": 450,
+          "platinum": 500,
+          "gold": 550
+        }
       }
     ]
   },
@@ -175,16 +271,28 @@
     "latitude": 21.1309,
     "TimeAndPrize": [
       {
-        "time": "1:00",
-        "prize": 410
+        "time": "13:00",
+        "prize": {
+          "silver": 310,
+          "platinum": 360,
+          "gold": 410
+        }
       },
       {
-        "time": "3:30",
-        "prize": 490
+        "time": "15:30",
+        "prize": {
+          "silver": 390,
+          "platinum": 440,
+          "gold": 490
+        }
       },
       {
-        "time": "6:00",
-        "prize": 530
+        "time": "18:00",
+        "prize": {
+          "silver": 430,
+          "platinum": 480,
+          "gold": 530
+        }
       }
     ]
   },
@@ -197,15 +305,27 @@
     "TimeAndPrize": [
       {
         "time": "12:30",
-        "prize": 430
+        "prize": {
+          "silver": 330,
+          "platinum": 380,
+          "gold": 430
+        }
       },
       {
-        "time": "3:15",
-        "prize": 500
+        "time": "15:15",
+        "prize": {
+          "silver": 400,
+          "platinum": 450,
+          "gold": 500
+        }
       },
       {
-        "time": "6:00",
-        "prize": 550
+        "time": "18:00",
+        "prize": {
+          "silver": 450,
+          "platinum": 500,
+          "gold": 550
+        }
       }
     ]
   }

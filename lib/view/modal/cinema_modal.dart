@@ -41,16 +41,34 @@ class Cinema {
 
 class ShowTime {
   String time;
-  int prize;
+  Prize prize;
 
   ShowTime({required this.time, required this.prize});
 
   factory ShowTime.fromJson(Map json) {
     return ShowTime(
       time: json['time'],
-      prize: json['prize'],
+      prize: Prize.fromJson(json['prize']),
     );
   }
+}
+
+class Prize {
+  final int silver;
+  final int platinum;
+  final int gold;
+
+  Prize({
+    required this.silver,
+    required this.platinum,
+    required this.gold,
+  });
+
+  factory Prize.fromJson(Map json) => Prize(
+    silver: json["silver"],
+    platinum: json["platinum"],
+    gold: json["gold"],
+  );
 }
 
 double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
