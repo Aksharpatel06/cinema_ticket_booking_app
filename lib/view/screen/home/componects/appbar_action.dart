@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:location/location.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../controller/cubit/location_cubit.dart';
+import '../../../controller/locationCubit/location_cubit.dart';
 
 List<Widget> actionWidget(
         {required BuildContext context,
