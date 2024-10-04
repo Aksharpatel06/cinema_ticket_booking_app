@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../controller/movie_bloc/home_bloc.dart';
+import '../../controller/movieBloc/home_bloc.dart';
 import 'componects/appbar_action.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     homeBloc.add(HomeInitialFetchEvent());
   }
-
 
   @override
   Widget build(BuildContext context) {
