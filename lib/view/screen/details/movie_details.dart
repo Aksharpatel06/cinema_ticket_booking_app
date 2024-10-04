@@ -62,7 +62,7 @@ class MovieDetails extends StatelessWidget {
                     AboutPage(
                       modal: state.movieModal,
                     ),
-                    SessionsPage()
+                    const SessionsPage()
                   ],
                 ),
               ),

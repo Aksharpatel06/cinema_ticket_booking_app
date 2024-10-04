@@ -262,7 +262,7 @@ class SessionsPage extends StatelessWidget {
                                     color: secondaryColor,
                                     thickness: 0.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   Text(
