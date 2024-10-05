@@ -1,6 +1,4 @@
-
 import 'dart:math';
-
 
 class Cinema {
   String cinema;
@@ -8,9 +6,8 @@ class Cinema {
   double km;
   double longitude;
   double latitude;
-  List<ShowTime> data=[];
-
-
+  List<ShowTime> data = [];
+  
   Cinema({
     required this.cinema,
     required this.area,
@@ -20,8 +17,9 @@ class Cinema {
     required this.data,
   });
 
-  factory Cinema.fromJson(Map json,double latitude,double longitude) {
-    List<ShowTime> showTimeDetails = (json['TimeAndPrize'] as List).map((e) => ShowTime.fromJson(e),).toList();
+  factory Cinema.fromJson(Map json, double latitude, double longitude) {
+    List<ShowTime> showTimeDetails = (json['TimeAndPrize'] as List).map((e) =>
+        ShowTime.fromJson(e),).toList();
     double km = calculateDistance(
       latitude,
       longitude,
@@ -31,7 +29,7 @@ class Cinema {
     return Cinema(
       cinema: json['cinema'],
       area: json['area'],
-      km: km??json['km'],
+      km: km ?? json['km'],
       longitude: json['longitude'],
       latitude: json['latitude'],
       data: showTimeDetails,
@@ -64,11 +62,12 @@ class Prize {
     required this.gold,
   });
 
-  factory Prize.fromJson(Map json) => Prize(
-    silver: json["silver"],
-    platinum: json["platinum"],
-    gold: json["gold"],
-  );
+  factory Prize.fromJson(Map json) =>
+      Prize(
+        silver: json["silver"],
+        platinum: json["platinum"],
+        gold: json["gold"],
+      );
 }
 
 double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
