@@ -202,7 +202,7 @@ class SessionsPage extends StatelessWidget {
                                     color: secondaryColor,
                                   ),
                                   Text(
-                                    '${locationCubit.cinemaList[index].km.toInt()} Km',
+                                    '${locationCubit.cinemaList[index].km.toStringAsFixed(1)} Km',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: secondaryColor,
