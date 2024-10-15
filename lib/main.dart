@@ -1,12 +1,12 @@
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/controller/locationCubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/controller/movieBloc/home_bloc.dart';
+import 'package:cinema_booking_app/view/controller/tab_controller.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeBloc(),
         ),
+        BlocProvider(
+          create: (context) => TabCubit(),
+        )
       ],
       child: ScreenUtilInit(
         designSize: Size(width, heigth),
