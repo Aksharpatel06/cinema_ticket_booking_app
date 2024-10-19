@@ -1,6 +1,5 @@
 import 'package:cinema_booking_app/view/controller/tabCubit/tab_cubit.dart';
 import 'package:cinema_booking_app/view/modal/movie_modal.dart';
-import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
