@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../controller/movieBloc/home_bloc.dart';
+import '../../controller/tabCubit/tab_cubit.dart';
 import 'about/about_page.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -24,7 +25,7 @@ class MovieDetails extends StatelessWidget {
           return DefaultTabController(
             length: 2,
             animationDuration: const Duration(milliseconds: 700),
-            initialIndex: 0,
+            initialIndex: context.read<TabCubit>().state.index,
             child: Scaffold(
               backgroundColor: backgroundColor,
               appBar: AppBar(

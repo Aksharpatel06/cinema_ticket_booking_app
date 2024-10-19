@@ -1,5 +1,8 @@
+import 'package:cinema_booking_app/view/controller/tabCubit/tab_cubit.dart';
 import 'package:cinema_booking_app/view/modal/movie_modal.dart';
+import 'package:cinema_booking_app/view/screen/details/movie_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/color.dart';
@@ -291,27 +294,32 @@ class AboutPage extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: Container(
-            width: double.infinity,
-            height: 88.h,
-            padding: EdgeInsets.all(16.h),
-            color: const Color(0xB21E283D),
+          child: GestureDetector(
+            onTap: () {
+              context.read<TabCubit>().changeTab();
+            },
             child: Container(
-              width: 343.h,
-              height: 56.h,
-              alignment: Alignment.center,
-              decoration: ShapeDecoration(
-                  gradient: buttonColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r)),
-                  shadows: buttonShadow),
-              child: const Text(
-                'Select session',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+              width: double.infinity,
+              height: 88.h,
+              padding: EdgeInsets.all(16.h),
+              color: const Color(0xB21E283D),
+              child: Container(
+                width: 343.h,
+                height: 56.h,
+                alignment: Alignment.center,
+                decoration: ShapeDecoration(
+                    gradient: buttonColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r)),
+                    shadows: buttonShadow),
+                child: const Text(
+                  'Select session',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),

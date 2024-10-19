@@ -25,9 +25,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthCodeSentState(id));
       } else {
         emit(AuthErrorState('Failed to send OTP'));
+        emit(AuthInitialState());
       }
     } catch (e) {
       emit(AuthErrorState(e.toString()));
+      emit(AuthInitialState());
     }
   }
 
@@ -38,8 +40,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await AuthenticationServices.authenticationServices
           .verifyOtpToState(event.otp, event.verificationId);
       emit(AuthOtpVerifiedActionState());
+      emit(AuthInitialState());
     } catch (e) {
       emit(AuthErrorState(e.toString()));
+      emit(AuthInitialState());
     }
   }
 
