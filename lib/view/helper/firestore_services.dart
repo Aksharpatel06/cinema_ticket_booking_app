@@ -7,6 +7,6 @@ class FireStoreServices{
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   void ticketBooking()
   {
-
+    // firebaseFirestore.collection('')
   }
 }
