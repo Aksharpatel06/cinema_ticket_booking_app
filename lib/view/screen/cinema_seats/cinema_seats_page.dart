@@ -1,13 +1,24 @@
 import 'dart:developer';
 import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
+import 'package:cinema_booking_app/view/modal/cinema_modal.dart';
+import 'package:cinema_booking_app/view/modal/movie_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/color.dart';
+import 'componects/category_row_details.dart';
 
 class CinemaSeatsPage extends StatelessWidget {
-  const CinemaSeatsPage({super.key});
+  const CinemaSeatsPage(
+      {super.key,
+      required this.cinema,
+      required this.movieModal,
+      required this.index});
+
+  final Cinema cinema;
+  final MovieModal movieModal;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +28,7 @@ class CinemaSeatsPage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 80,
         bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 50),
+          preferredSize: const Size(double.infinity, 50),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
@@ -29,7 +40,7 @@ class CinemaSeatsPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(color: secondaryColor, width: 0.8)),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
@@ -52,13 +63,14 @@ class CinemaSeatsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.access_time_filled,
                         color: secondaryColor,
                       ),
                       Text(
-                        '  15:10',
-                        style: TextStyle(fontSize: 16, color: primaryColor),
+                        cinema.data[index].time,
+                        style:
+                            const TextStyle(fontSize: 16, color: primaryColor),
                       )
                     ],
                   ),
@@ -67,21 +79,21 @@ class CinemaSeatsPage extends StatelessWidget {
             ),
           ),
         ),
-        leading: BackButton(
+        leading: const BackButton(
           color: secondaryColor,
         ),
         title: Column(
           children: [
             Text(
-              'Cinema Ticket',
-              style: TextStyle(
+              movieModal.movieName,
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                   fontSize: 18),
             ),
             Text(
-              'Cinema',
-              style: TextStyle(
+              movieModal.type,
+              style: const TextStyle(
                   color: secondaryColor,
                   fontWeight: FontWeight.w400,
                   fontSize: 16),
@@ -107,18 +119,29 @@ class CinemaSeatsPage extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: BlocConsumer<CinemaBookingBloc, CinemaBookingState>(
+                  child: BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
                     bloc: cinemaBookingBloc,
-                    listener: (context, state) {},
                     builder: (context, state) {
                       return Column(
                         children: [
-                          buildCategoryRow('Regular', 3, context,
-                              state.regularSeats, cinemaBookingBloc),
-                          buildCategoryRow('Gold', 5, context, state.goldSeats,
-                              cinemaBookingBloc),
-                          buildCategoryRow('Platinum', 1, context,
-                              state.platinumSeats, cinemaBookingBloc,
+                          CategoryRow(
+                              category: 'Regular',
+                              rowCount: 3,
+                              context: context,
+                              list: state.regularSeats,
+                              cinema: cinemaBookingBloc),
+                          CategoryRow(
+                              category: 'Gold',
+                              rowCount: 5,
+                              context: context,
+                              list: state.goldSeats,
+                              cinema: cinemaBookingBloc),
+                          CategoryRow(
+                              category: 'Platinum',
+                              rowCount: 1,
+                              context: context,
+                              list: state.platinumSeats,
+                              cinema: cinemaBookingBloc,
                               fullRow: true),
                         ],
                       );
@@ -137,100 +160,41 @@ class CinemaSeatsPage extends StatelessWidget {
                     state.regularSeats.where((seat) => seat).length +
                         state.goldSeats.where((seat) => seat).length +
                         state.platinumSeats.where((seat) => seat).length;
-                return FloatingActionButton.extended(
-                  onPressed: () {
-
-                  },
-                  label: Text(
-                      "Buy $totalSeats tickets in \$${calculateTotalPrice(state)}"),
+                return Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: double.infinity,
+                      height: 88.h,
+                      padding: EdgeInsets.all(16.h),
+                      color: const Color(0xB21E283D),
+                      child: Container(
+                        width: 343.h,
+                        height: 56.h,
+                        alignment: Alignment.center,
+                        decoration: ShapeDecoration(
+                            gradient: buttonColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.r)),
+                            shadows: buttonShadow),
+                        child: Text(
+                          'Buy $totalSeats tickets • \$ ${calculateTotalPrice(state)}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildCategoryRow(String category, int rowCount, BuildContext context,
-      List<bool> list, CinemaBookingBloc cinema,
-      {bool fullRow = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          '$category Seats (\$${category == 'Regular' ? 10 : category == 'Gold' ? 15 : 20})',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: primaryColor,
-          ),
-        ),
-        SizedBox(height: 8),
-        Column(
-            children: List.generate(rowCount, (rowIndex) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Row(
-              mainAxisAlignment: fullRow
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.spaceAround,
-              children: fullRow
-                  ? List.generate(11, (seatIndex) {
-                      return buildSeat(
-                          seatIndex, category, list, cinema, context);
-                    })
-                  : [
-                      ...List.generate(3, (seatIndex) {
-                        int index = rowIndex * 11 + seatIndex;
-                        return buildSeat(
-                            index, category, list, cinema, context);
-                      }),
-                      SizedBox(width: 30),
-                      ...List.generate(5, (seatIndex) {
-                        int index = rowIndex * 11 + seatIndex + 3;
-                        return buildSeat(
-                            index, category, list, cinema, context);
-                      }),
-                      SizedBox(width: 30),
-                      ...List.generate(3, (seatIndex) {
-                        int index = rowIndex * 11 + seatIndex + 8;
-                        return buildSeat(
-                            index, category, list, cinema, context);
-                      }),
-                    ],
-            ),
-          );
-        })),
-      ],
-    );
-  }
-
-  Widget buildSeat(int seatNum, String category, List<bool> list,
-      CinemaBookingBloc cinema, BuildContext context) {
-    bool isSelected = list[seatNum];
-    Color seatColor = isSelected ? appBarColor : Colors.grey.shade300;
-
-    return GestureDetector(
-      onTap: () {
-        log(seatNum.toString());
-        cinema.add(ToggleSeatSelection(seatNum, category));
-        log(seatNum.toString());
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          color: seatColor,
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: Colors.black26, width: 1),
-        ),
-        child: Icon(
-          Icons.chair,
-          color: isSelected ? Colors.white : Colors.black54,
-          size: 20,
-        ),
       ),
     );
   }
@@ -253,6 +217,8 @@ class CinemaSeatsPage extends StatelessWidget {
     return total;
   }
 }
+
+
 
 class CurvePainter extends CustomPainter {
   @override
@@ -280,3 +246,4 @@ class CurvePainter extends CustomPainter {
     return false;
   }
 }
+

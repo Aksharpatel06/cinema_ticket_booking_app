@@ -1,3 +1,4 @@
+import 'package:cinema_booking_app/view/modal/movie_modal.dart';
 import 'package:cinema_booking_app/view/screen/cinema_seats/cinema_seats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,10 @@ import '../../../controller/locationCubit/location_cubit.dart';
 class SessionsPage extends StatelessWidget {
   const SessionsPage({
     super.key,
+    required this.movieModal,
   });
+
+  final MovieModal movieModal;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +143,9 @@ class SessionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(width: 20.h,),
+              SizedBox(
+                width: 20.h,
+              ),
               Text(
                 'Gold',
                 textAlign: TextAlign.center,
@@ -236,7 +242,15 @@ class SessionsPage extends StatelessWidget {
                       locationCubit.cinemaList[index].data.length,
                       (index2) => GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CinemaSeatsPage(),));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CinemaSeatsPage(
+                                  cinema: locationCubit.cinemaList[index],
+                                  movieModal: movieModal,
+                                  index: index2,
+                                ),
+                              ));
                         },
                         child: Column(
                           children: [
@@ -246,14 +260,15 @@ class SessionsPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.h, vertical: 10.h),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                       width: 70.w,
                                       alignment: Alignment.center,
                                       child: Text(
-                                        locationCubit
-                                            .cinemaList[index].data[index2].time,
+                                        locationCubit.cinemaList[index]
+                                            .data[index2].time,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: primaryColor,
@@ -279,8 +294,8 @@ class SessionsPage extends StatelessWidget {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 30.h),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30.h),
                                       child: Text(
                                         '\$ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
                                         textAlign: TextAlign.center,

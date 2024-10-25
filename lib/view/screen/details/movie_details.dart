@@ -16,16 +16,18 @@ class MovieDetails extends StatefulWidget {
   _MovieDetailsState createState() => _MovieDetailsState();
 }
 
-class _MovieDetailsState extends State<MovieDetails> with SingleTickerProviderStateMixin {
+class _MovieDetailsState extends State<MovieDetails>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+        length: 2, vsync: this, animationDuration: Duration(milliseconds: 1500));
 
     context.read<TabCubit>().stream.listen((state) {
-      _tabController.animateTo(state.index);
+      _tabController.animateTo(state.index,duration: Duration(milliseconds: 1500));
     });
   }
 
@@ -66,7 +68,7 @@ class _MovieDetailsState extends State<MovieDetails> with SingleTickerProviderSt
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   AboutPage(modal: state.movieModal),
-                  const SessionsPage(),
+                  SessionsPage(movieModal: state.movieModal),
                 ],
               ),
             ),
