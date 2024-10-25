@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
 import 'package:cinema_booking_app/view/modal/cinema_modal.dart';
 import 'package:cinema_booking_app/view/modal/movie_modal.dart';
