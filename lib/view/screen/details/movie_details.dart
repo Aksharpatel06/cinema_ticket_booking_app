@@ -7,65 +7,67 @@ import '../../controller/movieBloc/home_bloc.dart';
 import '../../controller/tabCubit/tab_cubit.dart';
 import 'about/about_page.dart';
 
-class MovieDetails extends StatelessWidget {
-  const MovieDetails({
-    super.key,
-    required this.homeBloc,
-  });
+class MovieDetails extends StatefulWidget {
+  const MovieDetails({super.key, required this.homeBloc});
 
   final HomeBloc homeBloc;
+
+  @override
+  _MovieDetailsState createState() => _MovieDetailsState();
+}
+
+class _MovieDetailsState extends State<MovieDetails> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+
+    context.read<TabCubit>().stream.listen((state) {
+      _tabController.animateTo(state.index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {},
-      bloc: homeBloc,
+      bloc: widget.homeBloc,
       builder: (context, state) {
         if (state is HomeAdditionSuccessState) {
-          return DefaultTabController(
-            length: 2,
-            animationDuration: const Duration(milliseconds: 700),
-            initialIndex: context.read<TabCubit>().state.index,
-            child: Scaffold(
-              backgroundColor: backgroundColor,
-              appBar: AppBar(
-                backgroundColor: appBarColor,
-                leading: const BackButton(
-                  color: secondaryColor,
-                ),
-                centerTitle: true,
-                title: Text(
-                  state.movieModal.movieName,
-                  style: const TextStyle(color: primaryColor),
-                ),
-                bottom: const TabBar(
-                  indicatorColor: Color(0xFFFC6C19),
-                  labelColor: Color(0xFFFC6C19),
-                  labelStyle: TextStyle(
-                    shadows: buttonShadow,
-                  ),
-                  indicatorWeight: 3,
-                  unselectedLabelColor: secondaryColor,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: [
-                    Tab(
-                      text: 'About',
-                    ),
-                    Tab(
-                      text: 'Sessions',
-                    ),
-                  ],
-                ),
+          return Scaffold(
+            backgroundColor: backgroundColor,
+            appBar: AppBar(
+              backgroundColor: appBarColor,
+              leading: const BackButton(color: secondaryColor),
+              centerTitle: true,
+              title: Text(
+                state.movieModal.movieName,
+                style: const TextStyle(color: primaryColor),
               ),
-              body: SafeArea(
-                child: TabBarView(
-                  children: [
-                    AboutPage(
-                      modal: state.movieModal,
-                    ),
-                    const SessionsPage()
-                  ],
-                ),
+              bottom: TabBar(
+                controller: _tabController,
+                indicatorColor: const Color(0xFFFC6C19),
+                labelColor: const Color(0xFFFC6C19),
+                labelStyle: const TextStyle(shadows: buttonShadow),
+                indicatorWeight: 3,
+                unselectedLabelColor: secondaryColor,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: const [
+                  Tab(text: 'About'),
+                  Tab(text: 'Sessions'),
+                ],
+              ),
+            ),
+            body: SafeArea(
+              child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  AboutPage(modal: state.movieModal),
+                  const SessionsPage(),
+                ],
               ),
             ),
           );
@@ -73,5 +75,11 @@ class MovieDetails extends StatelessWidget {
         return const Scaffold();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }

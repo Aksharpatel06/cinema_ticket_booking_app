@@ -1,9 +1,15 @@
 part of 'tab_cubit.dart';
 
 class TabState extends Equatable{
-  int index;
+  final int index;
 
-  TabState({this.index=0});
+   TabState({required this.index});
+
+  TabState copyWith({int? index})
+  {
+    return TabState(index: index??this.index);
+  }
+
   @override
   List<Object?> get props => [index];
 }

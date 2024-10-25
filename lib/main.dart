@@ -1,6 +1,8 @@
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
+import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
 import 'package:cinema_booking_app/view/controller/locationCubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/controller/movieBloc/home_bloc.dart';
+import 'package:cinema_booking_app/view/screen/cinema_seats/cinema_seats_page.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -30,17 +32,20 @@ class MyApp extends StatelessWidget {
     final heigth = MediaQuery.sizeOf(context).height;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<LocationCubit>(
           create: (context) => LocationCubit()..initializeLocation(),
         ),
-        BlocProvider(
+        BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(),
         ),
-        BlocProvider(
+        BlocProvider<HomeBloc>(
           create: (context) => HomeBloc(),
         ),
-        BlocProvider(
+        BlocProvider<TabCubit>(
           create: (context) => TabCubit(),
+        ),
+        BlocProvider<CinemaBookingBloc>(
+          create: (context) => CinemaBookingBloc(),
         )
       ],
       child: ScreenUtilInit(
@@ -50,7 +55,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'Nunito'),
-          home: const SplashPage(),
+          home: CinemaSeatsPage(),
         ),
       ),
     );

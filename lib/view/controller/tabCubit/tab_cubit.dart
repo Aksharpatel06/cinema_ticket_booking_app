@@ -1,13 +1,16 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 
 part 'tab_state.dart';
 
 class TabCubit extends Cubit<TabState> {
-  TabCubit() : super(TabState());
-  void changeTab() {
-    emit(TabState(index: 1));
-  }
+  TabCubit() : super( TabState(index: 0));
 
+  void changeTab() {
+    int newIndex = (state.index + 1) % 2;
+    emit(state.copyWith(index: newIndex));
+    log('change tab');
+  }
 }

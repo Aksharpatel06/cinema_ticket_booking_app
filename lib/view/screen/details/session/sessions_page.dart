@@ -1,3 +1,4 @@
+import 'package:cinema_booking_app/view/screen/cinema_seats/cinema_seats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -233,52 +234,43 @@ class SessionsPage extends StatelessWidget {
                     Column(
                         children: List.generate(
                       locationCubit.cinemaList[index].data.length,
-                      (index2) => Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.h, vertical: 10.h),
-                              child: Row(
-
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    width: 70.w,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      locationCubit
-                                          .cinemaList[index].data[index2].time,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: primaryColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
+                      (index2) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CinemaSeatsPage(),));
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.h, vertical: 10.h),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      width: 70.w,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        locationCubit
+                                            .cinemaList[index].data[index2].time,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const VerticalDivider(
-                                    color: secondaryColor,
-                                    thickness: 0.5,
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    '\$ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    const VerticalDivider(
                                       color: secondaryColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w700,
+                                      thickness: 0.5,
                                     ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 30.h),
-                                    child: Text(
-                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: secondaryColor,
@@ -286,25 +278,38 @@ class SessionsPage extends StatelessWidget {
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    '\$ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: secondaryColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w700,
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 30.h),
+                                      child: Text(
+                                        '\$ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: secondaryColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: secondaryColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            color: secondaryColor,
-                            thickness: 0.5,
-                          ),
-                        ],
+                            const Divider(
+                              color: secondaryColor,
+                              thickness: 0.5,
+                            ),
+                          ],
+                        ),
                       ),
                     ))
                   ],
