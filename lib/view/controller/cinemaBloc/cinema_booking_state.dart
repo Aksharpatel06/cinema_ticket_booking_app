@@ -5,13 +5,15 @@ class CinemaBookingState extends Equatable {
   final List<bool> regularSeats;
   final List<bool> platinumSeats;
 
-  const CinemaBookingState({ required this.goldSeats,required this.regularSeats,required this.platinumSeats});
+  const CinemaBookingState(
+      {required this.goldSeats,
+      required this.regularSeats,
+      required this.platinumSeats});
 
   CinemaBookingState copyWith({
     List<bool>? goldSeats,
     List<bool>? regularSeats,
     List<bool>? platinumSeats,
-    Map<int, String>? seatCategory,
   }) {
     return CinemaBookingState(
       goldSeats: goldSeats ?? this.goldSeats,
@@ -21,6 +23,9 @@ class CinemaBookingState extends Equatable {
   }
 
   @override
-
-  List<Object?> get props => [goldSeats,platinumSeats,regularSeats,];
+  List<Object?> get props => [
+        goldSeats,
+        platinumSeats,
+        regularSeats,
+      ];
 }

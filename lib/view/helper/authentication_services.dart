@@ -64,6 +64,7 @@ class AuthenticationServices {
         smsCode: otp,
       );
       await _auth.signInWithCredential(credential);
+      currentUser();
 
     } catch (e) {
       throw FirebaseAuthException(

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/color.dart';
+import '../../../controller/datePickerCubit/date_picker_cubit.dart';
 import '../../../controller/locationCubit/location_cubit.dart';
 
 class SessionsPage extends StatelessWidget {
@@ -18,6 +19,7 @@ class SessionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LocationCubit locationCubit = context.read<LocationCubit>();
+    final DatePickerCubit datePickerCubit = context.read<DatePickerCubit>();
     return Column(
       children: [
         Container(
@@ -33,31 +35,80 @@ class SessionsPage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              SizedBox(
-                width: MediaQuery.sizeOf(context).width / 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    Icon(
-                      Icons.calendar_month,
-                      color: secondaryColor,
-                      size: 25.h,
-                    ),
-                    const Spacer(),
-                    Text(
-                      'Oct, ${DateTime.now().day}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                        height: 0.09,
+              GestureDetector(
+                onTap: () async {
+                  final pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    barrierColor: secondaryColor,
+                    lastDate: DateTime(2024, DateTime.november, 5),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: appBarColor, // Header background color
+                            onPrimary: primaryColor,
+                            onSurface: backgroundColor,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: secondaryColor, // Button text color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
+                  if (pickedDate != null) {
+                    datePickerCubit.pickDate(pickedDate);
+                  }
+                },
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width / 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      Icon(
+                        Icons.calendar_month,
+                        color: secondaryColor,
+                        size: 25.h,
                       ),
-                    ),
-                    const Spacer(),
-                  ],
+                      const Spacer(),
+                      BlocBuilder<DatePickerCubit, DateTime>(
+                        bloc: datePickerCubit,
+                        builder: (context, state) {
+                          String intToMonthString(int month) {
+                            const monthNames = [
+                              "Jan", "Feb", "March", "April", "May", "June",
+                              "July", "Aug", "Sept", "Oct", "Nov", "Dec"
+                            ];
+
+                            // Adjust for zero-based index
+                            if (month < 1 || month > 12) {
+                              return "Invalid month";
+                            }
+                            return monthNames[month - 1];
+                          }
+
+                          return Text(
+                            '${intToMonthString(state.month)}, ${state.day}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              height: 0.09,
+                            ),
+                          );
+                        },
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -249,6 +300,8 @@ class SessionsPage extends StatelessWidget {
                                   cinema: locationCubit.cinemaList[index],
                                   movieModal: movieModal,
                                   index: index2,
+                                  dateTime: datePickerCubit.state,
+                                  prize: locationCubit.cinemaList[index].data[index2].prize,
                                 ),
                               ));
                         },
@@ -285,7 +338,7 @@ class SessionsPage extends StatelessWidget {
                                       width: 20,
                                     ),
                                     Text(
-                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
+                                      '₹ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: secondaryColor,
@@ -297,7 +350,7 @@ class SessionsPage extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 30.h),
                                       child: Text(
-                                        '\$ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
+                                        '₹ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: secondaryColor,
@@ -307,7 +360,7 @@ class SessionsPage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '\$ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
+                                      '₹ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: secondaryColor,

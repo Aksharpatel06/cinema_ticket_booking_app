@@ -31,6 +31,7 @@ class _MovieDetailsState extends State<MovieDetails>
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(

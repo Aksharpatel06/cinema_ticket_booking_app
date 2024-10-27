@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
 import 'package:cinema_booking_app/view/modal/cinema_modal.dart';
+import 'package:cinema_booking_app/view/modal/cinema_user_modal.dart';
 import 'package:cinema_booking_app/view/modal/movie_modal.dart';
+import 'package:cinema_booking_app/view/screen/payment/payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,11 +17,15 @@ class CinemaSeatsPage extends StatelessWidget {
       {super.key,
       required this.cinema,
       required this.movieModal,
-      required this.index});
+      required this.prize,
+      required this.index,
+      required this.dateTime});
 
   final Cinema cinema;
   final MovieModal movieModal;
   final int index;
+  final DateTime dateTime;
+  final Prize prize;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +47,17 @@ class CinemaSeatsPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(color: secondaryColor, width: 0.8)),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month,
                         color: secondaryColor,
                       ),
                       Text(
-                        '  April 14',
-                        style: TextStyle(fontSize: 16, color: primaryColor),
+                        '${intToMonthString(dateTime.month)}, ${dateTime.day}',
+                        style:
+                            const TextStyle(fontSize: 16, color: primaryColor),
                       )
                     ],
                   ),
@@ -102,67 +111,104 @@ class CinemaSeatsPage extends StatelessWidget {
         backgroundColor: appBarColor,
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomPaint(
-            painter: CurvePainter(),
-            child: Container(
-              height: 100,
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
-                    bloc: cinemaBookingBloc,
-                    builder: (context, state) {
-                      return Column(
+      body: BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
+        bloc: cinemaBookingBloc,
+        builder: (context, state) {
+          int totalSeats = state.regularSeats.where((seat) => seat).length +
+              state.goldSeats.where((seat) => seat).length +
+              state.platinumSeats.where((seat) => seat).length;
+          List<CinemaUserModal> userBookingRegularModal =[];
+          List<CinemaUserModal> userBookingGoldModal =[];
+          List<CinemaUserModal> userBookingPlatinumModal =[];
+          for (int i = 0; i < state.regularSeats.length; i++) {
+            if (state.regularSeats[i]) {
+              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Regular', index: i, value: true,amount: prize.silver);
+              userBookingRegularModal.add(cinemaUserModal);
+            }
+          }
+          for (int i = 0; i < state.goldSeats.length; i++) {
+            if (state.goldSeats[i]) {
+              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Gold', index: i, value: true,amount: prize.platinum);
+              userBookingGoldModal.add(cinemaUserModal);
+            }
+          }
+
+          for (int i = 0; i < state.platinumSeats.length; i++) {
+            if (state.platinumSeats[i]) {
+              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Platinum', index: i, value: true,amount: prize.gold);
+              userBookingPlatinumModal.add(cinemaUserModal);
+            }
+          }
+          List<List<CinemaUserModal>> data =[
+            userBookingRegularModal,
+            userBookingGoldModal,
+            userBookingPlatinumModal,
+          ];
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomPaint(
+                painter: CurvePainter(),
+                child: Container(
+                  height: 100,
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
                         children: [
                           CategoryRow(
                               category: 'Regular',
+                              prize: prize,
                               rowCount: 3,
                               context: context,
                               list: state.regularSeats,
                               cinema: cinemaBookingBloc),
                           CategoryRow(
                               category: 'Gold',
+                              prize: prize,
                               rowCount: 5,
                               context: context,
                               list: state.goldSeats,
                               cinema: cinemaBookingBloc),
                           CategoryRow(
                               category: 'Platinum',
+                              prize: prize,
                               rowCount: 1,
                               context: context,
                               list: state.platinumSeats,
                               cinema: cinemaBookingBloc,
                               fullRow: true),
                         ],
-                      );
-                    },
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
-              bloc: cinemaBookingBloc,
-              builder: (context, state) {
-                int totalSeats =
-                    state.regularSeats.where((seat) => seat).length +
-                        state.goldSeats.where((seat) => seat).length +
-                        state.platinumSeats.where((seat) => seat).length;
-                return Align(
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentScreen(
+                                cinema: cinema,
+                                dataList: data,
+                                total: calculateTotalPrice(state, prize),
+                                movieModal: movieModal,
+                                index: index,
+                                cinemaTiming:cinema.data[index].time ,
+                                dateTime: dateTime),
+                          ));
+                    },
                     child: Container(
                       width: double.infinity,
                       height: 88.h,
@@ -178,7 +224,7 @@ class CinemaSeatsPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8.r)),
                             shadows: buttonShadow),
                         child: Text(
-                          'Buy $totalSeats tickets • \$ ${calculateTotalPrice(state)}',
+                          'Buy $totalSeats tickets • \$ ${calculateTotalPrice(state, prize)}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: primaryColor,
@@ -189,35 +235,56 @@ class CinemaSeatsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  int calculateTotalPrice(CinemaBookingState state) {
+  String intToMonthString(int month) {
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+
+    // Adjust for zero-based index
+    if (month < 1 || month > 12) {
+      return "Invalid month";
+    }
+    return monthNames[month - 1];
+  }
+
+  int calculateTotalPrice(CinemaBookingState state, Prize prize) {
     int total = 0;
 
     for (int i = 0; i < state.regularSeats.length; i++) {
-      if (state.regularSeats[i]) total += 10;
+      if (state.regularSeats[i]) total += prize.silver;
     }
 
     for (int i = 0; i < state.goldSeats.length; i++) {
-      if (state.goldSeats[i]) total += 15;
+      if (state.goldSeats[i]) total += prize.platinum;
     }
 
     for (int i = 0; i < state.platinumSeats.length; i++) {
-      if (state.platinumSeats[i]) total += 20;
+      if (state.platinumSeats[i]) total += prize.gold;
     }
 
     return total;
   }
 }
-
-
 
 class CurvePainter extends CustomPainter {
   @override
@@ -245,4 +312,3 @@ class CurvePainter extends CustomPainter {
     return false;
   }
 }
-

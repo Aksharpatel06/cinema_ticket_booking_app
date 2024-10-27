@@ -1,8 +1,8 @@
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
+import 'package:cinema_booking_app/view/controller/datePickerCubit/date_picker_cubit.dart';
 import 'package:cinema_booking_app/view/controller/locationCubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/controller/movieBloc/home_bloc.dart';
-import 'package:cinema_booking_app/view/screen/payment/payment_page.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -46,7 +46,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<CinemaBookingBloc>(
           create: (context) => CinemaBookingBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => DatePickerCubit(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: Size(width, heigth),
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'Nunito'),
-          home: PaymentScreen(),
+          home: SplashPage(),
         ),
       ),
     );

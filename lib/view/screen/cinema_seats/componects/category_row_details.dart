@@ -1,8 +1,10 @@
+import 'package:cinema_booking_app/view/modal/cinema_user_modal.dart';
 import 'package:cinema_booking_app/view/screen/cinema_seats/componects/person_seat.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/color.dart';
 import '../../../controller/cinemaBloc/cinema_booking_bloc.dart';
+import '../../../modal/cinema_modal.dart';
 
 class CategoryRow extends StatelessWidget {
   const CategoryRow({
@@ -12,6 +14,7 @@ class CategoryRow extends StatelessWidget {
     required this.list,
     required this.context,
     required this.rowCount,
+    required this.prize,
     this.fullRow = false,
   });
 
@@ -21,6 +24,7 @@ class CategoryRow extends StatelessWidget {
   final List<bool> list;
   final CinemaBookingBloc cinema;
   final bool fullRow;
+  final Prize prize;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class CategoryRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '$category Seats (\$${category == 'Regular' ? 10 : category == 'Gold' ? 15 : 20})',
+          '$category Seats (\$${category == 'Regular' ? prize.silver : category == 'Gold' ? prize.platinum : prize.gold})',
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

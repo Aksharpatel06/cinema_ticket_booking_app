@@ -53,20 +53,20 @@ class ShowTime {
 
 class Prize {
   final int silver;
-  final int platinum;
   final int gold;
+  final int platinum;
 
   Prize({
     required this.silver,
-    required this.platinum,
     required this.gold,
+    required this.platinum,
   });
 
   factory Prize.fromJson(Map json) =>
       Prize(
         silver: json["silver"],
-        platinum: json["platinum"],
         gold: json["gold"],
+        platinum: json["platinum"],
       );
 }
 
