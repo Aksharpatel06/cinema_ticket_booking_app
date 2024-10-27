@@ -3,6 +3,7 @@ import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_blo
 import 'package:cinema_booking_app/view/controller/datePickerCubit/date_picker_cubit.dart';
 import 'package:cinema_booking_app/view/controller/locationCubit/location_cubit.dart';
 import 'package:cinema_booking_app/view/controller/movieBloc/home_bloc.dart';
+import 'package:cinema_booking_app/view/controller/payment_cubit.dart';
 import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -47,8 +48,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<CinemaBookingBloc>(
           create: (context) => CinemaBookingBloc(),
         ),
-        BlocProvider(
+        BlocProvider<DatePickerCubit>(
           create: (context) => DatePickerCubit(),
+        ),
+        BlocProvider<PaymentCubit>(
+          create: (context) => PaymentCubit()..checkAuthentication(),
         ),
       ],
       child: ScreenUtilInit(

@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:cinema_booking_app/view/controller/cinemaBloc/cinema_booking_bloc.dart';
+import 'package:cinema_booking_app/view/helper/firestore_services.dart';
 import 'package:cinema_booking_app/view/modal/cinema_modal.dart';
 import 'package:cinema_booking_app/view/modal/cinema_user_modal.dart';
 import 'package:cinema_booking_app/view/modal/movie_modal.dart';
 import 'package:cinema_booking_app/view/screen/payment/payment_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,6 +30,8 @@ class CinemaSeatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CinemaBookingBloc cinemaBookingBloc = CinemaBookingBloc();
+    String code =
+        '${movieModal.movieName}${cinema.cinema}${dateTime.day}${dateTime.month}${cinema.data[index].time}';
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -111,133 +113,135 @@ class CinemaSeatsPage extends StatelessWidget {
         backgroundColor: appBarColor,
         centerTitle: true,
       ),
-      body: BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
-        bloc: cinemaBookingBloc,
-        builder: (context, state) {
-          int totalSeats = state.regularSeats.where((seat) => seat).length +
-              state.goldSeats.where((seat) => seat).length +
-              state.platinumSeats.where((seat) => seat).length;
-          List<CinemaUserModal> userBookingRegularModal =[];
-          List<CinemaUserModal> userBookingGoldModal =[];
-          List<CinemaUserModal> userBookingPlatinumModal =[];
-          for (int i = 0; i < state.regularSeats.length; i++) {
-            if (state.regularSeats[i]) {
-              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Regular', index: i, value: true,amount: prize.silver);
-              userBookingRegularModal.add(cinemaUserModal);
-            }
-          }
-          for (int i = 0; i < state.goldSeats.length; i++) {
-            if (state.goldSeats[i]) {
-              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Gold', index: i, value: true,amount: prize.platinum);
-              userBookingGoldModal.add(cinemaUserModal);
-            }
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FireStoreServices.fireStoreServices.seatsDataGet(code),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("Waiting for data...");
+          } else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
           }
 
-          for (int i = 0; i < state.platinumSeats.length; i++) {
-            if (state.platinumSeats[i]) {
-              CinemaUserModal cinemaUserModal = CinemaUserModal(category: 'Platinum', index: i, value: true,amount: prize.gold);
-              userBookingPlatinumModal.add(cinemaUserModal);
-            }
-          }
-          List<List<CinemaUserModal>> data =[
-            userBookingRegularModal,
-            userBookingGoldModal,
-            userBookingPlatinumModal,
-          ];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomPaint(
-                painter: CurvePainter(),
-                child: Container(
-                  height: 100,
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        children: [
-                          CategoryRow(
-                              category: 'Regular',
-                              prize: prize,
-                              rowCount: 3,
-                              context: context,
-                              list: state.regularSeats,
-                              cinema: cinemaBookingBloc),
-                          CategoryRow(
-                              category: 'Gold',
-                              prize: prize,
-                              rowCount: 5,
-                              context: context,
-                              list: state.goldSeats,
-                              cinema: cinemaBookingBloc),
-                          CategoryRow(
-                              category: 'Platinum',
-                              prize: prize,
-                              rowCount: 1,
-                              context: context,
-                              list: state.platinumSeats,
-                              cinema: cinemaBookingBloc,
-                              fullRow: true),
-                        ],
-                      ),
+          List<CinemaUserModal> cinemaSeatsList = snapshot.data!.docs
+              .map(
+                (e) => CinemaUserModal.fromJson(e.data() as Map),
+              )
+              .toList();
+
+          return BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
+            bloc: cinemaBookingBloc,
+            builder: (context, state) {
+              int totalSeats = state.regularSeats.where((seat) => seat).length +
+                  state.goldSeats.where((seat) => seat).length +
+                  state.platinumSeats.where((seat) => seat).length;
+
+              for (int i = 0; i < cinemaSeatsList.length; i++) {
+                if (cinemaSeatsList[i].category == 'Gold') {
+                  state.goldSeats[cinemaSeatsList[i].index]=true;
+                } else if (cinemaSeatsList[i].category == 'Regular') {
+                  state.regularSeats[cinemaSeatsList[i].index]=true;
+                } else if (cinemaSeatsList[i].category == 'Platinum') {
+                  state.platinumSeats[cinemaSeatsList[i].index]=true;
+                }
+              }
+
+              List<List<CinemaUserModal>> data = listConvert(state);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomPaint(
+                    painter: CurvePainter(),
+                    child: Container(
+                      height: 100,
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PaymentScreen(
-                                cinema: cinema,
-                                dataList: data,
-                                total: calculateTotalPrice(state, prize),
-                                movieModal: movieModal,
-                                index: index,
-                                cinemaTiming:cinema.data[index].time ,
-                                dateTime: dateTime),
-                          ));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 88.h,
-                      padding: EdgeInsets.all(16.h),
-                      color: const Color(0xB21E283D),
-                      child: Container(
-                        width: 343.h,
-                        height: 56.h,
-                        alignment: Alignment.center,
-                        decoration: ShapeDecoration(
-                            gradient: buttonColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r)),
-                            shadows: buttonShadow),
-                        child: Text(
-                          'Buy $totalSeats tickets • \$ ${calculateTotalPrice(state, prize)}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: primaryColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              CategoryRow(
+                                  category: 'Regular',
+                                  prize: prize,
+                                  rowCount: 3,
+                                  context: context,
+                                  list: state.regularSeats,
+                                  cinema: cinemaBookingBloc),
+                              CategoryRow(
+                                  category: 'Gold',
+                                  prize: prize,
+                                  rowCount: 5,
+                                  context: context,
+                                  list: state.goldSeats,
+                                  cinema: cinemaBookingBloc),
+                              CategoryRow(
+                                  category: 'Platinum',
+                                  prize: prize,
+                                  rowCount: 1,
+                                  context: context,
+                                  list: state.platinumSeats,
+                                  cinema: cinemaBookingBloc,
+                                  fullRow: true),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentScreen(
+                                    cinema: cinema,
+                                    dataList: data,
+                                    total: calculateTotalPrice(state, prize),
+                                    movieModal: movieModal,
+                                    index: index,
+                                    cinemaTiming: cinema.data[index].time,
+                                    dateTime: dateTime),
+                              ));
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 88.h,
+                          padding: EdgeInsets.all(16.h),
+                          color: const Color(0xB21E283D),
+                          child: Container(
+                            width: 343.h,
+                            height: 56.h,
+                            alignment: Alignment.center,
+                            decoration: ShapeDecoration(
+                                gradient: buttonColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r)),
+                                shadows: buttonShadow),
+                            child: Text(
+                              'Buy $totalSeats tickets • \$ ${calculateTotalPrice(state, prize)}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: primaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           );
         },
       ),
@@ -283,6 +287,41 @@ class CinemaSeatsPage extends StatelessWidget {
     }
 
     return total;
+  }
+
+  List<List<CinemaUserModal>> listConvert(CinemaBookingState state) {
+    List<CinemaUserModal> userBookingRegularModal = [];
+    List<CinemaUserModal> userBookingGoldModal = [];
+    List<CinemaUserModal> userBookingPlatinumModal = [];
+    for (int i = 0; i < state.regularSeats.length; i++) {
+      if (state.regularSeats[i]) {
+        CinemaUserModal cinemaUserModal = CinemaUserModal(
+            category: 'Regular', index: i, value: true, amount: prize.silver);
+        userBookingRegularModal.add(cinemaUserModal);
+      }
+    }
+    for (int i = 0; i < state.goldSeats.length; i++) {
+      if (state.goldSeats[i]) {
+        CinemaUserModal cinemaUserModal = CinemaUserModal(
+            category: 'Gold', index: i, value: true, amount: prize.platinum);
+        userBookingGoldModal.add(cinemaUserModal);
+      }
+    }
+
+    for (int i = 0; i < state.platinumSeats.length; i++) {
+      if (state.platinumSeats[i]) {
+        CinemaUserModal cinemaUserModal = CinemaUserModal(
+            category: 'Platinum', index: i, value: true, amount: prize.gold);
+        userBookingPlatinumModal.add(cinemaUserModal);
+      }
+    }
+    List<List<CinemaUserModal>> data = [
+      userBookingRegularModal,
+      userBookingGoldModal,
+      userBookingPlatinumModal,
+    ];
+
+    return data;
   }
 }
 

@@ -33,4 +33,13 @@ class FireStoreServices {
         .collection('user booking')
         .add(cinema.toMap());
   }
+
+
+  Stream<QuerySnapshot> seatsDataGet(String code)
+  {
+    CollectionReference collectionReference =
+    firebaseFirestore.collection('cinema');
+    return collectionReference.doc(code)
+        .collection('seats').snapshots();
+  }
 }
