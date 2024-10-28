@@ -133,17 +133,18 @@ class CinemaSeatsPage extends StatelessWidget {
           return BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
             bloc: cinemaBookingBloc,
             builder: (context, state) {
-              int totalSeats = state.regularSeats.where((seat) => seat.value).length +
-                  state.goldSeats.where((seat) => seat.value).length +
-                  state.platinumSeats.where((seat) => seat.value).length;
+              int totalSeats = state.totalSeats.length;
 
               for (int i = 0; i < cinemaSeatsList.length; i++) {
                 if (cinemaSeatsList[i].category == 'Gold') {
-                  state.goldSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
+                  state.goldSeats[cinemaSeatsList[i].index] =
+                      cinemaSeatsList[i];
                 } else if (cinemaSeatsList[i].category == 'Regular') {
-                  state.regularSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
+                  state.regularSeats[cinemaSeatsList[i].index] =
+                      cinemaSeatsList[i];
                 } else if (cinemaSeatsList[i].category == 'Platinum') {
-                  state.platinumSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
+                  state.platinumSeats[cinemaSeatsList[i].index] =
+                      cinemaSeatsList[i];
                 }
               }
 
@@ -206,7 +207,7 @@ class CinemaSeatsPage extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => PaymentScreen(
                                     cinema: cinema,
-                                    dataList: data,
+                                    dataList: state.totalSeats,
                                     total: calculateTotalPrice(state, prize),
                                     movieModal: movieModal,
                                     index: index,
@@ -277,17 +278,17 @@ class CinemaSeatsPage extends StatelessWidget {
   int calculateTotalPrice(CinemaBookingState state, Prize prize) {
     int total = 0;
 
-    for (int i = 0; i < state.regularSeats.length; i++) {
-      if (state.regularSeats[i].value) total += prize.silver;
-    }
+    for(int i=0;i<state.totalSeats.length;i++)
+      {
+        if (state.totalSeats[i].category == 'Gold') {
+          total+=prize.platinum;
+        } else if (state.totalSeats[i].category == 'Regular') {
+          total+=prize.silver;
+        } else if (state.totalSeats[i].category == 'Platinum') {
+          total+=prize.gold;
+        }
+      }
 
-    for (int i = 0; i < state.goldSeats.length; i++) {
-      if (state.goldSeats[i].value) total += prize.platinum;
-    }
-
-    for (int i = 0; i < state.platinumSeats.length; i++) {
-      if (state.platinumSeats[i].value) total += prize.gold;
-    }
 
     return total;
   }

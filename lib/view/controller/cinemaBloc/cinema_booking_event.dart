@@ -15,3 +15,4 @@ class ToggleSeatSelection extends CinemaBookingEvent {
   @override
   List<Object?> get props => [seatIndex,category];
 }
+

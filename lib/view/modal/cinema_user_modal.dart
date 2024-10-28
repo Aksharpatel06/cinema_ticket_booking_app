@@ -28,6 +28,18 @@ class CinemaUserModal {
         value: json['is_booking']);
   }
 
+  CinemaUserModal copyWith({
+    String? category,
+    int? index,
+    bool? value,
+  }) {
+    return CinemaUserModal(
+      category: category ?? this.category,
+      index: index ?? this.index,
+      value: value ?? this.value,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'user': user,

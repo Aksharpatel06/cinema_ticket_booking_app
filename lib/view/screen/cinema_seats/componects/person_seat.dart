@@ -31,7 +31,10 @@ class CategorySeat extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         log('me');
-        cinema.add(ToggleSeatSelection(seatNum, category));
+        if(list[seatNum].category==category && list[seatNum].index==seatNum && list[seatNum].user==null)
+          {
+            cinema.add(ToggleSeatSelection(seatNum, category));
+          }
         log('me');
       },
 

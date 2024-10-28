@@ -31,7 +31,7 @@ class PaymentScreen extends StatefulWidget {
   final int index;
   final DateTime dateTime;
   final int total;
-  final List<List<CinemaUserModal>> dataList;
+  final List<CinemaUserModal> dataList;
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -44,15 +44,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
     List<String> regularIndices = [];
     List<String> platinumIndices = [];
 
-    for (List<CinemaUserModal> data in widget.dataList) {
-      for (CinemaUserModal data in data) {
-        if (data.category == 'Gold') {
-          goldIndices.add(data.index.toString());
-        } else if (data.category == 'Regular') {
-          regularIndices.add(data.index.toString());
-        } else if (data.category == 'Platinum') {
-          platinumIndices.add(data.index.toString());
-        }
+    for (CinemaUserModal data in widget.dataList) {
+      if (data.category == 'Gold') {
+        goldIndices.add(data.index.toString());
+      } else if (data.category == 'Regular') {
+        regularIndices.add(data.index.toString());
+      } else if (data.category == 'Platinum') {
+        platinumIndices.add(data.index.toString());
       }
     }
     String code =
@@ -220,28 +218,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         onTap: () async {
                           log(code);
                           if (widget.dataList.isNotEmpty) {
-                            for (List<CinemaUserModal> cinemaList
-                                in widget.dataList) {
-                              for (CinemaUserModal cinema in cinemaList) {
-                                cinema.user = AuthenticationServices
-                                    .authenticationServices
-                                    .currentUser()!
-                                    .phoneNumber;
-                                FireStoreServices.fireStoreServices.ticketBooking(
-                                    code,
-                                    '${cinema.category}${cinema.index}',
-                                    cinema);
-                                cinema.time = widget.cinemaTiming;
-                                cinema.area = widget.cinema.area;
-                                cinema.cinema = widget.cinema.cinema;
-                                cinema.movie = widget.movieModal.movieName;
-                                cinema.date =
-                                    "${widget.dateTime.day}/${widget.dateTime.month}/${widget.dateTime.year}";
-                                cinema.imgPath=widget.movieModal.image;
-                                FireStoreServices.fireStoreServices
-                                    .userTicketBooking(cinema);
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage(),));
-                              }
+                            for (CinemaUserModal cinema in widget.dataList) {
+                              cinema.user = AuthenticationServices
+                                  .authenticationServices
+                                  .currentUser()!
+                                  .phoneNumber;
+                              FireStoreServices.fireStoreServices.ticketBooking(
+                                  code,
+                                  '${cinema.category}${cinema.index}',
+                                  cinema);
+                              cinema.time = widget.cinemaTiming;
+                              cinema.area = widget.cinema.area;
+                              cinema.cinema = widget.cinema.cinema;
+                              cinema.movie = widget.movieModal.movieName;
+                              cinema.date =
+                                  "${widget.dateTime.day}/${widget.dateTime.month}/${widget.dateTime.year}";
+                              cinema.imgPath = widget.movieModal.image;
+                              FireStoreServices.fireStoreServices
+                                  .userTicketBooking(cinema);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProfilePage(),
+                              ));
                             }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

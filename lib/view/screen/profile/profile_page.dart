@@ -20,11 +20,11 @@ class ProfilePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ));
           },
         ),
-        title: Text(
+        title: const Text(
           'Profile',
           style: TextStyle(color: secondaryColor),
         ),
@@ -34,7 +34,7 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 AuthenticationServices.authenticationServices.signOut();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
                 color: secondaryColor,
               ))
@@ -57,7 +57,7 @@ Widget _buildSavedCardsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Saved cards',
           style: TextStyle(
             color: secondaryColor,
@@ -65,7 +65,7 @@ Widget _buildSavedCardsSection() {
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         _buildAddCardButton(),
       ],
     ),
@@ -76,7 +76,7 @@ Widget _buildCardItem(String cardNumber, String expiryDate) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
-      color: Color(0xFF1E283D),
+      color: const Color(0xFF1E283D),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
@@ -84,13 +84,13 @@ Widget _buildCardItem(String cardNumber, String expiryDate) {
         Container(
           width: 40,
           height: 40,
-          child: FlutterLogo(),
+          child: const FlutterLogo(),
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         Expanded(
           child: Text(
             cardNumber,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 14,
             ),
@@ -98,7 +98,7 @@ Widget _buildCardItem(String cardNumber, String expiryDate) {
         ),
         Text(
           expiryDate,
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xFF637393),
             fontSize: 14,
           ),
@@ -112,10 +112,10 @@ Widget _buildAddCardButton() {
   return Container(
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
-      border: Border.all(color: Color(0x196D9DFF)),
+      border: Border.all(color: const Color(0x196D9DFF)),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Center(
+    child: const Center(
       child: Text(
         'Add new card',
         style: TextStyle(
@@ -134,7 +134,7 @@ Widget _buildPaymentsHistorySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Payments history',
           style: TextStyle(
             color: Color(0xFF637393),
@@ -142,7 +142,7 @@ Widget _buildPaymentsHistorySection() {
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         StreamBuilder(
           stream: FireStoreServices.fireStoreServices.userGetTicketBooking(),
           builder: (context, snapshot) {
@@ -150,38 +150,45 @@ Widget _buildPaymentsHistorySection() {
               return const Center(child: CircularProgressIndicator());
             }
             if (!snapshot.hasData) {
-              return const Center(child: Text('No payment history', style: TextStyle(color: Colors.white)));
+              return const Center(
+                  child: Text('No payment history',
+                      style: TextStyle(color: Colors.white)));
             }
             if (snapshot.hasError) {
-              return const Center(child: Text('Error', style: TextStyle(color: Colors.white)));
+              return const Center(
+                  child: Text('Error', style: TextStyle(color: Colors.white)));
             }
             List<CinemaUserModal> cinemaSeatsList = snapshot.data!.docs
                 .map(
                   (e) => CinemaUserModal.fromJson(e.data() as Map),
-            )
+                )
                 .toList();
 
-            return ListView.builder(itemBuilder: (context, index) {
-              return _buildPaymentHistoryItem(
-                cinemaSeatsList[index].movie!,
-                '${cinemaSeatsList[index].date}, ${cinemaSeatsList[index].time}',
-                '${cinemaSeatsList[index].cinema}',
-                '${cinemaSeatsList[index].imgPath}',
-              );
-            },);
-          },)
-
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: cinemaSeatsList.length,
+              itemBuilder: (context, index) {
+                return _buildPaymentHistoryItem(
+                  cinemaSeatsList[index].movie!,
+                  '${cinemaSeatsList[index].date}, ${cinemaSeatsList[index].time}',
+                  '${cinemaSeatsList[index].cinema}',
+                  '${cinemaSeatsList[index].imgPath}',
+                );
+              },
+            );
+          },
+        )
       ],
     ),
   );
 }
 
-Widget _buildPaymentHistoryItem(String title, String date, String location,
-    String imageUrl) {
+Widget _buildPaymentHistoryItem(
+    String title, String date, String location, String imageUrl) {
   return Container(
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
-      color: Color(0xFF1E283D),
+      color: const Color(0xFF1E283D),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
@@ -197,31 +204,31 @@ Widget _buildPaymentHistoryItem(String title, String date, String location,
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 date,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 location,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF637393),
                   fontSize: 14,
                 ),
