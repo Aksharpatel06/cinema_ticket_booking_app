@@ -78,8 +78,8 @@ class AuthenticationServices {
     return _auth.currentUser;
   }
 
-  Future<void> signOut() async {
-    await _auth.signOut();
+  void signOut()  {
+     _auth.signOut();
   }
 }
 

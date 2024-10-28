@@ -1,9 +1,9 @@
 part of 'cinema_booking_bloc.dart';
 
 class CinemaBookingState extends Equatable {
-  final List<bool> goldSeats;
-  final List<bool> regularSeats;
-  final List<bool> platinumSeats;
+  final List<CinemaUserModal> goldSeats;
+  final List<CinemaUserModal> regularSeats;
+  final List<CinemaUserModal> platinumSeats;
 
   const CinemaBookingState(
       {required this.goldSeats,
@@ -11,9 +11,9 @@ class CinemaBookingState extends Equatable {
       required this.platinumSeats});
 
   CinemaBookingState copyWith({
-    List<bool>? goldSeats,
-    List<bool>? regularSeats,
-    List<bool>? platinumSeats,
+    List<CinemaUserModal>? goldSeats,
+    List<CinemaUserModal>? regularSeats,
+    List<CinemaUserModal>? platinumSeats,
   }) {
     return CinemaBookingState(
       goldSeats: goldSeats ?? this.goldSeats,

@@ -21,7 +21,7 @@ class CategoryRow extends StatelessWidget {
   final String category;
   final int rowCount;
   final BuildContext context;
-  final List<bool> list;
+  final List<CinemaUserModal> list;
   final CinemaBookingBloc cinema;
   final bool fullRow;
   final Prize prize;

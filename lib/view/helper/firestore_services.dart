@@ -42,4 +42,14 @@ class FireStoreServices {
     return collectionReference.doc(code)
         .collection('seats').snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> userGetTicketBooking() {
+    return firebaseFirestore
+        .collection('user')
+        .doc(AuthenticationServices.authenticationServices
+        .currentUser()!
+        .phoneNumber)
+        .collection('user booking')
+        .snapshots();
+  }
 }

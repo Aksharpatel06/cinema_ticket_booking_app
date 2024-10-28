@@ -19,13 +19,13 @@ class CategorySeat extends StatelessWidget {
 
   final int seatNum;
   final String category;
-  final List<bool> list;
+  final List<CinemaUserModal> list;
   final CinemaBookingBloc cinema;
   final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
-    bool isSelected = list[seatNum];
+    bool isSelected = list[seatNum].value;
     Color seatColor = isSelected ? appBarColor : Colors.grey.shade300;
 
     return GestureDetector(

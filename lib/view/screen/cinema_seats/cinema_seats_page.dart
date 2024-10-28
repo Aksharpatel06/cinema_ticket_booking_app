@@ -117,7 +117,9 @@ class CinemaSeatsPage extends StatelessWidget {
         stream: FireStoreServices.fireStoreServices.seatsDataGet(code),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Waiting for data...");
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
           }
@@ -131,17 +133,17 @@ class CinemaSeatsPage extends StatelessWidget {
           return BlocBuilder<CinemaBookingBloc, CinemaBookingState>(
             bloc: cinemaBookingBloc,
             builder: (context, state) {
-              int totalSeats = state.regularSeats.where((seat) => seat).length +
-                  state.goldSeats.where((seat) => seat).length +
-                  state.platinumSeats.where((seat) => seat).length;
+              int totalSeats = state.regularSeats.where((seat) => seat.value).length +
+                  state.goldSeats.where((seat) => seat.value).length +
+                  state.platinumSeats.where((seat) => seat.value).length;
 
               for (int i = 0; i < cinemaSeatsList.length; i++) {
                 if (cinemaSeatsList[i].category == 'Gold') {
-                  state.goldSeats[cinemaSeatsList[i].index]=true;
+                  state.goldSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
                 } else if (cinemaSeatsList[i].category == 'Regular') {
-                  state.regularSeats[cinemaSeatsList[i].index]=true;
+                  state.regularSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
                 } else if (cinemaSeatsList[i].category == 'Platinum') {
-                  state.platinumSeats[cinemaSeatsList[i].index]=true;
+                  state.platinumSeats[cinemaSeatsList[i].index]=cinemaSeatsList[i];
                 }
               }
 
@@ -153,6 +155,7 @@ class CinemaSeatsPage extends StatelessWidget {
                     painter: CurvePainter(),
                     child: Container(
                       height: 100,
+                      width: 700,
                     ),
                   ),
                   Expanded(
@@ -275,15 +278,15 @@ class CinemaSeatsPage extends StatelessWidget {
     int total = 0;
 
     for (int i = 0; i < state.regularSeats.length; i++) {
-      if (state.regularSeats[i]) total += prize.silver;
+      if (state.regularSeats[i].value) total += prize.silver;
     }
 
     for (int i = 0; i < state.goldSeats.length; i++) {
-      if (state.goldSeats[i]) total += prize.platinum;
+      if (state.goldSeats[i].value) total += prize.platinum;
     }
 
     for (int i = 0; i < state.platinumSeats.length; i++) {
-      if (state.platinumSeats[i]) total += prize.gold;
+      if (state.platinumSeats[i].value) total += prize.gold;
     }
 
     return total;
@@ -294,14 +297,14 @@ class CinemaSeatsPage extends StatelessWidget {
     List<CinemaUserModal> userBookingGoldModal = [];
     List<CinemaUserModal> userBookingPlatinumModal = [];
     for (int i = 0; i < state.regularSeats.length; i++) {
-      if (state.regularSeats[i]) {
+      if (state.regularSeats[i].value) {
         CinemaUserModal cinemaUserModal = CinemaUserModal(
             category: 'Regular', index: i, value: true, amount: prize.silver);
         userBookingRegularModal.add(cinemaUserModal);
       }
     }
     for (int i = 0; i < state.goldSeats.length; i++) {
-      if (state.goldSeats[i]) {
+      if (state.goldSeats[i].value) {
         CinemaUserModal cinemaUserModal = CinemaUserModal(
             category: 'Gold', index: i, value: true, amount: prize.platinum);
         userBookingGoldModal.add(cinemaUserModal);
@@ -309,7 +312,7 @@ class CinemaSeatsPage extends StatelessWidget {
     }
 
     for (int i = 0; i < state.platinumSeats.length; i++) {
-      if (state.platinumSeats[i]) {
+      if (state.platinumSeats[i].value) {
         CinemaUserModal cinemaUserModal = CinemaUserModal(
             category: 'Platinum', index: i, value: true, amount: prize.gold);
         userBookingPlatinumModal.add(cinemaUserModal);

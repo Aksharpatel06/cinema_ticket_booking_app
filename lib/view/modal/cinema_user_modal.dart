@@ -3,11 +3,11 @@ class CinemaUserModal {
   String category;
   int index;
   bool value;
-  int amount;
+  int? amount;
   String? area,movie,time,date,cinema,imgPath;
 
   CinemaUserModal(
-      {required this.amount,this.user,
+      {this.amount,this.user,
       required this.category,
         this.cinema,
       required this.index,

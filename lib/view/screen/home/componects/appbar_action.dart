@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/controller/authBloc/auth_bloc.dart';
 import 'package:cinema_booking_app/view/helper/authentication_services.dart';
+import 'package:cinema_booking_app/view/screen/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -120,6 +121,11 @@ List<Widget> actionWidget(
                         null) {
                   loginToMobile(context, state, bloc); // Trigger OTP input
                 }
+                if(AuthenticationServices.authenticationServices.currentUser() !=
+                    null)
+                  {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage(),));
+                  }
               },
               child: Container(
                 width: 70.w,

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cinema_booking_app/utils/color.dart';
 import 'package:cinema_booking_app/view/helper/firestore_services.dart';
 import 'package:cinema_booking_app/view/modal/cinema_user_modal.dart';
+import 'package:cinema_booking_app/view/screen/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -239,6 +240,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 cinema.imgPath=widget.movieModal.image;
                                 FireStoreServices.fireStoreServices
                                     .userTicketBooking(cinema);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage(),));
                               }
                             }
                           } else {
