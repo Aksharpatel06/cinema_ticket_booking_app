@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../controller/payment_cubit.dart';
+import '../../controller/payment_cubic/payment_cubit.dart';
 import '../../helper/authentication_services.dart';
 import '../../modal/cinema_modal.dart';
 import '../../modal/movie_modal.dart';
@@ -194,116 +194,121 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           const SizedBox(height: 16),
           _buildDotRow(),
-          BlocConsumer<PaymentCubit, PaymentState>(
-            listener: (context, state) {
-              if (state is PaymentError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
-            },
-            builder: (context, state) {
-              if (state is PaymentInitial) {
-                return _buildPhoneNumberInput(context, txtPhone);
-              } else if (state is PaymentOtpSent) {
-                return _buildOtpInput(context, txtOtp);
-              } else if (state is PaymentProcessing) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is PaymentCompleted) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        log(code);
-                        if (widget.dataList.isNotEmpty) {
-                          for (List<CinemaUserModal> cinemaList
-                              in widget.dataList) {
-                            for (CinemaUserModal cinema in cinemaList) {
-                              cinema.user = AuthenticationServices
-                                  .authenticationServices
-                                  .currentUser()!
-                                  .phoneNumber;
-                              FireStoreServices.fireStoreServices.ticketBooking(
-                                  code,
-                                  '${cinema.category}${cinema.index}',
-                                  cinema);
-                              cinema.time = widget.cinemaTiming;
-                              cinema.area = widget.cinema.area;
-                              cinema.cinema = widget.cinema.cinema;
-                              cinema.movie = widget.movieModal.movieName;
-                              cinema.date =
-                                  "${widget.dateTime.day}/${widget.dateTime.month}/${widget.dateTime.year}";
-                              FireStoreServices.fireStoreServices
-                                  .userTicketBooking(cinema);
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BlocConsumer<PaymentCubit, PaymentState>(
+              listener: (context, state) {
+                if (state is PaymentError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.message)),
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state is PaymentInitial) {
+                  return _buildPhoneNumberInput(context, txtPhone);
+                } else if (state is PaymentOtpSent) {
+                  return _buildOtpInput(context, txtOtp);
+                } else if (state is PaymentProcessing) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is PaymentCompleted) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          log(code);
+                          if (widget.dataList.isNotEmpty) {
+                            for (List<CinemaUserModal> cinemaList
+                                in widget.dataList) {
+                              for (CinemaUserModal cinema in cinemaList) {
+                                cinema.user = AuthenticationServices
+                                    .authenticationServices
+                                    .currentUser()!
+                                    .phoneNumber;
+                                FireStoreServices.fireStoreServices.ticketBooking(
+                                    code,
+                                    '${cinema.category}${cinema.index}',
+                                    cinema);
+                                cinema.time = widget.cinemaTiming;
+                                cinema.area = widget.cinema.area;
+                                cinema.cinema = widget.cinema.cinema;
+                                cinema.movie = widget.movieModal.movieName;
+                                cinema.date =
+                                    "${widget.dateTime.day}/${widget.dateTime.month}/${widget.dateTime.year}";
+                                cinema.imgPath=widget.movieModal.image;
+                                FireStoreServices.fireStoreServices
+                                    .userTicketBooking(cinema);
+                              }
                             }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Select a seat first in booking"),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
                           }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Select a seat first in booking"),
-                              duration: Duration(seconds: 2),
+                        },
+                        child: Container(
+                          height: 56.h,
+                          width: 160.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: appBarColor,
+                            border: Border.all(color: appBarColor),
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: Text(
+                            'Refund',
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
                             ),
-                          );
-                        }
-                      },
-                      child: Container(
-                        height: 56.h,
-                        width: 160.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: appBarColor),
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Text(
-                          'Refund',
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {},
-                      child: Container(
-                        height: 56.h,
-                        width: 160,
-                        alignment: Alignment.center,
-                        decoration: ShapeDecoration(
-                          gradient: buttonColor,
-                          shape: buttonRadius,
-                          shadows: buttonShadow,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.send,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Send',
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
+                      GestureDetector(
+                        onTap: () async {},
+                        child: Container(
+                          height: 56.h,
+                          width: 160,
+                          alignment: Alignment.center,
+                          decoration: ShapeDecoration(
+                            gradient: buttonColor,
+                            shape: buttonRadius,
+                            shadows: buttonShadow,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.send,
+                                color: Colors.white,
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Send',
+                                style: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              } else {
-                return const Center(child: Text("Something went wrong"));
-              }
-            },
+                    ],
+                  );
+                } else {
+                  return const Center(child: Text("Something went wrong"));
+                }
+              },
+            ),
           ),
         ]),
       ]),

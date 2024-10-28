@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../controller/movieBloc/home_bloc.dart';
-import '../../controller/payment_cubit.dart';
+import '../../controller/payment_cubic/payment_cubit.dart';
 import 'componects/appbar_action.dart';
 
 class HomePage extends StatefulWidget {

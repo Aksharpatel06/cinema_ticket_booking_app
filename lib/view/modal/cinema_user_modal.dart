@@ -4,18 +4,19 @@ class CinemaUserModal {
   int index;
   bool value;
   int amount;
-  String? area,movie,time,date,cinema;
+  String? area,movie,time,date,cinema,imgPath;
 
   CinemaUserModal(
       {required this.amount,this.user,
       required this.category,
         this.cinema,
       required this.index,
-      required this.value,this.time,this.area,this.date,this.movie});
+      required this.value,this.time,this.area,this.date,this.movie,this.imgPath});
 
   factory CinemaUserModal.fromJson(Map json) {
     return CinemaUserModal(
-        user: json['user']??'',
+        user: json['user'],
+        imgPath: json['image'],
         category: json['category'],
         index: json['index'],
         amount: json['amount'],
@@ -38,6 +39,7 @@ class CinemaUserModal {
       'area':area,
       'date':date,
       'movie':movie,
+      'image':imgPath,
       'time':time,
     };
   }
