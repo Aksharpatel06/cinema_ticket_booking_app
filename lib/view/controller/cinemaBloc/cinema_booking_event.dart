@@ -1,7 +1,6 @@
 part of 'cinema_booking_bloc.dart';
 
 
-// Define the event base class
 abstract class CinemaBookingEvent extends Equatable {
   @override
   List<Object?> get props => [];

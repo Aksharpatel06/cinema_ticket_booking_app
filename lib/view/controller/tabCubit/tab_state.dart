@@ -3,7 +3,7 @@ part of 'tab_cubit.dart';
 class TabState extends Equatable{
   final int index;
 
-   TabState({required this.index});
+   const TabState({required this.index});
 
   TabState copyWith({int? index})
   {

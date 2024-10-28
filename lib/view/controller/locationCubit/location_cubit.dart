@@ -14,9 +14,9 @@ part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
   final Location location = Location();
-  int count =0;
+  int count = 0;
 
-  List<Cinema> cinemaList =[];
+  List<Cinema> cinemaList = [];
 
   LocationCubit() : super(LocationInitial());
 
@@ -42,7 +42,6 @@ class LocationCubit extends Cubit<LocationState> {
         }
       }
 
-
       location.onLocationChanged.listen((locationData) async {
         double latitude = locationData.latitude!;
         double longitude = locationData.longitude!;
@@ -52,22 +51,18 @@ class LocationCubit extends Cubit<LocationState> {
           locationName: placeName,
         ));
 
-        if(count==0)
-          {
-            loadCinemaApi(latitude, longitude);
-            count++;
-          }
+        if (count == 0) {
+          loadCinemaApi(latitude, longitude);
+          count++;
+        }
       });
-
-
     } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> loadCinemaApi(double latitude,double longitude) async {
+  Future<void> loadCinemaApi(double latitude, double longitude) async {
     try {
-
       String api = await rootBundle.loadString('asset/json/cinema_data.json');
       List data = jsonDecode(api);
       cinemaList = data
@@ -76,18 +71,8 @@ class LocationCubit extends Cubit<LocationState> {
           )
           .toList();
 
-      for(Cinema i in cinemaList)
-        {
-          log(i.km.toString());
-        }
       cinemaList.sort((a, b) => a.km.compareTo(b.km));
-      for(Cinema i in cinemaList)
-      {
-        log(i.km.toString());
-      }
-      log(cinemaList.length.toString());
     } catch (e) {
-      log(e.toString());
       emit(LocationError('Failed to load movies: $e'));
     }
   }

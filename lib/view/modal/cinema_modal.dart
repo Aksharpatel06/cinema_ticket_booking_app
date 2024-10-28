@@ -29,7 +29,7 @@ class Cinema {
     return Cinema(
       cinema: json['cinema'],
       area: json['area'],
-      km: km ?? json['km'],
+      km: km ,
       longitude: json['longitude'],
       latitude: json['latitude'],
       data: showTimeDetails,

@@ -117,7 +117,7 @@ class CinemaSeatsPage extends StatelessWidget {
         stream: FireStoreServices.fireStoreServices.seatsDataGet(code),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -148,13 +148,12 @@ class CinemaSeatsPage extends StatelessWidget {
                 }
               }
 
-              List<List<CinemaUserModal>> data = listConvert(state);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomPaint(
                     painter: CurvePainter(),
-                    child: Container(
+                    child: const SizedBox(
                       height: 100,
                       width: 700,
                     ),
@@ -278,54 +277,17 @@ class CinemaSeatsPage extends StatelessWidget {
   int calculateTotalPrice(CinemaBookingState state, Prize prize) {
     int total = 0;
 
-    for(int i=0;i<state.totalSeats.length;i++)
-      {
-        if (state.totalSeats[i].category == 'Gold') {
-          total+=prize.platinum;
-        } else if (state.totalSeats[i].category == 'Regular') {
-          total+=prize.silver;
-        } else if (state.totalSeats[i].category == 'Platinum') {
-          total+=prize.gold;
-        }
+    for (int i = 0; i < state.totalSeats.length; i++) {
+      if (state.totalSeats[i].category == 'Gold') {
+        total += prize.platinum;
+      } else if (state.totalSeats[i].category == 'Regular') {
+        total += prize.silver;
+      } else if (state.totalSeats[i].category == 'Platinum') {
+        total += prize.gold;
       }
-
+    }
 
     return total;
-  }
-
-  List<List<CinemaUserModal>> listConvert(CinemaBookingState state) {
-    List<CinemaUserModal> userBookingRegularModal = [];
-    List<CinemaUserModal> userBookingGoldModal = [];
-    List<CinemaUserModal> userBookingPlatinumModal = [];
-    for (int i = 0; i < state.regularSeats.length; i++) {
-      if (state.regularSeats[i].value) {
-        CinemaUserModal cinemaUserModal = CinemaUserModal(
-            category: 'Regular', index: i, value: true, amount: prize.silver);
-        userBookingRegularModal.add(cinemaUserModal);
-      }
-    }
-    for (int i = 0; i < state.goldSeats.length; i++) {
-      if (state.goldSeats[i].value) {
-        CinemaUserModal cinemaUserModal = CinemaUserModal(
-            category: 'Gold', index: i, value: true, amount: prize.platinum);
-        userBookingGoldModal.add(cinemaUserModal);
-      }
-    }
-
-    for (int i = 0; i < state.platinumSeats.length; i++) {
-      if (state.platinumSeats[i].value) {
-        CinemaUserModal cinemaUserModal = CinemaUserModal(
-            category: 'Platinum', index: i, value: true, amount: prize.gold);
-        userBookingPlatinumModal.add(cinemaUserModal);
-      }
-    }
-    List<List<CinemaUserModal>> data = [
-      userBookingRegularModal,
-      userBookingGoldModal,
-      userBookingPlatinumModal,
-    ];
-
-    return data;
   }
 }
 

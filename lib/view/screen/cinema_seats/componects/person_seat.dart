@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:cinema_booking_app/view/modal/cinema_user_modal.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +29,10 @@ class CategorySeat extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        log('me');
         if(list[seatNum].category==category && list[seatNum].index==seatNum && list[seatNum].user==null)
           {
             cinema.add(ToggleSeatSelection(seatNum, category));
           }
-        log('me');
       },
 
       child: Container(

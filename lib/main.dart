@@ -5,8 +5,6 @@ import 'package:cinema_booking_app/view/controller/locationCubit/location_cubit.
 import 'package:cinema_booking_app/view/controller/movieBloc/home_bloc.dart';
 import 'package:cinema_booking_app/view/controller/payment_cubic/payment_cubit.dart';
 import 'package:cinema_booking_app/view/screen/home/home_page.dart';
-import 'package:cinema_booking_app/view/screen/profile/profile_page.dart';
-import 'package:cinema_booking_app/view/screen/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

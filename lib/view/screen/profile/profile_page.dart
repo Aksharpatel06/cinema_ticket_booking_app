@@ -104,10 +104,10 @@ Widget _buildPaymentsHistorySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Payments history',
               style: TextStyle(
                 color: Color(0xFF637393),
@@ -115,7 +115,7 @@ Widget _buildPaymentsHistorySection() {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
           ],
         ),
         SingleChildScrollView(
@@ -151,6 +151,7 @@ Widget _buildPaymentsHistorySection() {
                   itemBuilder: (context, index) {
                     return _buildPaymentHistoryItem(
                       cinemaSeatsList[index].movie!,
+                      '${cinemaSeatsList[index].category}, ${cinemaSeatsList[index].index + 1}',
                       '${cinemaSeatsList[index].date}, ${cinemaSeatsList[index].time}',
                       '${cinemaSeatsList[index].cinema}',
                       '${cinemaSeatsList[index].imgPath}',
@@ -167,7 +168,7 @@ Widget _buildPaymentsHistorySection() {
 }
 
 Widget _buildPaymentHistoryItem(
-    String title, String date, String location, String imageUrl) {
+    String title, String seat, String date, String location, String imageUrl) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -194,13 +195,26 @@ Widget _buildPaymentHistoryItem(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      '($seat)',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 4),
                 Text(

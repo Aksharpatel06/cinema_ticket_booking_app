@@ -13,12 +13,11 @@ class PaymentCubit extends Cubit<PaymentState> {
   void checkAuthentication() {
     final currentUser = AuthenticationServices.authenticationServices.currentUser();
     if (currentUser != null) {
-      emit(PaymentCompleted()); // Directly go to PaymentCompleted if user is logged in
+      emit(PaymentCompleted());
     }
   }
 
   void sendOtp(String phoneNumber) async {
-    // emit(PaymentProcessing());
     try {
       verificationCode = await AuthenticationServices.authenticationServices
               .verifyToPhoneNumber(phoneNumber) ??
