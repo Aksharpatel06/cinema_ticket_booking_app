@@ -3,6 +3,7 @@ import 'package:cinema_booking_app/view/helper/authentication_services.dart';
 import 'package:cinema_booking_app/view/helper/firestore_services.dart';
 import 'package:cinema_booking_app/view/screen/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../modal/cinema_user_modal.dart';
 
@@ -26,13 +27,18 @@ class ProfilePage extends StatelessWidget {
         ),
         title: const Text(
           'Profile',
-          style: TextStyle(color: secondaryColor),
+          style: TextStyle(color: primaryColor),
         ),
         centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {
                 AuthenticationServices.authenticationServices.signOut();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ));
               },
               icon: const Icon(
                 Icons.logout,
@@ -72,42 +78,6 @@ Widget _buildSavedCardsSection() {
   );
 }
 
-Widget _buildCardItem(String cardNumber, String expiryDate) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    decoration: BoxDecoration(
-      color: const Color(0xFF1E283D),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          child: const FlutterLogo(),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            cardNumber,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        Text(
-          expiryDate,
-          style: const TextStyle(
-            color: Color(0xFF637393),
-            fontSize: 14,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 Widget _buildAddCardButton() {
   return Container(
     padding: const EdgeInsets.all(16),
@@ -134,49 +104,62 @@ Widget _buildPaymentsHistorySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Payments history',
-          style: TextStyle(
-            color: Color(0xFF637393),
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Payments history',
+              style: TextStyle(
+                color: Color(0xFF637393),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
         ),
-        const SizedBox(height: 12),
-        StreamBuilder(
-          stream: FireStoreServices.fireStoreServices.userGetTicketBooking(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (!snapshot.hasData) {
-              return const Center(
-                  child: Text('No payment history',
-                      style: TextStyle(color: Colors.white)));
-            }
-            if (snapshot.hasError) {
-              return const Center(
-                  child: Text('Error', style: TextStyle(color: Colors.white)));
-            }
-            List<CinemaUserModal> cinemaSeatsList = snapshot.data!.docs
-                .map(
-                  (e) => CinemaUserModal.fromJson(e.data() as Map),
-                )
-                .toList();
+        SingleChildScrollView(
+          child: SizedBox(
+            height: 540.h,
+            width: double.infinity,
+            child: StreamBuilder(
+              stream:
+                  FireStoreServices.fireStoreServices.userGetTicketBooking(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData) {
+                  return const Center(
+                      child: Text('No payment history',
+                          style: TextStyle(color: Colors.white)));
+                }
+                if (snapshot.hasError) {
+                  return const Center(
+                      child:
+                          Text('Error', style: TextStyle(color: Colors.white)));
+                }
+                List<CinemaUserModal> cinemaSeatsList = snapshot.data!.docs
+                    .map(
+                      (e) => CinemaUserModal.fromJson(e.data() as Map),
+                    )
+                    .toList();
 
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: cinemaSeatsList.length,
-              itemBuilder: (context, index) {
-                return _buildPaymentHistoryItem(
-                  cinemaSeatsList[index].movie!,
-                  '${cinemaSeatsList[index].date}, ${cinemaSeatsList[index].time}',
-                  '${cinemaSeatsList[index].cinema}',
-                  '${cinemaSeatsList[index].imgPath}',
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: cinemaSeatsList.length,
+                  itemBuilder: (context, index) {
+                    return _buildPaymentHistoryItem(
+                      cinemaSeatsList[index].movie!,
+                      '${cinemaSeatsList[index].date}, ${cinemaSeatsList[index].time}',
+                      '${cinemaSeatsList[index].cinema}',
+                      '${cinemaSeatsList[index].imgPath}',
+                    );
+                  },
                 );
               },
-            );
-          },
+            ),
+          ),
         )
       ],
     ),
@@ -185,58 +168,61 @@ Widget _buildPaymentsHistorySection() {
 
 Widget _buildPaymentHistoryItem(
     String title, String date, String location, String imageUrl) {
-  return Container(
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      color: const Color(0xFF1E283D),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 56,
-          height: 88,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E283D),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 56,
+            height: 88,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8),
             ),
-            borderRadius: BorderRadius.circular(8),
           ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                date,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+                const SizedBox(height: 4),
+                Text(
+                  date,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                location,
-                style: const TextStyle(
-                  color: Color(0xFF637393),
-                  fontSize: 14,
+                const SizedBox(height: 4),
+                Text(
+                  location,
+                  style: const TextStyle(
+                    color: Color(0xFF637393),
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
