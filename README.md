@@ -37,28 +37,32 @@ Welcome to the **Cinema Ticket Booking App**, a beautifully designed platform th
 
 ---
 
-## 🚀 Getting Started
-
-
-
-
 
 
 ## 🖼️ Screenshots
 
 Here are some key screens to give you a glimpse of the app's functionality and user interface:
 
-1. **Home Screen** - Browse current and upcoming movies with posters and trailers.
-   ![Home Screen](link-to-home-screen.png) <!-- Replace with your image link -->
-   
-2. **Movie Details** - Get detailed information about each movie, including cast, synopsis, and ratings.
-   ![Movie Details](link-to-movie-details.png)
-   
-3. **Seat Selection** - Choose seats with real-time availability updates and category options.
-   ![Seat Selection](link-to-seat-selection.png)
-
-4. **Booking Summary** - Review your selected seats, ticket price, and apply promo codes before confirming.
-   ![Booking Summary](link-to-booking-summary.png)
+<details> 
+  <summary><h2>Screen View⛅</h2></summary>
+  <p>
+     <img src='https://github.com/user-attachments/assets/6ec6f078-5ce3-48ca-9c3f-52f233009326' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/3b0c1252-4a2e-47dc-965b-40a49ad430fd' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/8a1bf880-f392-42d0-a690-8aae142465d9' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/ebe6b98b-eab4-47c6-9c89-44ada0d9f139' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/0329194a-cc0b-47ce-abb2-ac3b055c6937' width=180> 
+     <img src='https://github.com/user-attachments/assets/a6832138-c820-43c4-99f1-a93d6200df02' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/15f0f4cb-7a36-4676-91e0-5a12036179cf' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/40d0ab17-2156-4cc2-9697-04a427601ab2' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/07171c1f-6bc7-4fad-8b69-cf74965c5bfb' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/73fb1f9f-4318-4c73-853a-447947a8f256' width=180> 
+     <img src='https://github.com/user-attachments/assets/7b431263-ab9b-4e7f-b42b-d5646a36cf3b' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/f9b7b1be-c23f-453d-ab40-c0fc6d0b1569' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/7e7f1a52-61d8-4992-9e17-ce7f029e3811' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/849b393d-44be-4df5-823a-185d8a1b4891' width=180> &nbsp;&nbsp;&nbsp;&nbsp;
+     <img src='https://github.com/user-attachments/assets/6403ccea-c6a9-4b27-8c71-571e277fe911' width=180> 
+  </p>
+</details>
 
 ## 📹 Demo Video
 
