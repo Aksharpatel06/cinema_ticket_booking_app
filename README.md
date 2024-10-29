@@ -76,3 +76,10 @@ For a deeper dive, explore our presentation that covers the app’s features, us
 
 [Download the Presentation](https://thecodershub-my.sharepoint.com/:p:/g/personal/akshar_patel_thecodershub_in/EY6oEh9xvPFFpSsRWHntsVcB17bpkYp2jfKkfAQ9sODQ6w?e=SdeNUA)
 
+
+## 📥 Download the APK
+
+You can download the latest APK for the Cinema Ticket Booking App from the link below:
+
+- [Download Cinema Ticket Booking App APK](https://drive.google.com/file/d/1ikZv0bkG0YxoaEfEGiA68m0v9IOCyuAJ/view?usp=sharing) 
+
