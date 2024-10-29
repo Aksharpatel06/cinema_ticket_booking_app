@@ -68,7 +68,7 @@ Here are some key screens to give you a glimpse of the app's functionality and u
 
 Check out a quick demo of the app in action! Watch the video to see how easy it is to browse movies, select seats, and complete bookings.
 
-![Watch the Demo](link-to-your-video) 
+![Watch the Demo](https://drive.google.com/file/d/12-ZblhQ_oRAGaE9-6D0hCCptEXnf7W4m/view?usp=sharing) 
 
 ## 📊 Presentation
 
