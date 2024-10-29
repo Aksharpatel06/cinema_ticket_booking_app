@@ -13,7 +13,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SendOtpEvent>(sendOtpEvent);
     on<VerifyOtpEvent>(verifyOtpEvent);
     on<MobileNumberChangeEvent>(mobileNumberChangeEvent);
+    on<CheckAuthenticationEvent>(checkAuthentication);
   }
+
+
+
 
   Future<void> sendOtpEvent(SendOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
@@ -40,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await AuthenticationServices.authenticationServices
           .verifyOtpToState(event.otp, event.verificationId);
       emit(AuthOtpVerifiedActionState());
-      emit(AuthInitialState());
+      emit(AuthOtpVerifiedState());
     } catch (e) {
       emit(AuthErrorState(e.toString()));
       emit(AuthInitialState());
@@ -50,5 +54,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> mobileNumberChangeEvent(
       MobileNumberChangeEvent event, Emitter<AuthState> emit) {
     emit(AuthMobileNumberChangeActionState());
+  }
+
+  FutureOr<void> checkAuthentication(event, Emitter<AuthState> emit) {
+    final currentUser = AuthenticationServices.authenticationServices.currentUser();
+    if (currentUser != null) {
+      emit(AuthOtpVerifiedState());
+    }else{
+      emit(AuthInitialState());
+    }
   }
 }

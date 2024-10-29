@@ -1,8 +1,10 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthEvent {}
-
+abstract class AuthEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 class AuthInitialEvent extends AuthEvent{}
 
 class SendOtpEvent extends AuthEvent {
@@ -16,6 +18,5 @@ class VerifyOtpEvent extends AuthEvent {
   VerifyOtpEvent(this.verificationId, this.otp);
 }
 
-class MobileNumberChangeEvent extends AuthEvent{
-
-}
+class MobileNumberChangeEvent extends AuthEvent{}
+class CheckAuthenticationEvent extends AuthEvent {}

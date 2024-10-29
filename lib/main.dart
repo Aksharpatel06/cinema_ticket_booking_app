@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           create: (context) => LocationCubit()..initializeLocation(),
         ),
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(),
+          create: (context) => AuthBloc()..add(CheckAuthenticationEvent()),
         ),
         BlocProvider<HomeBloc>(
           create: (context) => HomeBloc(),
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'Nunito'),
-          home: HomePage(),
+          home: const HomePage(),
         ),
       ),
     );

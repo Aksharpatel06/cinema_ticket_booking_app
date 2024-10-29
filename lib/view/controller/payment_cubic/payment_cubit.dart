@@ -14,6 +14,8 @@ class PaymentCubit extends Cubit<PaymentState> {
     final currentUser = AuthenticationServices.authenticationServices.currentUser();
     if (currentUser != null) {
       emit(PaymentCompleted());
+    }else{
+      emit(PaymentInitial());
     }
   }
 

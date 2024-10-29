@@ -66,7 +66,9 @@ class SessionsPage extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width / 3,
+                  width: MediaQuery
+                      .sizeOf(context)
+                      .width / 3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +114,9 @@ class SessionsPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.sizeOf(context).width / 3,
+                width: MediaQuery
+                    .sizeOf(context)
+                    .width / 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +143,9 @@ class SessionsPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.sizeOf(context).width / 3,
+                width: MediaQuery
+                    .sizeOf(context)
+                    .width / 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,7 +157,7 @@ class SessionsPage extends StatelessWidget {
                         child: Switch(
                           value: false,
                           materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                          MaterialTapTargetSize.shrinkWrap,
                           onChanged: (value) {},
                           inactiveThumbColor: secondaryColor,
                           activeColor: primaryColor,
@@ -198,6 +204,15 @@ class SessionsPage extends StatelessWidget {
                 width: 20.h,
               ),
               Text(
+                'Silver',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: secondaryColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
                 'Gold',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -215,15 +230,6 @@ class SessionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Text(
-                'Silver',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: secondaryColor,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
             ],
           ),
         ),
@@ -233,155 +239,177 @@ class SessionsPage extends StatelessWidget {
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: locationCubit.cinemaList.length,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 20.h, right: 20.h, top: 12.h, bottom: 7.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                itemBuilder: (context, index) =>
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.h, right: 20.h, top: 12.h, bottom: 7.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                locationCubit.cinemaList[index].cinema,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
                                 children: [
-                                  const Icon(
-                                    Icons.location_pin,
-                                    color: secondaryColor,
-                                  ),
                                   Text(
-                                    '${locationCubit.cinemaList[index].km.toStringAsFixed(1)} Km',
+                                    locationCubit.cinemaList[index].cinema,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color: secondaryColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
+                                      color: primaryColor,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Text(
-                            locationCubit.cinemaList[index].area,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: secondaryColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: secondaryColor,
-                      thickness: 0.5,
-                    ),
-                    Column(
-                        children: List.generate(
-                      locationCubit.cinemaList[index].data.length,
-                      (index2) => GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CinemaSeatsPage(
-                                  cinema: locationCubit.cinemaList[index],
-                                  movieModal: movieModal,
-                                  index: index2,
-                                  dateTime: datePickerCubit.state,
-                                  prize: locationCubit.cinemaList[index].data[index2].prize,
-                                ),
-                              ));
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20.h, vertical: 10.h),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: 70.w,
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        locationCubit.cinemaList[index]
-                                            .data[index2].time,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    const VerticalDivider(
-                                      color: secondaryColor,
-                                      thickness: 0.5,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      '₹ ${locationCubit.cinemaList[index].data[index2].prize.platinum}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.location_pin,
                                         color: secondaryColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 30.h),
-                                      child: Text(
-                                        '₹ ${locationCubit.cinemaList[index].data[index2].prize.gold}',
+                                      Text(
+                                        '${locationCubit.cinemaList[index].km
+                                            .toStringAsFixed(1)} Km',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: secondaryColor,
                                           fontSize: 14.sp,
-                                          fontWeight: FontWeight.w700,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      '₹ ${locationCubit.cinemaList[index].data[index2].prize.silver}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: secondaryColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Text(
+                                locationCubit.cinemaList[index].area,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: secondaryColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                            ),
-                            const Divider(
-                              color: secondaryColor,
-                              thickness: 0.5,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ))
-                  ],
-                ),
+                        const Divider(
+                          color: secondaryColor,
+                          thickness: 0.5,
+                        ),
+                        Column(
+                            children: List.generate(
+                              locationCubit.cinemaList[index].data.length,
+                                  (index2) =>
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CinemaSeatsPage(
+                                                  cinema: locationCubit
+                                                      .cinemaList[index],
+                                                  movieModal: movieModal,
+                                                  index: index2,
+                                                  dateTime: datePickerCubit
+                                                      .state,
+                                                  prize: locationCubit
+                                                      .cinemaList[index]
+                                                      .data[index2].prize,
+                                                ),
+                                          ));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20.h,
+                                                vertical: 10.h),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                  width: 70.w,
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    locationCubit
+                                                        .cinemaList[index]
+                                                        .data[index2].time,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: primaryColor,
+                                                      fontSize: 16.sp,
+                                                      fontWeight: FontWeight
+                                                          .w500,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const VerticalDivider(
+                                                  color: secondaryColor,
+                                                  thickness: 0.5,
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(
+                                                  '₹ ${locationCubit
+                                                      .cinemaList[index]
+                                                      .data[index2].prize
+                                                      .silver}',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: secondaryColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '₹ ${locationCubit
+                                                      .cinemaList[index]
+                                                      .data[index2].prize
+                                                      .platinum}',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: secondaryColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 30.h),
+                                                  child: Text(
+                                                    '₹ ${locationCubit
+                                                        .cinemaList[index]
+                                                        .data[index2].prize
+                                                        .gold}',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: secondaryColor,
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight
+                                                          .w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const Divider(
+                                          color: secondaryColor,
+                                          thickness: 0.5,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                            ))
+                      ],
+                    ),
               );
             },
           ),

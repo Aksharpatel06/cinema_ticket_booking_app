@@ -115,14 +115,10 @@ List<Widget> actionWidget(
             padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 16.h),
             child: GestureDetector(
               onTap: () {
-                if (state is AuthInitialState &&
-                    AuthenticationServices.authenticationServices
-                            .currentUser() ==
-                        null) {
+                if (state is AuthInitialState) {
                   loginToMobile(context, state, bloc); // Trigger OTP input
                 }
-                if(AuthenticationServices.authenticationServices.currentUser() !=
-                    null)
+                if(state is AuthOtpVerifiedState)
                   {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage(),));
                   }

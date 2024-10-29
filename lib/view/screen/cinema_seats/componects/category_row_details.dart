@@ -32,7 +32,7 @@ class CategoryRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '$category Seats (\$${category == 'Regular' ? prize.silver : category == 'Gold' ? prize.platinum : prize.gold})',
+          '$category Seats (₹${category == 'Regular' ? prize.silver : category == 'Gold' ? prize.platinum : prize.gold})',
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
