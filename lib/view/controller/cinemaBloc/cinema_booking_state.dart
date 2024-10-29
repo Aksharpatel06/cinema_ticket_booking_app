@@ -31,5 +31,6 @@ class CinemaBookingState extends Equatable {
         goldSeats,
         platinumSeats,
         regularSeats,
+        totalSeats,
       ];
 }

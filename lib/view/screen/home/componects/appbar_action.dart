@@ -120,7 +120,7 @@ List<Widget> actionWidget(
                 }
                 if(state is AuthOtpVerifiedState)
                   {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage(),));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilePage(),));
                   }
               },
               child: Container(

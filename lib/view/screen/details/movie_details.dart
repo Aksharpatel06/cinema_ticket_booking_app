@@ -24,10 +24,10 @@ class _MovieDetailsState extends State<MovieDetails>
   void initState() {
     super.initState();
     _tabController = TabController(
-        length: 2, vsync: this, animationDuration: Duration(milliseconds: 1500));
+        length: 2, vsync: this, animationDuration: const Duration(milliseconds: 1500));
 
     context.read<TabCubit>().stream.listen((state) {
-      _tabController.animateTo(state.index,duration: Duration(milliseconds: 1500));
+      _tabController.animateTo(state.index,duration: const Duration(milliseconds: 1500));
     });
   }
 

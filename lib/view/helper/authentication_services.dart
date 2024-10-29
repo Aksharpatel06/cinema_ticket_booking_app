@@ -20,6 +20,7 @@ class AuthenticationServices {
           try {
             await _auth.signInWithCredential(credential);
           } catch (e) {
+            log(e.toString());
           }
         },
         verificationFailed: (FirebaseAuthException e) {

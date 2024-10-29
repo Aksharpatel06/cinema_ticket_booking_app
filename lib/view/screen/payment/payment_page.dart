@@ -237,7 +237,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               FireStoreServices.fireStoreServices
                                   .userTicketBooking(cinema);
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProfilePage(),
+                                builder: (context) => const ProfilePage(),
                               ));
                             }
                           } else {

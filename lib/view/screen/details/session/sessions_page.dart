@@ -46,7 +46,7 @@ class SessionsPage extends StatelessWidget {
                     builder: (context, child) {
                       return Theme(
                         data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
+                          colorScheme: const ColorScheme.light(
                             primary: appBarColor, // Header background color
                             onPrimary: primaryColor,
                             onSurface: backgroundColor,
