@@ -42,7 +42,7 @@ class SessionsPage extends StatelessWidget {
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     barrierColor: secondaryColor,
-                    lastDate: DateTime(2024, DateTime.november, 5),
+                    lastDate: DateTime(2024, DateTime.november, 15),
                     builder: (context, child) {
                       return Theme(
                         data: Theme.of(context).copyWith(
