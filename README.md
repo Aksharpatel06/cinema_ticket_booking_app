@@ -68,11 +68,18 @@ Here are some key screens to give you a glimpse of the app's functionality and u
 
 Check out a quick demo of the app in action! Watch the video to see how easy it is to browse movies, select seats, and complete bookings.
 
-![Watch the Demo](link-to-your-video) 
+![Watch the Demo](https://drive.google.com/file/d/12-ZblhQ_oRAGaE9-6D0hCCptEXnf7W4m/view?usp=sharing) 
 
 ## 📊 Presentation
 
 For a deeper dive, explore our presentation that covers the app’s features, use cases, and technical details. Perfect for understanding the app's flow and technical implementation.
 
 [Download the Presentation](https://thecodershub-my.sharepoint.com/:p:/g/personal/akshar_patel_thecodershub_in/EY6oEh9xvPFFpSsRWHntsVcB17bpkYp2jfKkfAQ9sODQ6w?e=SdeNUA)
+
+
+## 📥 Download the APK
+
+You can download the latest APK for the Cinema Ticket Booking App from the link below:
+
+- [Download Cinema Ticket Booking App APK](https://drive.google.com/file/d/1ikZv0bkG0YxoaEfEGiA68m0v9IOCyuAJ/view?usp=sharing) 
 
