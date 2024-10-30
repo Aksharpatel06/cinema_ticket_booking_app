@@ -17,8 +17,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
 
-
-
   Future<void> sendOtpEvent(SendOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     try {

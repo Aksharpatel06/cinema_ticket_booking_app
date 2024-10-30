@@ -18,17 +18,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
+  final AuthBloc authBloc = AuthBloc();
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     homeBloc.add(HomeInitialFetchEvent());
+    authBloc.add(CheckAuthenticationEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    AuthBloc authBloc = AuthBloc();
 
     return Scaffold(
       backgroundColor: backgroundColor,

@@ -36,7 +36,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     try {
       AuthenticationServices.authenticationServices
           .verifyOtpToState(otp, verificationCode);
-      emit(PaymentOtpVerified());
+      emit(PaymentCompleted());
     } catch (e) {
       emit(PaymentError("Invalid OTP"));
       emit(PaymentOtpVerified());

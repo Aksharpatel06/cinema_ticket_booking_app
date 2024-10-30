@@ -367,6 +367,9 @@ class SessionsPage extends StatelessWidget {
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
                                                 Text(
                                                   '₹ ${locationCubit
                                                       .cinemaList[index]

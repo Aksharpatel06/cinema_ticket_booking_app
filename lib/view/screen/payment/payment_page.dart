@@ -304,6 +304,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ],
                   );
                 } else {
+                  log(state.toString());
                   return const Center(child: Text("Something went wrong"));
                 }
               },
