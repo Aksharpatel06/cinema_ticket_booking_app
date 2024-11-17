@@ -8,6 +8,7 @@ import '../../../../utils/color.dart';
 import '../../../controller/datePickerCubit/date_picker_cubit.dart';
 import '../../../controller/locationCubit/location_cubit.dart';
 
+
 class SessionsPage extends StatelessWidget {
   const SessionsPage({
     super.key,
