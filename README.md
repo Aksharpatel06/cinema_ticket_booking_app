@@ -80,5 +80,5 @@ For a deeper dive, explore our presentation that covers the app’s features, us
 
 You can download the latest APK for the Cinema Ticket Booking App from the link below:
 
-- [Download Cinema Ticket Booking App APK](https://drive.google.com/file/d/1WXLmJ4HSNmIPyVbDcDjA4kGejM1HnMVP/view?usp=sharing) 
+- [Download Cinema Ticket Booking App APK](https://drive.google.com/file/d/1WXLmJ4HSNmIPyVbDcDjA4kGejM1HnMVP/view?usp=sharing)
 
