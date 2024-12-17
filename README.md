@@ -2,6 +2,7 @@
 
 Welcome to the **Cinema Ticket Booking App**, a beautifully designed platform that makes movie booking effortless and enjoyable. Whether you’re looking to catch the latest blockbuster or revisit a classic, this app has everything you need to streamline your cinematic experience.
 
+
 ## 🌟 Key Features
 
 ### 🔐 User Authentication
